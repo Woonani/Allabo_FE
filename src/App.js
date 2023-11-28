@@ -4,7 +4,7 @@ import MainPage from "./pages";
 import SignupPage from "./pages/auth/SignupPage";
 import LoginPage from "./pages/auth/LoginPage";
 
-import "./App.css";
+import "./App.scss";
 
 function App() {
   return (
