@@ -1,0 +1,173 @@
+@font-face {
+  font-family: "NanumSquareRound Bold";
+  src: url("./assets/fonts/NanumSquareRoundB.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "NanumSquareRound Extra Bold";
+  src: url("./assets/fonts/NanumSquareRoundEB.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "NanumSquareRound Regular";
+  src: url("./assets/fonts/NanumSquareRoundR.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "NanumSquareRound Light";
+  src: url("./assets/fonts/NanumSquareRoundL.ttf") format("truetype");
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  font-family: "NanumSquareRound Regular", sans-serif; // 기본 폰트로 NanumSquareRound Regular 설정
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:root {
+  // 자주 쓰는 색상코드 정리 : 장점 : 일괄 색 변경이 편리하다
+  --color-primary-blue: #1985fa;
+  --color-secondary-blue: #92c5ff;
+  --color-primary-navy: #1e22bf;
+  --color-primary-gray: #707070;
+  --color-primary-black: #222222;
+  --color-primary-white: #ffffff;
+  --color-opacity-blue: #eef7fe;
+}
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  vertical-align: baseline;
+  font-family: "NanumSquareRound Light", sans-serif; // 기본 폰트로 NanumSquareRound Light 설정
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+input {
+  font-family: "NanumSquareRound Light", sans-serif; // 기본 폰트로 NanumSquareRound Light 설정 //font-face로 전역으로 폰트설정을 해도 안먹는 경우 이렇게 따로 설정
+}
