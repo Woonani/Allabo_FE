@@ -8,7 +8,7 @@ const StyledButton = styled.button`
     props.$backgroundcolor || "var(--color-btn-blue)"};
   width: ${(props) => props.$width || "50%"};
   height: ${(props) => props.$height || "40px"};
-  margin: ${(props) => props.$margin || "10px 0"};
+  margin: ${(props) => props.$margin || "40px 0px 0px 0px"};
   border: none;
   border-radius: ${(props) => props.$borderRadius || "5px"};
   font-family: "NanumSquareRound Bold", sans-serif;
