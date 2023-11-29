@@ -6,7 +6,6 @@ display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 500px
     height: 100px
     margin: auto;
     box-sizing: border-box;
