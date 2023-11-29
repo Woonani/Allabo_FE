@@ -15,7 +15,7 @@ const LogoBoxHorizon = () => {
     <StyledLogoBox>
       <img
         src={LogoImg}
-        $width="60"
+        width="60"
         height="60"
         alt="logo"
         title="ALLABO"
