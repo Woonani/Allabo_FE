@@ -4,6 +4,8 @@ import CenteredContainer from "../../components/layout/CenteredContainer";
 import LogoBoxHorizon from "../../components/common/LogoBoxHorizon";
 import FloatingLabelInput from "../../components/common/FloatingLabelInput";
 import Button from "../../components/common/Button";
+import Link from "../../components/common/Link";
+
 import { useNavigate } from "react-router-dom";
 
 const SignupPage = () => {
@@ -50,6 +52,11 @@ const SignupPage = () => {
           text="회원가입하기"
           backgroundcolor="rgb(95, 95, 95)"
           onClick={() => navigate("/signup")}
+        />
+        <Link
+          text="이미 계정이 있으신가요?"
+          link="로그인페이지로 이동"
+          url="/login"
         />
       </CenteredContainer>
     </Background>
