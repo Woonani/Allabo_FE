@@ -12,7 +12,7 @@ const MainPage = () => {
     <Background>
       <CenteredContainer>
         <LogoBox />
-        {/* 메인페이지 입니다. */}
+        {/* 메인페이지 입니다.*/}
         <br />
         <br />
         <br />
