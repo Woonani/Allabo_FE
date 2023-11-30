@@ -9,7 +9,7 @@ display: flex;
     margin: auto;
     box-sizing: border-box;
     border: none;
-    background-color: white; // 버튼 기본 색상 가림
+    background-color: transparent; // 버튼 기본 색상 가림
     cursor: pointer; // 커서 설정
 `;
 
