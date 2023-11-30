@@ -8,12 +8,13 @@ import Link from "../../components/common/Link";
 import useLoginform from "../../hooks/useLoginform";
 
 const LoginPage = () => {
-  // const { formData, handleInputChange, handleLogin } = useLoginform();
+  const { formData, handleMainPage, handleInputChange, handleLogin } =
+    useLoginform();
 
   return (
     <Background>
       <CenteredContainer>
-        <LogoBoxHorizon />
+        <LogoBoxHorizon onClick={handleMainPage} />
         <br />
         <br />
         <br />
@@ -33,6 +34,7 @@ const LoginPage = () => {
           // onChange={handleInputChange}
         />
 
+        <Button text="로그인" onClick={handleMainPage} />
         {/* <Button text="로그인" onClick={handleLogin} /> */}
         <Link
           text="계정이 없으신가요?"

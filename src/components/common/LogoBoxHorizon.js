@@ -1,18 +1,21 @@
 import styled from "styled-components";
 import LogoImg from "../../assets/img/logo/logo002.png";
 
-const StyledLogoBox = styled.div`
+const StyledLogoBox = styled.button`
 display: flex;
     flex-direction: row;
     align-items: center;
     height: 100px
     margin: auto;
     box-sizing: border-box;
+    border: none;
+    background-color: white; // 버튼 기본 색상 가림
+    cursor: pointer; // 커서 설정
 `;
 
-const LogoBoxHorizon = () => {
+const LogoBoxHorizon = ({ onClick }) => {
   return (
-    <StyledLogoBox>
+    <StyledLogoBox onClick={onClick}>
       <img
         src={LogoImg}
         width="60"
