@@ -29,7 +29,7 @@ const useSignupform = () => {
         );
         navigate("/login");
       } else {
-        alert("ERRPR\n처음부터 다시 진행해주세요.");
+        alert("ERROR\n처음부터 다시 진행해주세요.");
       }
     } catch (error) {
       console.log(error);
