@@ -9,7 +9,6 @@ const useSignupform = () => {
     email: "",
     password: "",
     cnfrmPassword: "",
-    confirmpassword: "",
     name: "",
     companyName: "",
   });
