@@ -18,12 +18,18 @@ const useLoginform = () => {
 
   const handleLogin = async () => {
     const response = await axios.post("/api/auth/login", formData);
-    console.log(response);
-    if (response.data == 1) {
-      navigate("/home");
-    } else {
-      alert("ERROR\n메인으로 이동합니다..");
-      navigate("/");
+    // console.log(response);
+    try {
+      if (response.data == 1) {
+        navigate("/home");
+      } else {
+        alert("로그인 실패! \n메인으로 이동합니다.");
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("ERROR" + error.message + "\n처음부터 다시 진행해주세요.");
+      navigate("/login");
     }
   };
 
