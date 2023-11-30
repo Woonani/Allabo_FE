@@ -33,7 +33,7 @@ const useSignupform = () => {
       }
     } catch (error) {
       console.log(error);
-      alert("ERRPR" + error.message + "\n처음부터 다시 진행해주세요.");
+      alert("ERROR" + error.message + "\n처음부터 다시 진행해주세요.");
       navigate("/");
     }
   };
