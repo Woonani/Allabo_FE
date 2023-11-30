@@ -21,21 +21,21 @@ const LoginPage = () => {
 
         <FloatingLabelInput
           label="이메일"
-          name="email" // input 태그의 name 속성 값 email
+          name="email"
           type="text"
-          // value={formData.email} // state의 이름(키) email
-          // onChange={handleInputChange}
+          value={formData.email}
+          onChange={handleInputChange}
         />
         <FloatingLabelInput
           label="비밀번호"
           name="password"
           type="password"
-          // value={formData.password}
-          // onChange={handleInputChange}
+          value={formData.password}
+          onChange={handleInputChange}
         />
 
-        <Button text="로그인" onClick={handleMainPage} />
-        {/* <Button text="로그인" onClick={handleLogin} /> */}
+        <Button text="로그인" onClick={handleLogin} />
+
         <Link
           text="계정이 없으신가요?"
           link="회원가입 페이지로 이동"

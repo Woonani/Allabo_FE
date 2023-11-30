@@ -8,20 +8,23 @@ const useLoginform = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleMainPage = (e) => {
-    // 작동안됨
-    console.log("클릭됨");
     navigate("/");
   };
 
   const handleInputChange = (e) => {
-    const [name, value] = e.target;
-    // const value = e.target.value;
+    const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    // setFormData({...formData})
-    // setFormData()
   };
+
   const handleLogin = async () => {
-    const response = await axios.post();
+    const response = await axios.post("/api/auth/login", formData);
+    console.log(response);
+    if (response.data == 1) {
+      navigate("/home");
+    } else {
+      alert("ERROR\n메인으로 이동합니다..");
+      navigate("/");
+    }
   };
 
   return { formData, handleMainPage, handleInputChange, handleLogin };
