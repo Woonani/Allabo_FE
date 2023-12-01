@@ -179,3 +179,10 @@ table {
 input {
   font-family: "NanumSquareRound Regular", sans-serif; // 기본 폰트로 NanumSquareRound Light 설정 //font-face로 전역으로 폰트설정을 해도 안먹는 경우 이렇게 따로 설정
 }
+.link-style {
+  color: white;
+  font-weight: Bold;
+  font-size: large;
+  font-family: "NanumSquareRound Regular";
+  margin: 5px 0px;
+}
