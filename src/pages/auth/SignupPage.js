@@ -6,9 +6,11 @@ import FloatingLabelInput from "../../components/common/FloatingLabelInput";
 import Button from "../../components/common/Button";
 import Link from "../../components/common/Link";
 import useSignupform from "../../hooks/useSignupform";
+import useLoginform from "../../hooks/useLoginform";
 
 const SignupPage = () => {
   const { formData, handleInputChange, handleSignup } = useSignupform();
+  const { handleMainPage } = useLoginform();
 
   // onBlur, // 커서 인풋 태그 밖으로 꺼냈을 때 발생하는 이벤트
   // ...props
@@ -17,7 +19,7 @@ const SignupPage = () => {
     <Background>
       <CenteredContainer>
         {/* <LogoBox /> */}
-        <LogoBoxHorizon />
+        <LogoBoxHorizon onClick={handleMainPage} />
         <br />
         <br />
         <br />
@@ -51,7 +53,7 @@ const SignupPage = () => {
           onChange={handleInputChange}
         />
         <FloatingLabelInput
-          label="회사명"
+          label="(선택) 소속/ 회사명"
           name="companyName"
           type="text"
           value={formData.companyName}

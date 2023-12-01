@@ -14,7 +14,7 @@ const StyledButton = styled.button`
   font-family: "NanumSquareRound Bold", sans-serif;
   cursor: pointer;
   transition: background-color 0.3s ease;
-
+  box-shadow: 1px 1px 5px 0.2px grey;
   &:hover {
     background-color: var(--hover-color, #78ff96);
   }

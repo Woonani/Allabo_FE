@@ -9,7 +9,6 @@ const useSignupform = () => {
     email: "",
     password: "",
     cnfrmPassword: "",
-    confirmpassword: "",
     name: "",
     companyName: "",
   });
@@ -30,11 +29,11 @@ const useSignupform = () => {
         );
         navigate("/login");
       } else {
-        alert("ERRPR\n처음부터 다시 진행해주세요.");
+        alert("ERROR\n처음부터 다시 진행해주세요.");
       }
     } catch (error) {
       console.log(error);
-      alert("ERRPR" + error.message + "\n처음부터 다시 진행해주세요.");
+      alert("ERROR" + error.message + "\n처음부터 다시 진행해주세요.");
       navigate("/");
     }
   };

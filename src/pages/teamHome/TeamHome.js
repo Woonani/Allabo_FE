@@ -1,7 +1,7 @@
 import React from "react";
 
-const newTeam = () => {
+const TeamHome = () => {
   return <div></div>;
 };
 
-export default newTeam;
+export default TeamHome;
