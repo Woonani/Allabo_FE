@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
+import { Link } from "react-router-dom";
 
 // Keyframes 정의
 const slideOut = keyframes`
@@ -22,27 +23,17 @@ const slideIn = keyframes`
   }
 `;
 
-const StyledFixedSide = styled.div`
-  position: fixed;
-  top: 60px;
-  left: 0;
-  background-color: black; //var(--color-secondary-grey);
-  width: 70px;
-  height: 100%;
-  z-index: 2; /* 높은 우선순위를 지정 */
-  color: white;
-  padding: 20px;
-`;
-
 const StyledSideOpened = styled.div`
   position: fixed;
   top: 60px;
   left: 0;
-  background-color: var(--color-secondary-grey); //black;
+  background-color: black;
+  box-shadow: 1px 1px 5px 0.2px grey;
+  box-border: none;
+  opacity: 70%;
   width: 250px;
   height: 100%;
-  animation: ${slideOut} 0.5s ease; /* 애니메이션 적용 */
-  // z-index: 1; /* 낮은 우선순위를 지정*/
+  animation: ${slideOut} 0.5s ease;
   color: red;
   padding: 20px 20px 20px 90px;
 `;
@@ -51,26 +42,41 @@ const StyledSideClosed = styled.div`
   position: fixed;
   top: 60px;
   left: 0;
-  background-color: var(--color-secondary-grey); //black;
+  background-color: black;
+  box-shadow: 1px 1px 5px 0.2px grey;
+  box-border: none;
+  opacity: 70%;
   height: 100%;
-  animation: ${slideIn} 0.7s ease; /* 애니메이션 적용 */
-  // z-index: 1; /* 낮은 우선순위를 지정*/
+  animation: ${slideIn} 0.7s ease;
 `;
 
 const SideMenu = ({ isSideOpen }) => {
   return (
     <>
-      {" "}
-      <StyledFixedSide>
-        <div>팀1</div>
-        <div>팀2</div>
-        <div>팀3</div>
-      </StyledFixedSide>
       {isSideOpen ? (
         <StyledSideOpened>
-          <div>메뉴1</div>
-          <div>메뉴2</div>
-          <div>메뉴3</div>
+          <Link to="/team" className="link-style">
+            {" "}
+            메인보드
+          </Link>
+          <br />
+          <br />
+          <Link to="/schedule" className="link-style">
+            {" "}
+            일정관리
+          </Link>
+          <br />
+          <br />
+          <Link to="/board" className="link-style">
+            {" "}
+            회의록
+          </Link>
+          <br />
+          <br />
+          <Link to="/chat" className="link-style">
+            {" "}
+            대화
+          </Link>
         </StyledSideOpened>
       ) : (
         <StyledSideClosed></StyledSideClosed>

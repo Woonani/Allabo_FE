@@ -12,10 +12,13 @@ const StyledTopBar = styled.div`
   height: 60px;
   padding: 10px 15px;
   background-color: var(--color-background-blue);
+  box-shadow: 1px 1px 5px 0.2px grey;
+  box-border: none;
   color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 3; /* 높은 우선순위를 지정 */
 `;
 const HamburgerBtn = styled.button`
   width: 40px;
