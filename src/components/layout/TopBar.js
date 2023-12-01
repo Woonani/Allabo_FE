@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import LogoBoxHorizon from "../../components/common/LogoBoxHorizon";
 import HamBtnImgF from "../../assets/img/common/HamburgerBtnF.png";
-import HamBtnImgT from "../../assets/img/common/HamburgerBtnT.png";
 
 const StyledTopBar = styled.div`
   position: fixed;
@@ -21,27 +20,25 @@ const StyledTopBar = styled.div`
 const HamburgerBtn = styled.button`
   width: 40px;
   height: 40px;
-  background-color: transparent;
-  background-image: url(${(isSideOpen) => {
-    console.log(isSideOpen);
-    return isSideOpen === true ? HamBtnImgT : HamBtnImgF;
-  }});
-  background-size: cover; /* 이미지가 버튼을 채우도록 크기 조절 */
-  background-repeat: no-repeat;
-  background-position: center; /* 이미지를 가운데로 정렬 */
   border: none; /* 기본적인 테두리 제거 등 */
   box-shadow: 0.1px 0.1px 5px 0.2px grey;
-
+  background-color: transparent;
+  background-image: url(${HamBtnImgF});
+  background-size: cover; /* 이미지가 버튼을 채우도록 크기 조절 */
+  background-position: center; /* 이미지를 가운데로 정렬 */
   cursor: pointer;
+  opacity: ${(opacity) => opacity || "100%"};
 `;
-
-// background-image: url(${(isSideOpen) =>
-//   isSideOpen ? HamBtnImgT : HamBtnImgF});
 
 const TopBar = ({ onClick, isSideOpen }) => {
   return (
     <StyledTopBar>
-      <HamburgerBtn onClick={onClick}></HamburgerBtn>
+      {isSideOpen ? (
+        <HamburgerBtn onClick={onClick} opacity={"50%"} />
+      ) : (
+        <HamburgerBtn onClick={onClick} />
+      )}
+      {/* <HamburgerBtn onClick={onClick}></HamburgerBtn> */}
       <LogoBoxHorizon
         logoImgSize="40px"
         fontSize="35px"
