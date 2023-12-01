@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import LogoBoxHorizon from "../../components/common/LogoBoxHorizon2";
+import LogoBoxHorizon from "../../components/common/LogoBoxHorizon";
 import HamBtnImgF from "../../assets/img/common/HamburgerBtnF.png";
 import HamBtnImgT from "../../assets/img/common/HamburgerBtnT.png";
 
@@ -42,7 +42,12 @@ const TopBar = ({ onClick, isSideOpen }) => {
   return (
     <StyledTopBar>
       <HamburgerBtn onClick={onClick}></HamburgerBtn>
-      <LogoBoxHorizon />
+      <LogoBoxHorizon
+        logoImgSize="40px"
+        fontSize="35px"
+        fontColor="white"
+        space="1.5px"
+      />
       <div>프로필 자리</div>
     </StyledTopBar>
   );
