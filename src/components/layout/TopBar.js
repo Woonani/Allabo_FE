@@ -12,7 +12,7 @@ const StyledTopBar = styled.div`
   width: 100%;
   height: 60px;
   padding: 10px 15px;
-  background-color: red;
+  background-color: var(--color-background-blue);
   color: white;
   display: flex;
   justify-content: space-between;
