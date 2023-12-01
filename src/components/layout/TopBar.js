@@ -19,8 +19,8 @@ const StyledTopBar = styled.div`
   align-items: center;
 `;
 const HamburgerBtn = styled.button`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: transparent;
   background-image: url(${(isSideOpen) => {
     console.log(isSideOpen);
@@ -42,7 +42,12 @@ const TopBar = ({ onClick, isSideOpen }) => {
   return (
     <StyledTopBar>
       <HamburgerBtn onClick={onClick}></HamburgerBtn>
-      <LogoBoxHorizon />
+      <LogoBoxHorizon
+        logoImgSize="40px"
+        fontSize="35px"
+        fontColor="white"
+        space="1.5px"
+      />
       <div>프로필 자리</div>
     </StyledTopBar>
   );
