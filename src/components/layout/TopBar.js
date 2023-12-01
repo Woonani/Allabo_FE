@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import LogoBoxHorizon from "../../components/common/LogoBoxHorizon";
+import LogoBoxHorizon from "../../components/common/LogoBoxHorizon2";
 import HamBtnImgF from "../../assets/img/common/HamburgerBtnF.png";
 import HamBtnImgT from "../../assets/img/common/HamburgerBtnT.png";
 
@@ -19,8 +19,8 @@ const StyledTopBar = styled.div`
   align-items: center;
 `;
 const HamburgerBtn = styled.button`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: transparent;
   background-image: url(${(isSideOpen) => {
     console.log(isSideOpen);
