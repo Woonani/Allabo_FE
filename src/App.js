@@ -6,6 +6,7 @@ import LoginPage from "./pages/auth/LoginPage";
 import TopBar from "./components/layout/TopBar";
 import SideMenu from "./components/layout/SideMenu";
 // import Footer from "./components/layout/Footer";
+import UserHome from "./pages/userHome/UserHome";
 
 import "./App.scss";
 
@@ -24,7 +25,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/home" element={<LoginPage />}></Route>
+        <Route path="/home" element={<UserHome />}></Route>
       </Routes>
     </Router>
   );
