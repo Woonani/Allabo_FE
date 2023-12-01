@@ -34,13 +34,19 @@ body,
 
 :root {
   // 자주 쓰는 색상코드 정리 : 장점 : 일괄 색 변경이 편리하다
-  --color-primary-blue: #1985fa;
-  --color-secondary-blue: #92c5ff;
+  --color-primary-blue: #a8d1f7;
+  --color-secondary-blue: #78beff;
+  --color-primary-violet: #9378ff;
+  --color-secondary-violet: #b8a7ff;
+  --color-primary-grey: #edecec;
+  --color-secondary-grey: #b4abab;
+  --color-primary-green: #78ff96;
   --color-primary-navy: #1e22bf;
   --color-primary-gray: #707070;
   --color-primary-black: #222222;
   --color-primary-white: #ffffff;
   --color-opacity-blue: #eef7fe;
+  // 겹치는 색상 검색 후 위 변수명으로 통일할것
   --color-btn-blue: #78beff;
   --color-background-blue: #a8d1f7;
 }
@@ -172,4 +178,11 @@ table {
 }
 input {
   font-family: "NanumSquareRound Regular", sans-serif; // 기본 폰트로 NanumSquareRound Light 설정 //font-face로 전역으로 폰트설정을 해도 안먹는 경우 이렇게 따로 설정
+}
+.link-style {
+  color: white;
+  font-weight: Bold;
+  font-size: large;
+  font-family: "NanumSquareRound Regular";
+  margin: 5px 0px;
 }
