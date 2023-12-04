@@ -24,7 +24,11 @@ function App() {
 
   return (
     <Router>
-      <TopBar onClick={handleSideMenu} isSideOpen={isSideOpen} />
+      <TopBar
+        onClick={handleSideMenu}
+        isSideOpen={isSideOpen}
+        setIsSideOpen={setIsSideOpen}
+      />
       <SideMenu isSideOpen={isSideOpen} />
       <TeamSide>
         <Link to="/team1" className="link-style">

@@ -34,11 +34,12 @@ const HamburgerBtn = styled.button`
   opacity: ${(opacity) => opacity || "100%"};
 `;
 
-const TopBar = ({ onClick, isSideOpen }) => {
+const TopBar = ({ onClick, isSideOpen, setIsSideOpen }) => {
   const navigate = useNavigate();
 
   const handleLogoClick = () => {
     navigate("/home");
+    isSideOpen ? setIsSideOpen(!isSideOpen) : setIsSideOpen(isSideOpen);
   };
 
   return (
