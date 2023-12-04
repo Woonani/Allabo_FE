@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import LogoBoxHorizon from "../../components/common/LogoBoxHorizon";
 import HamBtnImgF from "../../assets/img/common/HamburgerBtnF.png";
+import { useNavigate } from "react-router-dom";
 
 const StyledTopBar = styled.div`
   position: fixed;
@@ -34,6 +35,12 @@ const HamburgerBtn = styled.button`
 `;
 
 const TopBar = ({ onClick, isSideOpen }) => {
+  const navigate = useNavigate();
+
+  const handleLogoClick = () => {
+    navigate("/home");
+  };
+
   return (
     <StyledTopBar>
       {isSideOpen ? (
@@ -41,12 +48,12 @@ const TopBar = ({ onClick, isSideOpen }) => {
       ) : (
         <HamburgerBtn onClick={onClick} />
       )}
-      {/* <HamburgerBtn onClick={onClick}></HamburgerBtn> */}
       <LogoBoxHorizon
         logoImgSize="40px"
         fontSize="35px"
         fontColor="white"
         space="1.5px"
+        onClick={handleLogoClick}
       />
       <div>프로필 자리</div>
     </StyledTopBar>
