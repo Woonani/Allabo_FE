@@ -41,3 +41,6 @@
 - 라우터
 
   yarn add react-router-dom
+
+- mobX
+  yarn add mobx-react
