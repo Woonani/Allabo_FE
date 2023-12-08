@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import SquareButton from "../../components/common/SquareButton";
 import AddBtn from "../../assets/img/common/AddBtn.png";
+import TeamModal from "../../components/TeamModal";
 
 const StyledContainer = styled.div`
   width: 70vw;
@@ -35,6 +36,13 @@ const StyledSubTitle = styled.h1`
 `;
 
 const UserHome = (userNick) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    console.log("모달열기");
+    return setIsModalOpen(true);
+  };
+  const closeModal = () => setIsModalOpen(false);
   return (
     <div>
       <StyledTitle>
@@ -48,7 +56,14 @@ const UserHome = (userNick) => {
       <StyledOneline>
         <StyledSubTitle>워크스페이스 생성하기</StyledSubTitle>
         &nbsp;
-        <SquareButton imgUrl={AddBtn} opacity="0%" width="30px" height="30px" />
+        <SquareButton
+          openModal={openModal}
+          imgUrl={AddBtn}
+          opacity="0%"
+          width="30px"
+          height="30px"
+        />
+        <TeamModal isOpen={isModalOpen} closeModal={closeModal} />
       </StyledOneline>
       <StyledContainer>
         {{ userNick } && (

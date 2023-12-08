@@ -14,9 +14,10 @@ const StyledSquareBtn = styled.button`
   opacity: ${(props) => props.opacity || "100%"};
 `;
 
-const SquareButton = ({ ...props }) => {
+const SquareButton = ({ openModal, ...props }) => {
   return (
     <StyledSquareBtn
+      onClick={openModal}
       $imgUrl={props.imgUrl}
       $width={props.width}
       $height={props.height}
