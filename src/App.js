@@ -16,6 +16,7 @@ import ChatRoom from "./pages/chatRoom/ChatRoom";
 import ScheduleBoard from "./pages/scheduleBoard/ScheduleBoard";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState({ id: "" });
   const [isSideOpen, setIsSideOpen] = useState(false);
   const handleSideMenu = () => {
     console.log("딸깍");
@@ -28,6 +29,7 @@ function App() {
         onClick={handleSideMenu}
         isSideOpen={isSideOpen}
         setIsSideOpen={setIsSideOpen}
+        isLoggedIn={isLoggedIn}
       />
       <SideMenu isSideOpen={isSideOpen} />
       <TeamSide>
@@ -41,7 +43,12 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/login"
+          element={
+            <LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          }
+        />
         <Route path="/home" element={<UserHome />}></Route>
         <Route path="/team" element={<TeamHome />}></Route>
         <Route path="/schedule" element={<ScheduleBoard />}></Route>

@@ -34,7 +34,7 @@ const HamburgerBtn = styled.button`
   opacity: ${(opacity) => opacity || "100%"};
 `;
 
-const TopBar = ({ onClick, isSideOpen, setIsSideOpen }) => {
+const TopBar = ({ onClick, isSideOpen, setIsSideOpen, isLoggedIn }) => {
   const navigate = useNavigate();
 
   const handleLogoClick = () => {
@@ -43,21 +43,27 @@ const TopBar = ({ onClick, isSideOpen, setIsSideOpen }) => {
   };
 
   return (
-    <StyledTopBar>
-      {isSideOpen ? (
-        <HamburgerBtn onClick={onClick} opacity={"50%"} />
+    <>
+      {isLoggedIn.id ? (
+        <StyledTopBar>
+          {isSideOpen ? (
+            <HamburgerBtn onClick={onClick} opacity={"50%"} />
+          ) : (
+            <HamburgerBtn onClick={onClick} />
+          )}
+          <LogoBoxHorizon
+            logoImgSize="40px"
+            fontSize="35px"
+            fontColor="white"
+            space="1.5px"
+            onClick={handleLogoClick}
+          />
+          <div>프로필 자리</div>
+        </StyledTopBar>
       ) : (
-        <HamburgerBtn onClick={onClick} />
+        ""
       )}
-      <LogoBoxHorizon
-        logoImgSize="40px"
-        fontSize="35px"
-        fontColor="white"
-        space="1.5px"
-        onClick={handleLogoClick}
-      />
-      <div>프로필 자리</div>
-    </StyledTopBar>
+    </>
   );
 };
 
