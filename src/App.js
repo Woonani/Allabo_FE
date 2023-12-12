@@ -31,15 +31,8 @@ function App() {
         setIsSideOpen={setIsSideOpen}
         isLoggedIn={isLoggedIn}
       />
-      <SideMenu isSideOpen={isSideOpen} />
-      <TeamSide>
-        <Link to="/team1" className="link-style">
-          팀1
-        </Link>
-        <Link to="/team2" className="link-style">
-          팀2
-        </Link>
-      </TeamSide>
+      <SideMenu isSideOpen={isSideOpen} isLoggedIn={isLoggedIn} />
+      <TeamSide isLoggedIn={isLoggedIn}></TeamSide>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<SignupPage />} />
