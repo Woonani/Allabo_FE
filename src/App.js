@@ -42,6 +42,8 @@ function App() {
             <LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           }
         />
+        {/* 로그인이 필요한 라우트들을 PrivateRoute 안에 묶기 */}
+
         <Route path="/home" element={<UserHome />}></Route>
         <Route path="/team" element={<TeamHome />}></Route>
         <Route path="/schedule" element={<ScheduleBoard />}></Route>
