@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import LogoBoxHorizon from "../../components/common/LogoBoxHorizon";
 import HamBtnImgF from "../../assets/img/common/HamburgerBtnF.png";
-import HamBtnImgT from "../../assets/img/common/HamburgerBtnT.png";
+import { useNavigate } from "react-router-dom";
 
 const StyledTopBar = styled.div`
   position: fixed;
@@ -12,44 +12,58 @@ const StyledTopBar = styled.div`
   width: 100%;
   height: 60px;
   padding: 10px 15px;
-  background-color: red;
+  background-color: var(--color-background-blue);
+  box-shadow: 1px 1px 5px 0.2px grey;
+  box-border: none;
   color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 3; /* 높은 우선순위를 지정 */
 `;
 const HamburgerBtn = styled.button`
   width: 40px;
   height: 40px;
-  background-color: transparent;
-  background-image: url(${(isSideOpen) => {
-    console.log(isSideOpen);
-    return isSideOpen === true ? HamBtnImgT : HamBtnImgF;
-  }});
-  background-size: cover; /* 이미지가 버튼을 채우도록 크기 조절 */
-  background-repeat: no-repeat;
-  background-position: center; /* 이미지를 가운데로 정렬 */
   border: none; /* 기본적인 테두리 제거 등 */
   box-shadow: 0.1px 0.1px 5px 0.2px grey;
-
+  background-color: transparent;
+  background-image: url(${HamBtnImgF});
+  background-size: cover; /* 이미지가 버튼을 채우도록 크기 조절 */
+  background-position: center; /* 이미지를 가운데로 정렬 */
   cursor: pointer;
+  opacity: ${(opacity) => opacity || "100%"};
 `;
 
-// background-image: url(${(isSideOpen) =>
-//   isSideOpen ? HamBtnImgT : HamBtnImgF});
+const TopBar = ({ onClick, isSideOpen, setIsSideOpen, isLoggedIn }) => {
+  const navigate = useNavigate();
 
-const TopBar = ({ onClick, isSideOpen }) => {
+  const handleLogoClick = () => {
+    navigate("/home");
+    isSideOpen ? setIsSideOpen(!isSideOpen) : setIsSideOpen(isSideOpen);
+  };
+
   return (
-    <StyledTopBar>
-      <HamburgerBtn onClick={onClick}></HamburgerBtn>
-      <LogoBoxHorizon
-        logoImgSize="40px"
-        fontSize="35px"
-        fontColor="white"
-        space="1.5px"
-      />
-      <div>프로필 자리</div>
-    </StyledTopBar>
+    <>
+      {isLoggedIn.id ? (
+        <StyledTopBar>
+          {isSideOpen ? (
+            <HamburgerBtn onClick={onClick} opacity={"50%"} />
+          ) : (
+            <HamburgerBtn onClick={onClick} />
+          )}
+          <LogoBoxHorizon
+            logoImgSize="40px"
+            fontSize="35px"
+            fontColor="white"
+            space="1.5px"
+            onClick={handleLogoClick}
+          />
+          <div>프로필 자리</div>
+        </StyledTopBar>
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 

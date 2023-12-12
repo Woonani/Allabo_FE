@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const useLoginform = () => {
+const useLoginform = ({ isLoggedIn, setIsLoggedIn }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
 
@@ -22,6 +22,7 @@ const useLoginform = () => {
     try {
       if (response.data == 1) {
         navigate("/home");
+        setIsLoggedIn({ ...isLoggedIn, id: response.data });
       } else {
         alert("로그인 실패! \n메인으로 이동합니다.");
         navigate("/");
