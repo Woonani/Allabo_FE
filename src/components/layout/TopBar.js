@@ -41,7 +41,7 @@ const TopBar = ({ onClick, isSideOpen, setIsSideOpen }) => {
   const navigate = useNavigate();
 
   const handleLogoClick = () => {
-    navigate("/home");
+    navigate("/");
     isSideOpen ? setIsSideOpen(!isSideOpen) : setIsSideOpen(isSideOpen);
   };
 
