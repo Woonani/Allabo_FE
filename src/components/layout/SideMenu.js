@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
+import { useIsLoginState } from "../../context/IsLoginContext";
 
 // Keyframes 정의
 const slideOut = keyframes`
@@ -50,10 +51,12 @@ const StyledSideClosed = styled.div`
   animation: ${slideIn} 0.7s ease;
 `;
 
-const SideMenu = ({ isSideOpen, isLoggedIn }) => {
+const SideMenu = ({ isSideOpen }) => {
+  const isLogin = useIsLoginState();
+
   return (
     <>
-      {isLoggedIn.id ? (
+      {isLogin ? (
         isSideOpen ? (
           <StyledSideOpened>
             <Link to="/team" className="link-style">
