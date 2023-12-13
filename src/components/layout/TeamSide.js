@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
+import { useIsLoginState } from "../../context/IsLoginContext";
 
 const StyledFixedSide = styled.div`
   position: fixed;
@@ -14,10 +15,12 @@ const StyledFixedSide = styled.div`
   color: white;
   padding: 20px;
 `;
-const TeamSide = ({ isLoggedIn }) => {
+const TeamSide = () => {
+  const isLogin = useIsLoginState();
+
   return (
     <>
-      {isLoggedIn.id ? (
+      {isLogin ? (
         <StyledFixedSide>
           <Link to="/team1" className="link-style">
             팀1

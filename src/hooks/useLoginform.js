@@ -1,9 +1,11 @@
 import axios from "axios";
 import { setCookie, getCookie } from "../utils/Cookie";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { IsLoginContext } from "../context/IsLoginContext";
 
-const useLoginform = ({ isLoggedIn, setIsLoggedIn }) => {
+const useLoginform = () => {
+  const { setIsLogin } = useContext(IsLoginContext); // isLoginContext 구독
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
 
@@ -39,11 +41,12 @@ const useLoginform = ({ isLoggedIn, setIsLoggedIn }) => {
           path: "/",
           maxAge: 1000 * 60 * 60 * 24 * 2,
         });
+        // sessionStorage.setItem("userId", response.data.loginuser.email);
+        // sessionStorage.setItem("token", response.data.token); // context에서 토큰은 쿠키에서 불러와 사용
 
         navigate("/home");
 
-        // setIsLoggedIn({ ...isLoggedIn, id: response.data });
-
+        setIsLogin(true);
       }
     } catch (error) {
       console.log(error);

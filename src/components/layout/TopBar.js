@@ -3,6 +3,7 @@ import styled from "styled-components";
 import LogoBoxHorizon from "../../components/common/LogoBoxHorizon";
 import HamBtnImgF from "../../assets/img/common/HamburgerBtnF.png";
 import { useNavigate } from "react-router-dom";
+import { useIsLoginState } from "../../context/IsLoginContext";
 
 const StyledTopBar = styled.div`
   position: fixed;
@@ -34,7 +35,9 @@ const HamburgerBtn = styled.button`
   opacity: ${(opacity) => opacity || "100%"};
 `;
 
-const TopBar = ({ onClick, isSideOpen, setIsSideOpen, isLoggedIn }) => {
+const TopBar = ({ onClick, isSideOpen, setIsSideOpen }) => {
+  const isLogin = useIsLoginState();
+  console.log(isLogin);
   const navigate = useNavigate();
 
   const handleLogoClick = () => {
@@ -44,7 +47,7 @@ const TopBar = ({ onClick, isSideOpen, setIsSideOpen, isLoggedIn }) => {
 
   return (
     <>
-      {isLoggedIn.id ? (
+      {isLogin ? (
         <StyledTopBar>
           {isSideOpen ? (
             <HamburgerBtn onClick={onClick} opacity={"50%"} />
