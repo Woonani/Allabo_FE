@@ -16,6 +16,7 @@ import ChatRoom from "./pages/chatRoom/ChatRoom";
 import ScheduleBoard from "./pages/scheduleBoard/ScheduleBoard";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState({ id: "" });
   const [isSideOpen, setIsSideOpen] = useState(false);
   const handleSideMenu = () => {
     console.log("딸깍");
@@ -28,20 +29,21 @@ function App() {
         onClick={handleSideMenu}
         isSideOpen={isSideOpen}
         setIsSideOpen={setIsSideOpen}
+        isLoggedIn={isLoggedIn}
       />
-      <SideMenu isSideOpen={isSideOpen} />
-      <TeamSide>
-        <Link to="/team1" className="link-style">
-          팀1
-        </Link>
-        <Link to="/team2" className="link-style">
-          팀2
-        </Link>
-      </TeamSide>
+      <SideMenu isSideOpen={isSideOpen} isLoggedIn={isLoggedIn} />
+      <TeamSide isLoggedIn={isLoggedIn}></TeamSide>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/login"
+          element={
+            <LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          }
+        />
+        {/* 로그인이 필요한 라우트들을 PrivateRoute 안에 묶기 */}
+
         <Route path="/home" element={<UserHome />}></Route>
         <Route path="/team" element={<TeamHome />}></Route>
         <Route path="/schedule" element={<ScheduleBoard />}></Route>

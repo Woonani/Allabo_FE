@@ -50,36 +50,40 @@ const StyledSideClosed = styled.div`
   animation: ${slideIn} 0.7s ease;
 `;
 
-const SideMenu = ({ isSideOpen }) => {
+const SideMenu = ({ isSideOpen, isLoggedIn }) => {
   return (
     <>
-      {isSideOpen ? (
-        <StyledSideOpened>
-          <Link to="/team" className="link-style">
-            {" "}
-            메인보드
-          </Link>
-          <br />
-          <br />
-          <Link to="/schedule" className="link-style">
-            {" "}
-            일정관리
-          </Link>
-          <br />
-          <br />
-          <Link to="/board" className="link-style">
-            {" "}
-            회의록
-          </Link>
-          <br />
-          <br />
-          <Link to="/chat" className="link-style">
-            {" "}
-            대화
-          </Link>
-        </StyledSideOpened>
+      {isLoggedIn.id ? (
+        isSideOpen ? (
+          <StyledSideOpened>
+            <Link to="/team" className="link-style">
+              {" "}
+              메인보드
+            </Link>
+            <br />
+            <br />
+            <Link to="/schedule" className="link-style">
+              {" "}
+              일정관리
+            </Link>
+            <br />
+            <br />
+            <Link to="/board" className="link-style">
+              {" "}
+              회의록
+            </Link>
+            <br />
+            <br />
+            <Link to="/chat" className="link-style">
+              {" "}
+              대화
+            </Link>
+          </StyledSideOpened>
+        ) : (
+          <StyledSideClosed></StyledSideClosed>
+        )
       ) : (
-        <StyledSideClosed></StyledSideClosed>
+        ""
       )}
     </>
   );

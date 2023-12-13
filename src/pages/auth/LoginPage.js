@@ -7,9 +7,9 @@ import Button from "../../components/common/Button";
 import Link from "../../components/common/Link";
 import useLoginform from "../../hooks/useLoginform";
 
-const LoginPage = () => {
+const LoginPage = ({ isLoggedIn, setIsLoggedIn }) => {
   const { formData, handleMainPage, handleInputChange, handleLogin } =
-    useLoginform();
+    useLoginform({ isLoggedIn, setIsLoggedIn });
 
   return (
     <Background>

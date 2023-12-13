@@ -3,7 +3,7 @@ import { setCookie, getCookie } from "../utils/Cookie";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const useLoginform = () => {
+const useLoginform = ({ isLoggedIn, setIsLoggedIn }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
 
@@ -41,6 +41,9 @@ const useLoginform = () => {
         });
 
         navigate("/home");
+
+        // setIsLoggedIn({ ...isLoggedIn, id: response.data });
+
       }
     } catch (error) {
       console.log(error);

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
 const StyledFixedSide = styled.div`
@@ -13,5 +14,22 @@ const StyledFixedSide = styled.div`
   color: white;
   padding: 20px;
 `;
-
-export default StyledFixedSide;
+const TeamSide = ({ isLoggedIn }) => {
+  return (
+    <>
+      {isLoggedIn.id ? (
+        <StyledFixedSide>
+          <Link to="/team1" className="link-style">
+            팀1
+          </Link>
+          <Link to="/team2" className="link-style">
+            팀2
+          </Link>
+        </StyledFixedSide>
+      ) : (
+        ""
+      )}
+    </>
+  );
+};
+export default TeamSide;
