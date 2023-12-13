@@ -4,7 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const PrivateRoute = () => {
   const token = getCookie("token");
-  return token ? <Outlet /> : <Navigate to="/login" />;
+  return token ? <Outlet /> : <Navigate to="/" />;
 };
 
 export default PrivateRoute;
