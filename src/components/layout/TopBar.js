@@ -4,6 +4,8 @@ import LogoBoxHorizon from "../../components/common/LogoBoxHorizon";
 import HamBtnImgF from "../../assets/img/common/HamburgerBtnF.png";
 import { useNavigate } from "react-router-dom";
 import { useIsLoginState } from "../../context/IsLoginContext";
+import ProfileContainer from "../common/ProfileContainer";
+import useLoginform from "../../hooks/useLoginform";
 
 const StyledTopBar = styled.div`
   position: fixed;
@@ -39,6 +41,7 @@ const TopBar = ({ onClick, isSideOpen, setIsSideOpen }) => {
   const isLogin = useIsLoginState();
   console.log(isLogin);
   const navigate = useNavigate();
+  const { handleLogout } = useLoginform();
 
   const handleLogoClick = () => {
     navigate("/");
@@ -61,7 +64,9 @@ const TopBar = ({ onClick, isSideOpen, setIsSideOpen }) => {
             space="1.5px"
             onClick={handleLogoClick}
           />
-          <div>프로필 자리</div>
+
+          {/* <div>프로필 자리</div> */}
+          <ProfileContainer btnText={"Logout"} onClick={handleLogout} />
         </StyledTopBar>
       ) : (
         ""

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { setCookie, getCookie } from "../utils/Cookie";
-import { useNavigate } from "react-router-dom";
+import { setCookie, getCookie, removeCookie } from "../utils/Cookie";
+import { redirect, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { IsLoginContext } from "../context/IsLoginContext";
 
@@ -44,7 +44,7 @@ const useLoginform = () => {
         // sessionStorage.setItem("userId", response.data.loginuser.email);
         // sessionStorage.setItem("token", response.data.token); // context에서 토큰은 쿠키에서 불러와 사용
 
-        navigate("/home");
+        navigate("/");
 
         setIsLogin(true);
       }
@@ -55,7 +55,21 @@ const useLoginform = () => {
     }
   };
 
-  return { formData, handleMainPage, handleInputChange, handleLogin };
+  const handleLogout = () => {
+    console.log("로그아웃 할꺼임");
+    removeCookie("token");
+    removeCookie("username");
+    removeCookie("userId");
+    window.location.reload();
+  };
+
+  return {
+    formData,
+    handleMainPage,
+    handleInputChange,
+    handleLogin,
+    handleLogout,
+  };
 };
 
 export default useLoginform;
