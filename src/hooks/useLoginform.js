@@ -44,7 +44,7 @@ const useLoginform = () => {
         // sessionStorage.setItem("userId", response.data.loginuser.email);
         // sessionStorage.setItem("token", response.data.token); // context에서 토큰은 쿠키에서 불러와 사용
 
-        navigate("/home");
+        navigate("/");
 
         setIsLogin(true);
       }
