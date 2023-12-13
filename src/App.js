@@ -14,9 +14,10 @@ import TeamHome from "./pages/teamHome/TeamHome";
 import TaskBoard from "./pages/taskBoard/TaskBoard";
 import ChatRoom from "./pages/chatRoom/ChatRoom";
 import ScheduleBoard from "./pages/scheduleBoard/ScheduleBoard";
+import { IsLoginProvider } from "./context/IsLoginContext";
+import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState({ id: "" });
   const [isSideOpen, setIsSideOpen] = useState(false);
   const handleSideMenu = () => {
     console.log("딸깍");
@@ -25,31 +26,29 @@ function App() {
 
   return (
     <Router>
-      <TopBar
-        onClick={handleSideMenu}
-        isSideOpen={isSideOpen}
-        setIsSideOpen={setIsSideOpen}
-        isLoggedIn={isLoggedIn}
-      />
-      <SideMenu isSideOpen={isSideOpen} isLoggedIn={isLoggedIn} />
-      <TeamSide isLoggedIn={isLoggedIn}></TeamSide>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route
-          path="/login"
-          element={
-            <LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-          }
+      <IsLoginProvider>
+        <TopBar
+          onClick={handleSideMenu}
+          isSideOpen={isSideOpen}
+          setIsSideOpen={setIsSideOpen}
         />
-        {/* 로그인이 필요한 라우트들을 PrivateRoute 안에 묶기 */}
+        <SideMenu isSideOpen={isSideOpen} />
+        <TeamSide></TeamSide>
 
-        <Route path="/home" element={<UserHome />}></Route>
-        <Route path="/team" element={<TeamHome />}></Route>
-        <Route path="/schedule" element={<ScheduleBoard />}></Route>
-        <Route path="/board" element={<TaskBoard />}></Route>
-        <Route path="/chat" element={<ChatRoom />}></Route>
-      </Routes>
+        <Routes>
+          <Route path="/gate" element={<MainPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          {/* 로그인이 필요한 라우트들을 PrivateRoute 안에 묶기 */}
+          <Route path="/" element={<PrivateRoute />}>
+            <Route path="/home" element={<UserHome />}></Route>
+            <Route path="/team" element={<TeamHome />}></Route>
+            <Route path="/schedule" element={<ScheduleBoard />}></Route>
+            <Route path="/board" element={<TaskBoard />}></Route>
+            <Route path="/chat" element={<ChatRoom />}></Route>
+          </Route>
+        </Routes>
+      </IsLoginProvider>
     </Router>
   );
 }
