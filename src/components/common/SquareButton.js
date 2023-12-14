@@ -5,7 +5,7 @@ const StyledSquareBtn = styled.button`
   width: ${(props) => props.$width || "40px"};
   height: ${(props) => props.$height || "40px"};
   border: none; /* 기본적인 테두리 제거 등 */
-  border-radius: 50%;
+  border-radius: ${(props) => props.$borderRadius || "50%"};
   background-color: transparent;
   background-image: url(${(props) => props.$imgUrl || null});
   background-size: cover; /* 이미지가 버튼을 채우도록 크기 조절 */
@@ -14,7 +14,6 @@ const StyledSquareBtn = styled.button`
   opacity: ${(props) => props.opacity || "100%"};
   transition: background-color 0.3s ease;
   &:hover {
-    // box-shadow: 0.5px 0.5px 5px 0.2px #78ff96;
     box-shadow: 0.5px 0.5px 5px 0.2px grey;
   }
 `;
@@ -26,6 +25,8 @@ const SquareButton = ({ openModal, ...props }) => {
       $imgUrl={props.imgUrl}
       $width={props.width}
       $height={props.height}
+      $borderRadius={props.borderRadius}
+      // {...props}
     >
       {props.imgUrl ? null : "버튼"}
     </StyledSquareBtn>
