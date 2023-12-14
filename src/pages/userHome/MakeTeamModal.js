@@ -10,6 +10,7 @@ import LogoBox from "../../components/common/LogoBox";
 import FloatingLabelInput from "../../components/common/FloatingLabelInput";
 import Text from "../../components/common/Text";
 import DropdownInput from "../../components/common/DropdownInput";
+import useMakeTeamform from "../../hooks/useMakeTeamform";
 
 const GridContainerRow = styled.div`
   display: grid;
@@ -50,6 +51,8 @@ const RowDiv = styled.div`
 `;
 
 const MakeTeamModal = ({ isOpen, closeModal }) => {
+  const { teamForm, handleInputChange, handleMakeTeam } = useMakeTeamform();
+
   return (
     <div style={{ display: isOpen ? "block" : "none" }}>
       <ModalBackground />
@@ -66,6 +69,10 @@ const MakeTeamModal = ({ isOpen, closeModal }) => {
             <ColumnDiv>
               <Text text={"워크스페이스 명"} />
               <FloatingLabelInput
+                name="teamName"
+                type="text"
+                value={teamForm.teamName}
+                onChange={handleInputChange}
                 label="팀의 특징을 담아 작성해주세요."
                 width="100%"
                 height="45px"
@@ -73,6 +80,10 @@ const MakeTeamModal = ({ isOpen, closeModal }) => {
               <br />
               <Text text={"워크스페이스 소개"} />
               <FloatingLabelInput
+                name="description"
+                type="text"
+                value={teamForm.description}
+                onChange={handleInputChange}
                 label="팀의 목적을 간단히 설명해 주세요."
                 width="100%"
                 height="80px"
@@ -80,6 +91,10 @@ const MakeTeamModal = ({ isOpen, closeModal }) => {
               <br />
               <Text text={"팀에서 사용할 이름"} />
               <FloatingLabelInput
+                name="nick"
+                type="text"
+                value={teamForm.nick}
+                onChange={handleInputChange}
                 label="미작성 히 사용자 이름으로 표시됩니다."
                 width="100%"
                 height="45px"
@@ -89,13 +104,18 @@ const MakeTeamModal = ({ isOpen, closeModal }) => {
           <Text text={"팀원초대"} margin="10px" />
 
           <GridContainerColumn>
-            <ColumnDiv3>멤버리스트</ColumnDiv3>
+            <ColumnDiv3>팀원없이 워크스페이스를 생성할 수 있습니다.</ColumnDiv3>
             <ColumnDiv3>
-              <DropdownInput />
+              <DropdownInput label="팀원 이메일로 검색" />
             </ColumnDiv3>
           </GridContainerColumn>
           <RowDiv>
-            <Button text={"팀 생성"} margin={"20px"} width={"200px"} />
+            <Button
+              text={"팀 생성"}
+              margin={"20px"}
+              width={"200px"}
+              onClick={handleMakeTeam}
+            />
             <Button
               text={"생성 취소"}
               margin={"20px"}
