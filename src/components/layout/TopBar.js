@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useIsLoginState } from "../../context/IsLoginContext";
 import ProfileContainer from "../common/ProfileContainer";
 import useLoginform from "../../hooks/useLoginform";
+import SimpleButton from "../common/SimpleButton";
 
 const StyledTopBar = styled.div`
   position: fixed;
@@ -65,8 +66,9 @@ const TopBar = ({ onClick, isSideOpen, setIsSideOpen }) => {
             onClick={handleLogoClick}
           />
 
-          {/* <div>프로필 자리</div> */}
-          <ProfileContainer btnText={"Logout"} onClick={handleLogout} />
+          {/* 프로필 자리 */}
+          {/* <ProfileContainer /> */}
+          <SimpleButton btnText={"Logout"} onClick={handleLogout} />
         </StyledTopBar>
       ) : (
         ""
