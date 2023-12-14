@@ -16,6 +16,7 @@ import ChatRoom from "./pages/chatRoom/ChatRoom";
 import ScheduleBoard from "./pages/scheduleBoard/ScheduleBoard";
 import { IsLoginProvider } from "./context/IsLoginContext";
 import PrivateRoute from "./utils/PrivateRoute";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   const [isSideOpen, setIsSideOpen] = useState(false);
@@ -39,6 +40,7 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/*" element={<PageNotFound />} />
           {/* 로그인이 필요한 라우트들을 PrivateRoute 안에 묶기 */}
           <Route path="/" element={<PrivateRoute />}>
             {/* 경로/ 로그인상태이면 <MainPage/>에서 <UserHome/>보여주도록 변경 */}
