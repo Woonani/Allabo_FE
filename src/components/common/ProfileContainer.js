@@ -23,6 +23,10 @@ const StyledBtn = styled.button`
     props.btnColor || "var(--color-primary-white)"};
   cursor: pointer;
   border-radius: 20px;
+  transition: background-color 0.3s ease;
+  &:hover {
+    box-shadow: 2px 2px 5px 0px grey;
+  }
 `;
 const ProfileContainer = ({ onClick, btnText, ...props }) => {
   return (
