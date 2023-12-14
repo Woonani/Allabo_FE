@@ -10,8 +10,8 @@ const Container = styled.div`
 `;
 
 const StyledInput = styled.input`
-  width: 300px;
-  height: 40px;
+  width: ${(props) => props.width || "300px"};
+  height: ${(props) => props.height || "40px"};
   padding: 5px 10px 5px 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -32,6 +32,7 @@ const StyledLabel = styled.label`
   background: white;
   pointer-events: none;
   font-size: ${(props) => props.fontSize || "1em"}; // 폰트 크기 prop 추가
+  color: lightslategrey;
 `;
 
 const FloatingLabelInput = ({
