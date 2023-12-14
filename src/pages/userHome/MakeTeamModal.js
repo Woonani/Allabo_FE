@@ -51,7 +51,8 @@ const RowDiv = styled.div`
 `;
 
 const MakeTeamModal = ({ isOpen, closeModal }) => {
-  const { teamForm, handleInputChange, handleMakeTeam } = useMakeTeamform();
+  const { teamForm, handleInputChange, handleMakeTeam } =
+    useMakeTeamform(closeModal);
 
   return (
     <div style={{ display: isOpen ? "block" : "none" }}>
