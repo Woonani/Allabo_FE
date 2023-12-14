@@ -6,7 +6,6 @@ const StyledSquareBtn = styled.button`
   height: ${(props) => props.$height || "40px"};
   border: none; /* 기본적인 테두리 제거 등 */
   border-radius: 50%;
-  box-shadow: 0.5px 0.5px 5px 0.2px grey;
   background-color: transparent;
   background-image: url(${(props) => props.$imgUrl || null});
   background-size: cover; /* 이미지가 버튼을 채우도록 크기 조절 */
@@ -15,7 +14,8 @@ const StyledSquareBtn = styled.button`
   opacity: ${(props) => props.opacity || "100%"};
   transition: background-color 0.3s ease;
   &:hover {
-    background-color: var(--hover-color, #78ff96);
+    // box-shadow: 0.5px 0.5px 5px 0.2px #78ff96;
+    box-shadow: 0.5px 0.5px 5px 0.2px grey;
   }
 `;
 

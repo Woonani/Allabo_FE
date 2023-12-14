@@ -26,6 +26,7 @@ const StyledBtn = styled.button`
   transition: background-color 0.3s ease;
   &:hover {
     box-shadow: 2px 2px 5px 0px grey;
+    background-color: var(--hover-color, hsl(49.36deg 21.79% 90.45% / 70%));
   }
 `;
 const ProfileContainer = ({ onClick, btnText, ...props }) => {
