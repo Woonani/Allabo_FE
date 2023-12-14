@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import SquareButton from "../../components/common/SquareButton";
 import AddBtn from "../../assets/img/common/AddBtn.png";
-import TeamModal from "../../components/TeamModal";
+import MakeTeamModal from "./MakeTeamModal";
 
 const StyledContainer = styled.div`
   width: 70vw;
@@ -63,7 +63,7 @@ const UserHome = (userNick) => {
           width="30px"
           height="30px"
         />
-        <TeamModal isOpen={isModalOpen} closeModal={closeModal} />
+        <MakeTeamModal isOpen={isModalOpen} closeModal={closeModal} />
       </StyledOneline>
       <StyledContainer>
         {{ userNick } && (
