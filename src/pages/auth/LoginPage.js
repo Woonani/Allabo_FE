@@ -21,9 +21,9 @@ const LoginPage = () => {
 
         <FloatingLabelInput
           label="이메일"
-          name="email"
+          name="userid"
           type="text"
-          value={formData.email}
+          value={formData.userid}
           onChange={handleInputChange}
         />
         <FloatingLabelInput
