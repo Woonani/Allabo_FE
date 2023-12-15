@@ -4,7 +4,7 @@ import { getCookie, setCookie } from "../utils/Cookie";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const useMakeTeamform = (closeModal) => {
+const useUserHome = (closeModal) => {
   const navigate = useNavigate();
 
   const [teamForm, setTeamForm] = useState({
@@ -78,7 +78,19 @@ const useMakeTeamform = (closeModal) => {
     return response.data;
   };
 
-  return { teamForm, handleInputChange, handleMakeTeam, handleTeamList };
+  // 팀 프로필 클릭 시 이동
+  const handleTeamPage = (teamId) => {
+    setCookie("now-team", teamId);
+    navigate("/team");
+  };
+
+  return {
+    teamForm,
+    handleInputChange,
+    handleMakeTeam,
+    handleTeamList,
+    handleTeamPage,
+  };
 };
 
-export default useMakeTeamform;
+export default useUserHome;

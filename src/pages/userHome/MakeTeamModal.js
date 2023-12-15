@@ -10,7 +10,7 @@ import LogoBox from "../../components/common/LogoBox";
 import FloatingLabelInput from "../../components/common/FloatingLabelInput";
 import Text from "../../components/common/Text";
 import DropdownInput from "../../components/common/DropdownInput";
-import useMakeTeamform from "../../hooks/useMakeTeamform";
+import useUserHome from "../../hooks/useUserHome";
 
 const GridContainerRow = styled.div`
   display: grid;
@@ -51,7 +51,8 @@ const RowDiv = styled.div`
 `;
 
 const MakeTeamModal = ({ isOpen, closeModal }) => {
-  const { teamForm, handleInputChange, handleMakeTeam } = useMakeTeamform();
+  const { teamForm, handleInputChange, handleMakeTeam } =
+    useUserHome(closeModal);
 
   return (
     <div style={{ display: isOpen ? "block" : "none" }}>
