@@ -18,10 +18,10 @@ const StyledSquareBtn = styled.button`
   }
 `;
 
-const SquareButton = ({ openModal, ...props }) => {
+const SquareButton = ({ handleClick, ...props }) => {
   return (
     <StyledSquareBtn
-      onClick={openModal}
+      onClick={handleClick}
       $imgUrl={props.imgUrl}
       $width={props.width}
       $height={props.height}
