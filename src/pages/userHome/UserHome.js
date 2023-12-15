@@ -4,7 +4,6 @@ import SquareButton from "../../components/common/SquareButton";
 import AddBtn from "../../assets/img/common/AddBtn.png";
 import MakeTeamModal from "./MakeTeamModal";
 import { getCookie } from "../../utils/Cookie";
-import initHorizontalScroll from "../../utils/initHoriaontalScroll";
 import Text from "../../components/common/Text";
 import BasicImg from "../../assets/img/common/BasicTeam.png";
 import Title from "../../components/common/Title";
