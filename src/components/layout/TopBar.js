@@ -40,7 +40,7 @@ const HamburgerBtn = styled.button`
 
 const TopBar = ({ onClick, isSideOpen, setIsSideOpen }) => {
   const isLogin = useIsLoginState();
-  console.log(isLogin);
+  // console.log(isLogin);
   const navigate = useNavigate();
   const { handleLogout } = useLoginform();
 
