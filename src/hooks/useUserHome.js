@@ -1,45 +1,55 @@
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import React, { useState } from "react";
 import { getCookie, setCookie } from "../utils/Cookie";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
+import { AlertTimer } from "../components/common/AlertTimer";
+// import { AlertTimer } from "../components/common/AlertTimer";
 
-const useUserHome = (closeModal) => {
+const useUserHome = () => {
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [teamList, setTeamList] = useState([]);
+  const [teamListCount, setTeamListCount] = useState(0);
+
+  const userName = getCookie("userId");
 
   const [teamForm, setTeamForm] = useState({
     teamName: "",
     description: "",
     nick: "",
-    userId: getCookie("userId"),
+    userId: userName,
   });
 
-  // MakeTeamModal 에서 사용 --------------------------------------------------------------
+  useEffect(() => {
+    handleTeamList();
+  }, []);
 
+  // useEffect(() => {
+  // }, [teamList]);  // 이거없어도 teamList, teamListCount 변경됨.
+
+  // MakeTeamModal 에서 사용
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setTeamForm({ ...teamForm, [name]: value });
   };
 
   const handleMakeTeam = async () => {
-    console.log("팀등록함수");
-    // setTeamForm({ ...teamForm, userId: getCookie("userId") }); // 이렇게 하면 X : 아래 라인이 먼저 동작됨
     try {
       const response = await axios.post("/api/team/register", teamForm);
-      // console.log(response);
-
+      console.log("inserted team : ", response.data);
       if (response.statusText == "OK") {
-        /* 바로이동 alert창*/
-        // Swal.fire({
-        //   title: "팀 생성 완료",
-        //   text: "생성된 팀으로 이동합니다.",
-        //   icon: "success",
-        //   showConfirmButton: false,
-        //   showCancelButton: false,
-        //   timer: 2000,
-        //   height: "500px",
-        // });
-        // navigate("/team"); //  /team/:teamid로 이동시킨다. `/team/:${teamId}`
+        /*refactoredCode
+            const newTeam = response.data; // 서버에서 반환된 새 팀 정보
+            setTeamList((prevTeamList) => [...prevTeamList, newTeam]);
+            setTeamlListCount((prevCount) => prevCount + 1);
+        */
+
+        /* 
+        //바로이동 alert창일 경우
+        AlertTimer();
+        navigate("/team"); // `/team/:${teamId}`로 이동시킨다.
+        */
 
         /* 이동 여부 확인 alert창*/
         Swal.fire({
@@ -56,15 +66,24 @@ const useUserHome = (closeModal) => {
           if (result.isConfirmed) {
             navigate("/team");
           } else {
-            // closeModal(); // 비동기로 하고싶었는데..
-            window.location.replace("/");
+            teamList.push(response.data);
+            setTeamListCount(teamList.length);
+            //form 비우기
+            setIsModalOpen(false); //가존 closeModal 함수 대체
           }
         });
       } else {
-        alert("ERROR\n처음부터 다시 진행해주세요.");
+        AlertTimer("ERROR", "처음부터 다시 진행해주세요.", "warning", 2000);
+        // alert("ERROR\n처음부터 다시 진행해주세요.");
       }
     } catch (error) {
-      alert("ERROR" + error.message + "\n오류발생!!\n 다시 진행해주세요.");
+      AlertTimer(
+        "ERROR",
+        error.message + "\n오류발생!!\n 다시 진행해주세요.",
+        "warning",
+        2300
+      );
+      // alert("ERROR" + error.message + "\n오류발생!!\n 다시 진행해주세요.");
     }
   };
 
@@ -72,10 +91,11 @@ const useUserHome = (closeModal) => {
 
   // 유저가 속한 팀 목록 불러오는 함수
   const handleTeamList = async () => {
-    const userId = getCookie("userId");
-    const response = await axios.get(`/api/team/list/${userId}`);
+    const response = await axios.get(`/api/team/list/${userName}`);
     console.log("response.data : ", response.data, response.data.length);
-    return response.data;
+
+    setTeamListCount(response.data.length);
+    setTeamList(response.data);
   };
 
   // 팀 프로필 클릭 시 이동
@@ -85,6 +105,11 @@ const useUserHome = (closeModal) => {
   };
 
   return {
+    isModalOpen,
+    setIsModalOpen,
+    userName,
+    teamList,
+    teamListCount,
     teamForm,
     handleInputChange,
     handleMakeTeam,

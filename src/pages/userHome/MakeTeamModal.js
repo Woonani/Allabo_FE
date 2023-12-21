@@ -1,16 +1,13 @@
 import React from "react";
-import CenteredContainer from "../../components/layout/CenteredContainer";
 import ModalBackground from "../../components/layout/ModalBackground";
 import ModalContainer from "../../components/layout/ModalContainer";
 import styled from "styled-components";
 import Button from "../../components/common/Button";
 import Title from "../../components/common/Title";
-import SimpleButton from "../../components/common/SimpleButton";
 import LogoBox from "../../components/common/LogoBox";
 import FloatingLabelInput from "../../components/common/FloatingLabelInput";
 import Text from "../../components/common/Text";
 import DropdownInput from "../../components/common/DropdownInput";
-import useUserHome from "../../hooks/useUserHome";
 
 const GridContainerRow = styled.div`
   display: grid;
@@ -50,12 +47,15 @@ const RowDiv = styled.div`
   align-items: center;
 `;
 
-const MakeTeamModal = ({ isOpen, closeModal }) => {
-  const { teamForm, handleInputChange, handleMakeTeam } =
-    useUserHome(closeModal);
-
+const MakeTeamModal = ({
+  isModalOpen,
+  closeModal,
+  teamForm,
+  handleInputChange,
+  handleMakeTeam,
+}) => {
   return (
-    <div style={{ display: isOpen ? "block" : "none" }}>
+    <div style={{ display: isModalOpen ? "block" : "none" }}>
       <ModalBackground />
       <ModalContainer>
         <GridContainerRow>
