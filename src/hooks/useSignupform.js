@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AlertTimer } from "../components/common/AlertTimer";
 
 const useSignupform = () => {
   const navigate = useNavigate();
@@ -29,11 +30,18 @@ const useSignupform = () => {
         );
         navigate("/login");
       } else {
-        alert("ERROR\n처음부터 다시 진행해주세요.");
+        AlertTimer("ERROR", "처음부터 다시 진행해주세요.", "warning", 2000);
+        // alert("ERROR\n처음부터 다시 진행해주세요.");
       }
     } catch (error) {
       console.log(error);
-      alert("ERROR" + error.message + "\n처음부터 다시 진행해주세요.");
+      AlertTimer(
+        "ERROR",
+        error.message + "\n처음부터 다시 진행해주세요.",
+        "warning",
+        2000
+      );
+      // alert("ERROR" + error.message + "\n처음부터 다시 진행해주세요.");
       navigate("/");
     }
   };

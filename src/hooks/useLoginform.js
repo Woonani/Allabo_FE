@@ -3,6 +3,7 @@ import { setCookie, getCookie, removeCookie } from "../utils/Cookie";
 import { redirect, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { IsLoginContext } from "../context/IsLoginContext";
+import { AlertTimer } from "../components/common/AlertTimer";
 
 const useLoginform = () => {
   const { setIsLogin } = useContext(IsLoginContext); // isLoginContext 구독
@@ -25,7 +26,12 @@ const useLoginform = () => {
       if (response.statusText == "OK") {
         if (response.data == 1) {
           // input 비우기 추가
-          return alert("아이디와 비밀번호를 확인해 주세요.");
+          return AlertTimer(
+            "아이디와 비밀번호를 확인해 주세요.",
+            "warning",
+            2300
+          );
+          // return alert("아이디와 비밀번호를 확인해 주세요.");
         }
         console.log("loginuser : ", response.data.loginuser);
 
@@ -50,7 +56,9 @@ const useLoginform = () => {
       }
     } catch (error) {
       console.log(error);
-      alert("ERROR" + error.message + "\n처음부터 다시 진행해주세요.");
+      // alert("ERROR" + error.message + "\n처음부터 다시 진행해주세요.");
+      AlertTimer("ERROR", "처음부터 다시 진행해주세요.", "warning", 2000);
+
       navigate("/");
     }
   };
