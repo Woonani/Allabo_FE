@@ -7,7 +7,7 @@ import { AlertTimer } from "../components/common/AlertTimer";
 const useSignupform = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    userid: "",
+    userId: "",
     password: "",
     cnfrmPassword: "",
     name: "",
@@ -24,9 +24,11 @@ const useSignupform = () => {
       const response = await axios.post("/api/auth/signup", formData);
       console.log(response);
       if (response.data == 1) {
-        alert(
-          formData.name +
-            "님 환영합니다! \n회원가입이 완료되어 로그인 페이지로 이동합니다."
+        AlertTimer(
+          formData.name + "님 환영합니다!",
+          "로그인 페이지로 이동합니다.",
+          "success",
+          2000
         );
         navigate("/login");
       } else {

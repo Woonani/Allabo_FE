@@ -97,8 +97,8 @@ const UserHome = () => {
         <MakeTeamModal
           isModalOpen={isModalOpen}
           closeModal={() => setIsModalOpen(false)} // 추천
-          teamForm
-          // teamForm={teamForm} // 필요한가?
+          teamForm={teamForm}
+          // teamForm 은 오류 >> 이거 때문에 초기화한 팀form 값이 안넘어감
           handleInputChange={handleInputChange}
           handleMakeTeam={handleMakeTeam}
         />
@@ -106,21 +106,21 @@ const UserHome = () => {
       {!teamListCount || (
         <StyledContainer>
           {teamList.map((team, idx) => (
-            <Card key={team.teamId}>
+            <Card key={team.teamSeq}>
               <Text text={"no." + (idx + 1)} />
               <br />
               <SquareButton
                 width="100px"
                 height="100px"
                 imgUrl={BasicImg}
-                handleClick={() => handleTeamPage(team.teamId)}
+                handleClick={() => handleTeamPage(team.teamSeq)}
               />
               <br />
               <Title text={team.teamName} />
               <br />
               <Text text={team.nick} />
               <br />
-              <Text text={team.teamId} />
+              <Text text={team.teamSeq} />
             </Card>
           ))}
         </StyledContainer>

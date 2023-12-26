@@ -8,7 +8,7 @@ import { AlertTimer } from "../components/common/AlertTimer";
 const useLoginform = () => {
   const { setIsLogin } = useContext(IsLoginContext); // isLoginContext 구독
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ userid: "", password: "" });
+  const [formData, setFormData] = useState({ userId: "", password: "" });
 
   const handleMainPage = (e) => {
     navigate("/");
@@ -39,15 +39,15 @@ const useLoginform = () => {
           path: "/", // 경로 /userhome에서 실험해보기
           maxAge: 1000 * 60 * 60 * 24 * 2, // maxAge 서버에서 설정한 거랑 다른건가?
         });
-        setCookie("userId", response.data.loginuser.userid, {
+        setCookie("userId", response.data.loginuser.userId, {
           path: "/",
           maxAge: 1000 * 60 * 60 * 24 * 2,
         });
-        setCookie("username", response.data.loginuser.name, {
+        setCookie("userName", response.data.loginuser.name, {
           path: "/",
           maxAge: 1000 * 60 * 60 * 24 * 2,
         });
-        // sessionStorage.setItem("userId", response.data.loginuser.userid);
+        // sessionStorage.setItem("userId", response.data.loginuser.userId);
         // sessionStorage.setItem("token", response.data.token); // context에서 토큰은 쿠키에서 불러와 사용
 
         navigate("/");
@@ -66,7 +66,7 @@ const useLoginform = () => {
   const handleLogout = () => {
     console.log("로그아웃 할꺼임");
     removeCookie("token");
-    removeCookie("username");
+    removeCookie("userName");
     removeCookie("userId");
     window.location.reload();
   };
