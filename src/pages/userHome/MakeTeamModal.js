@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ModalBackground from "../../components/layout/ModalBackground";
 import ModalContainer from "../../components/layout/ModalContainer";
 import styled from "styled-components";
@@ -8,6 +8,7 @@ import LogoBox from "../../components/common/LogoBox";
 import FloatingLabelInput from "../../components/common/FloatingLabelInput";
 import Text from "../../components/common/Text";
 import DropdownInput from "../../components/common/DropdownInput";
+import useUserHome from "../../hooks/useUserHome";
 
 const GridContainerRow = styled.div`
   display: grid;
@@ -115,7 +116,9 @@ const MakeTeamModal = ({
               text={"팀 생성"}
               margin={"20px"}
               width={"200px"}
-              onClick={handleMakeTeam}
+              onClick={(e) => {
+                handleMakeTeam(e);
+              }}
             />
             <Button
               text={"생성 취소"}
