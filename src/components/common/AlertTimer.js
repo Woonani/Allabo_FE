@@ -9,7 +9,7 @@ export const AlertTimer = (title, text, icon, timer) => {
     showConfirmButton: false,
     showCancelButton: false,
     timer: timer,
-    height: "500px",
+    height: "600px",
   });
 };
 
