@@ -26,9 +26,9 @@ const SignupPage = () => {
 
         <FloatingLabelInput
           label="아이디"
-          name="userid" // input 태그의 name 속성 값 userid
+          name="userId" // input 태그의 name 속성 값 userId
           type="text"
-          value={formData.userid} // state의 이름(키) userid
+          value={formData.userId} // state의 이름(키) userId
           onChange={handleInputChange}
         />
         <FloatingLabelInput

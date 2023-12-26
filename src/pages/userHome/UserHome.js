@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import SquareButton from "../../components/common/SquareButton";
 import AddBtn from "../../assets/img/common/AddBtn.png";
 import MakeTeamModal from "./MakeTeamModal";
-import { getCookie } from "../../utils/Cookie";
 import Text from "../../components/common/Text";
 import BasicImg from "../../assets/img/common/BasicTeam.png";
 import Title from "../../components/common/Title";
@@ -60,38 +59,26 @@ const StyledSubTitle = styled.h1`
   line-height: 1.3;
 `;
 
-const UserHome = (userNick) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [teamList, setTeamList] = useState([]);
-  const [countList, setCountList] = useState(0); // teamList 리렌더링을 위한 변수
-  const userName = getCookie("userId");
-  const { handleTeamList, handleTeamPage } = useUserHome();
-
-  const openModal = () => {
-    console.log("모달열기");
-    return setIsModalOpen(true);
-  };
-  const closeModal = () => setIsModalOpen(false);
-
-  useEffect(() => {
-    // 비동기 함수로 한번 감싸서 실행해야 promise pending이 풀린 데이터를 쓸 수 있음.
-    const fetch = async () => {
-      const data = await handleTeamList();
-      setCountList(data.length);
-      console.log(countList, data.length);
-      setTeamList(data);
-    };
-    fetch();
-    console.log("UserHome페이지 - teamList", teamList);
-  }, [countList]);
+const UserHome = () => {
+  const {
+    isModalOpen,
+    setIsModalOpen,
+    userName,
+    teamList,
+    teamListCount,
+    teamForm,
+    handleInputChange,
+    handleMakeTeam,
+    handleTeamPage,
+  } = useUserHome();
 
   return (
     <div>
       <StyledTitle>
         반가워요! {userName} 님 <br />
-        {countList == 0
+        {teamListCount == 0
           ? "팀 스페이스를 생성하여 협업에 참여해보세요!"
-          : `현재 참여중인 팀 스페이스가 ${countList} 개 입니다.`}
+          : `현재 참여중인 팀 스페이스가 ${teamListCount} 개 입니다.`}
         <br />
       </StyledTitle>
       <br />
@@ -101,32 +88,39 @@ const UserHome = (userNick) => {
         <StyledSubTitle>워크스페이스 생성하기</StyledSubTitle>
         &nbsp;
         <SquareButton
-          handleClick={openModal}
+          handleClick={() => setIsModalOpen(true)}
           imgUrl={AddBtn}
           opacity="0%"
           width="30px"
           height="30px"
         />
-        <MakeTeamModal isOpen={isModalOpen} closeModal={closeModal} />
+        <MakeTeamModal
+          isModalOpen={isModalOpen}
+          closeModal={() => setIsModalOpen(false)} // 추천
+          teamForm={teamForm}
+          // teamForm 은 오류 >> 이거 때문에 초기화한 팀form 값이 안넘어감
+          handleInputChange={handleInputChange}
+          handleMakeTeam={handleMakeTeam}
+        />
       </StyledOneline>
-      {!countList || (
+      {!teamListCount || (
         <StyledContainer>
           {teamList.map((team, idx) => (
-            <Card key={team.teamId}>
+            <Card key={team.teamSeq}>
               <Text text={"no." + (idx + 1)} />
               <br />
               <SquareButton
                 width="100px"
                 height="100px"
                 imgUrl={BasicImg}
-                handleClick={() => handleTeamPage(team.teamId)}
+                handleClick={() => handleTeamPage(team.teamSeq)}
               />
               <br />
               <Title text={team.teamName} />
               <br />
               <Text text={team.nick} />
               <br />
-              <Text text={team.teamId} />
+              <Text text={team.teamSeq} />
             </Card>
           ))}
         </StyledContainer>
