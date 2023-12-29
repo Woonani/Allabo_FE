@@ -6,6 +6,7 @@ const StyledSquareBtn = styled.button`
   height: ${(props) => props.$height || "40px"};
   border: none; /* 기본적인 테두리 제거 등 */
   border-radius: ${(props) => props.$borderRadius || "50%"};
+  margin: ${(props) => props.$margin || "0px"};
   background-color: transparent;
   background-image: url(${(props) => props.$imgUrl || null});
   background-size: cover; /* 이미지가 버튼을 채우도록 크기 조절 */
@@ -26,6 +27,7 @@ const SquareButton = ({ handleClick, ...props }) => {
       $width={props.width}
       $height={props.height}
       $borderRadius={props.borderRadius}
+      $margin={props.margin}
       // {...props}
     >
       {props.imgUrl ? null : "버튼"}
