@@ -7,6 +7,7 @@ import Text from "../../components/common/Text";
 import BasicImg from "../../assets/img/common/BasicTeam.png";
 import Title from "../../components/common/Title";
 import useUserHome from "../../hooks/useUserHome";
+import BasicFrame from "../../components/layout/BasicFrame";
 
 const StyledContainer = styled.div`
   width: 70vw; //830,430
@@ -73,7 +74,7 @@ const UserHome = () => {
   } = useUserHome();
 
   return (
-    <div>
+    <BasicFrame>
       <StyledTitle>
         반가워요! {userName} 님 <br />
         {teamListCount == 0
@@ -113,7 +114,7 @@ const UserHome = () => {
                 width="100px"
                 height="100px"
                 imgUrl={BasicImg}
-                handleClick={() => handleTeamPage(team.teamSeq)}
+                handleClick={() => handleTeamPage(team)}
               />
               <br />
               <Title text={team.teamName} />
@@ -125,7 +126,7 @@ const UserHome = () => {
           ))}
         </StyledContainer>
       )}
-    </div>
+    </BasicFrame>
   );
 };
 

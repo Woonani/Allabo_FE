@@ -3,8 +3,7 @@ import React, { createContext, useContext, useMemo, useState } from "react";
 import { getCookie } from "../utils/Cookie";
 
 const token = getCookie("token");
-console.log("token", token);
-// const token = sessionStorage.getItem("token");
+// console.log("token", token);
 
 // (1) 컨텍스트 생성
 export const IsLoginContext = createContext({
@@ -19,7 +18,7 @@ export const IsLoginProvider = ({ children }) => {
     token !== undefined ? true : false // 상태관리에 사용할 변수(isLogin), 함수 선언
     // null을 undefined로 수정 >> 로그아웃 버튼 안눌렀을때 토큰이 남아있는 경우.. 문제임.
   );
-  const value = useMemo(() => ({ isLogin, setIsLogin }), [isLogin, setIsLogin]); // useMemo로 이 둘값 변할때만 렌더링 할꺼라고 메모해서 value에 담음
+  const value = useMemo(() => ({ isLogin, setIsLogin }), [isLogin, setIsLogin]); // useMemo로 이 둘 값 변할때만 렌더링 할꺼라고 메모해서 value에 담음
   // useMemo로 캐싱하지 않으면 value가 바뀔 때마다 state를 사용하는 모든 컴포넌트가 매번 리렌더링됨
 
   return (
@@ -37,6 +36,7 @@ export const IsLoginProvider = ({ children }) => {
 //                  실제 로그인 상태를 관리하는데 사용됨
 //
 
+// 아래 커스텀 훅을 사용하면 consumer를 만들지 않아도 됨.
 // (2) 상태구독할 수 있는 커스텀 훅 만듦 : 상태를 구독하는 컴포넌트마다 useContext훅을 사용하지 않아도 되도록.
 export function useIsLoginState() {
   const context = useContext(IsLoginContext);

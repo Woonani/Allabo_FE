@@ -4,9 +4,11 @@ import { getCookie, setCookie } from "../utils/Cookie";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AlertTimer } from "../components/common/AlertTimer";
-// import { AlertTimer } from "../components/common/AlertTimer";
+import { useTeamListState } from "../context/teamListContext";
+import { setLocalStorage, getLocalStorage } from "../utils/LocalStorage";
 
 const useUserHome = () => {
+  const { state, actions } = useTeamListState();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [teamList, setTeamList] = useState([]);
@@ -25,6 +27,12 @@ const useUserHome = () => {
 
   useEffect(() => {
     handleTeamList();
+
+    //유저홈에서는 현재 선택된 팀 정보가 없어야 함.
+    //근데 리셋이 되어야 할까? 뒤로가기 누를 수도 있잖아
+    // console.log("유저홈now-team리셋확인", state.currentTeam);
+    // setLocalStorage("now-team", {});
+    // actions.setCurrentTeam({});
   }, []);
 
   // useEffect(() => {
@@ -40,7 +48,7 @@ const useUserHome = () => {
   const handleMakeTeam = async (e) => {
     try {
       const response = await axios.post("/api/team/register", teamForm);
-      console.log("inserted team : ", response.data);
+      // console.log("inserted team : ", response.data);
       if (response.statusText == "OK") {
         /*refactoredCode*/
         const newTeam = response.data; // 서버에서 반환된 새 팀 정보
@@ -48,6 +56,9 @@ const useUserHome = () => {
         setTeamList((prevTeamList) => [newTeam, ...prevTeamList]); // 방금 추가된 팀에 맨 앞에 추가됨
         // setTeamListCount((prevCount) => prevCount + 1);
         setTeamListCount(teamList.length);
+
+        //컨텍스트 추가_1
+        actions.setTeamListCon((prevTeamList) => [newTeam, ...prevTeamList]);
 
         /* 
         //바로이동 alert창일 경우
@@ -68,6 +79,11 @@ const useUserHome = () => {
           height: "500px",
         }).then((result) => {
           if (result.isConfirmed) {
+            //컨텍스트 추가_2
+            // console.log("currentTeam컨텍스트 : ", newTeam);
+            actions.setCurrentTeam({ ...newTeam });
+            setLocalStorage("now-team", newTeam); // 리덕스 사용시 안 쓸 예정
+
             navigate("/team");
           } else {
             // teamList.push(response.data); // 불변성 유지 위배
@@ -99,15 +115,22 @@ const useUserHome = () => {
   // 유저가 속한 팀 목록 불러오는 함수
   const handleTeamList = async () => {
     const response = await axios.get(`/api/team/list/${userId}`);
-    console.log("response.data : ", response.data, response.data.length);
+    // console.log("response.data : ", response.data, response.data.length);
+    setLocalStorage("team-list", response.data);
+
+    //컨텍스트 추가_1
+    actions.setTeamListCon(response.data);
 
     setTeamListCount(response.data.length);
     setTeamList(response.data);
   };
 
   // 팀 프로필 클릭 시 이동
-  const handleTeamPage = (teamSeq) => {
-    setCookie("now-team", teamSeq);
+  const handleTeamPage = (team) => {
+    //컨텍스트 추가_2
+    // console.log("클릭으로 받아온 team : ", team);
+    actions.setCurrentTeam(team);
+    setLocalStorage("now-team", team); // 리덕스 사용시 안 쓸 예정
     navigate("/team");
   };
 

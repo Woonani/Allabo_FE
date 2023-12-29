@@ -4,6 +4,7 @@ import { redirect, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { IsLoginContext } from "../context/IsLoginContext";
 import { AlertTimer } from "../components/common/AlertTimer";
+import { clearLocalStorage } from "../utils/LocalStorage";
 
 const useLoginform = () => {
   const { setIsLogin } = useContext(IsLoginContext); // isLoginContext 구독
@@ -68,6 +69,7 @@ const useLoginform = () => {
     removeCookie("token");
     removeCookie("userName");
     removeCookie("userId");
+    clearLocalStorage();
     window.location.reload();
   };
 
