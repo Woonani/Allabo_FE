@@ -28,6 +28,7 @@ const StyledSideOpened = styled.div`
   position: fixed;
   top: 60px;
   left: 0;
+  z-index: 1;
   background-color: black;
   box-shadow: 1px 1px 5px 0.2px grey;
   box-border: none;
@@ -43,6 +44,7 @@ const StyledSideClosed = styled.div`
   position: fixed;
   top: 60px;
   left: 0;
+  z-index: 1;
   background-color: black;
   box-shadow: 1px 1px 5px 0.2px grey;
   box-border: none;
