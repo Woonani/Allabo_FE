@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-const ScheduleBoard = () => {
+const ScheduleBoard = ({ handleSideMenu }) => {
+  useEffect(() => {
+    handleSideMenu("close");
+  }, []);
   return <div>일정관리 입니다.</div>;
 };
 
