@@ -176,30 +176,42 @@ const MakeTeamModal = ({
                     onChange={(e) => handleSearchMember(e)}
                   />
                   <ListContainer>
-                    {searchList.length > 0
-                      ? searchList.map((item, idx) => {
+                    {searchList.length > 0 ? (
+                      searchList.length == 1 ? (
+                        <TagButton
+                          // key={idx}
+                          text={searchList[0]}
+                        />
+                      ) : (
+                        searchList.map((item, idx) => {
                           const userId = item.userId;
                           const dupCheck = invitees.find((i) => i == userId);
                           // console.log("dupCheck : ", dupCheck);
-                          const disabled = dupCheck == undefined ? false : true;
-                          return (
-                            <>
-                              <TagButton
-                                // key={idx}
-                                text={userId}
-                                btnText="초대"
-                                btnWidth="40px"
-                                btnHeight="20px"
-                                onClick={() => {
-                                  setInvitees([...invitees, userId]);
-                                }}
-                                disabled={disabled}
-                                btnBoxShadow={"0.1px 0.1px 3px 0.1px grey"}
-                              />
-                            </>
-                          );
+                          if (idx > 0) {
+                            const disabled =
+                              dupCheck == undefined ? false : true;
+                            return (
+                              <>
+                                <TagButton
+                                  // key={idx}
+                                  text={userId}
+                                  btnText="초대"
+                                  btnWidth="40px"
+                                  btnHeight="20px"
+                                  onClick={() => {
+                                    setInvitees([...invitees, userId]);
+                                  }}
+                                  disabled={disabled}
+                                  btnBoxShadow={"0.1px 0.1px 3px 0.1px grey"}
+                                />
+                              </>
+                            );
+                          }
                         })
-                      : ""}
+                      )
+                    ) : (
+                      ""
+                    )}
                   </ListContainer>
                 </Container>
               </InfoColBox>
