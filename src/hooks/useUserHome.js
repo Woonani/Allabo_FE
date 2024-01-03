@@ -23,7 +23,8 @@ const useUserHome = () => {
     teamName: "",
     description: "",
     nick: "",
-    userId: getCookie("userId"), //userId,
+    userId: getCookie("userId"),
+    inviteelist: [],
   }; // teamForm 보다 위에 있어야함!!
   const [teamForm, setTeamForm] = useState(initTeamForm);
 
@@ -37,6 +38,13 @@ const useUserHome = () => {
     // actions.setCurrentTeam({});
   }, []);
 
+  // DropdownInput 컴포넌트에서 변경된 invitees값을 teamForm객체에 세팅
+  useEffect(() => {
+    // console.log("invitees 업데이트됨:", invitees);
+    setTeamForm({ ...teamForm, inviteelist: [...invitees] });
+    // console.log("teamForm 업데이트됨:", teamForm);
+  }, [invitees]);
+
   // useEffect(() => {
   //   console.log("teamList 업데이트됨:", teamList);
   // }, [teamList]); // 이거없어도 teamList, teamListCount 변경됨.
@@ -45,9 +53,11 @@ const useUserHome = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setTeamForm({ ...teamForm, [name]: value });
+    // console.log("handleInputChange : ", teamForm);
   };
 
   const handleMakeTeam = async (e) => {
+    console.log("handleMakeTeam : ", teamForm);
     try {
       const response = await axios.post("/api/team/register", teamForm);
       // console.log("inserted team : ", response.data);
@@ -61,12 +71,6 @@ const useUserHome = () => {
 
         //컨텍스트 추가_1
         actions.setTeamListCon((prevTeamList) => [newTeam, ...prevTeamList]);
-
-        /* 
-        //바로이동 alert창일 경우
-        AlertTimer();
-        navigate("/team"); // `/team/:${teamId}>>teamSeq로 변경`로 이동시킨다.
-        */
 
         /* 이동 여부 확인 alert창*/
         Swal.fire({
@@ -93,8 +97,9 @@ const useUserHome = () => {
 
             //form 비우기
             setTeamForm({ ...initTeamForm });
+            setInvitees([]);
             console.log("initTeamForm", initTeamForm);
-            setIsModalOpen(false); //가존 closeModal 함수 대체
+            setIsModalOpen(false);
           }
         });
       } else {
@@ -138,10 +143,10 @@ const useUserHome = () => {
 
   const handleSearchMember = async (e) => {
     const searchId = e.target.value;
-    console.log("검색어", searchId);
+    // console.log("검색어", searchId);
     if (searchId.length > 0) {
       const response = await axios.get(`/api/member/search/${searchId}`);
-      console.log("검색결과", response.data);
+      // console.log("검색결과", response.data);
       setSearchList([...response.data]);
     } else {
       setSearchList([]);

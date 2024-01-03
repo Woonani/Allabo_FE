@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import TagButton from "./TagButton";
 
-// 컨테이너로 감싸면 input width 일괄 조절 가능
+// z컴포넌트화 잘못함 >> 수정해서 다른 검색 컴포넌트로 사용하기
 
 const Container = styled.div`
   display: flex;
@@ -66,6 +66,7 @@ const DropdownInput = ({
               return (
                 <>
                   <TagButton
+                    // key={idx}
                     text={userId}
                     btnText="초대"
                     btnWidth="40px"
