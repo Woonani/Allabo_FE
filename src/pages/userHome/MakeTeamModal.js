@@ -7,7 +7,6 @@ import Title from "../../components/common/Title";
 import LogoBox from "../../components/common/LogoBox";
 import FloatingLabelInput from "../../components/common/FloatingLabelInput";
 import Text from "../../components/common/Text";
-import DropdownInput from "../../components/common/DropdownInput";
 import BasicFrame from "../../components/layout/BasicFrame";
 import TagButton from "../../components/common/TagButton";
 import CloseBtn from "../../assets/img/common/CloseBtn3.png";
@@ -86,7 +85,6 @@ const ListContainer = styled.div`
   flex-direction: column;
   width: 260px;
   min-height: 70px;
-  // border: 1px solid red;
   overflow-y: auto;
 `;
 

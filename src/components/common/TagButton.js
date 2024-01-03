@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const ButtonContainer = styled.div`
+const Container = styled.div`
   display: flex;
   justify-content: space-between;
   //   align-items: center;
@@ -51,7 +51,7 @@ const StyledBtn = styled.button`
 
 const TagButton = ({ text, btnText, onClick, disabled, ...props }) => {
   return (
-    <ButtonContainer
+    <Container
       $borderRadius={props.borderRadius}
       $width={props.width}
       $height={props.height}
@@ -71,7 +71,7 @@ const TagButton = ({ text, btnText, onClick, disabled, ...props }) => {
       >
         {btnText}
       </StyledBtn>
-    </ButtonContainer>
+    </Container>
   );
 };
 

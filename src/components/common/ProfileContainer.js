@@ -1,48 +1,94 @@
 import React from "react";
 import styled from "styled-components";
 
-const StyledContainer = styled.div`
+const Container = styled.div`
   display: flex;
-  flex-direction: row;
+  // justify-content: flex-start; // space-between;
+  justify-content: ${(props) => props.$justifyContent || "space-between"};
   align-items: center;
-  box-sizing: border-box;
-  border: none;
-  background-color: transparent; // 버튼 기본 색상 가림
-  cursor: pointer; // 커서 설정
-`;
-const StyledBtn = styled.button`
-  width: ${(props) => props.width || "80px"};
-  height: ${(props) => props.height || "40px"};
-  font-size: ${(props) => props.fontSize || "18px"};
-  color: var(--color-primary-violet);
-  font-family: "NanumSquareRound Extra Bold";
-  font-weight: bold;
-  border: none; /* 기본적인 테두리 제거 */
-  box-shadow: 0.1px 0.1px 3px 0.1px grey;
-  background-color: ${(props) =>
-    props.btnColor || "var(--color-primary-white)"};
-  cursor: pointer;
-  border-radius: 20px;
+  width: ${(props) => props.$width || "100%"};
+  height: ${(props) => props.$height || null};
+  border-radius: ${(props) => props.$borderRadius || "0%"};
+  margin: ${(props) => props.$margin || "0px"};
+  padding: 5px 10px;
   transition: background-color 0.3s ease;
+  //버튼속성 제어
+  cursor: pointer;
   &:hover {
-    box-shadow: 2px 2px 5px 0px grey;
     background-color: var(--hover-color, hsl(49.36deg 21.79% 90.45% / 70%));
   }
 `;
-const ProfileContainer = ({ onClick, btnText, ...props }) => {
+
+const ImgContainer = styled.img`
+  width: ${(props) => props.$imgWidth || "40px"};
+  height: ${(props) => props.$imgHeight || "40px"};
+  border-radius: 50%;
+  background-color: transparent;
+  box-shadow: ${(props) =>
+    props.$imgBoxShadow || "none"}; // 0.1px 0.1px 3px 0.1px grey;
+`;
+
+const TextContainer = styled.div`
+  color: ${(props) => props.$color || "black"};
+  font-family: Inter; //"NanumSquareRound Extra Bold";
+`;
+
+const FrontSpace = styled.div`
+  display: flex;
+  justify-content: center;
+  font-family: Inter; //"NanumSquareRound Extra Bold";
+  width: ${(props) => props.$frontSpaceWidth || null};
+`;
+
+const BackSpace = styled.div`
+  display: flex;
+  justify-content: center;
+  font-family: Inter; //"NanumSquareRound Extra Bold";
+  width: ${(props) => props.$backSpaceWidth || null};
+`;
+
+const ProfileContainer = ({
+  imgSrc,
+  imgAlt,
+  textList,
+  text,
+  frontSpaceWidth,
+  backSpaceWidth,
+  onClick,
+  ...props
+}) => {
   return (
-    <StyledContainer>
-      {/* <div>프로필 자리</div> */}
-      <StyledBtn
-        onClick={onClick}
-        $width={props.width}
-        $height={props.height}
-        $fontSize={props.fontSize}
-        $btnColor={props.btnColor}
-      >
-        {btnText}
-      </StyledBtn>
-    </StyledContainer>
+    <Container
+      key={props.key}
+      $justifyContent={props.justifyContent}
+      $borderRadius={props.borderRadius}
+      $width={props.width}
+      $height={props.height}
+      $boxShadow={props.boxShadow}
+      $margin={props.margin}
+    >
+      <ImgContainer
+        src={imgSrc}
+        alt={imgAlt}
+        $imgWidth={props.imgWidth}
+        $imgHeight={props.imgHeight}
+        $imgBoxShadow={props.imgBoxShadow}
+      />
+
+      <FrontSpace $frontSpaceWidth={frontSpaceWidth}>{text}</FrontSpace>
+      {textList != undefined && textList.length > 0
+        ? textList.map((item, idx) => {
+            return (
+              <>
+                <TextContainer key={idx} $color={props.color}>
+                  {item}
+                </TextContainer>
+                <BackSpace $backSpaceWidth={backSpaceWidth}>{text}</BackSpace>
+              </>
+            );
+          })
+        : null}
+    </Container>
   );
 };
 
