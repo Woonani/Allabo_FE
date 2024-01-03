@@ -13,6 +13,8 @@ const useUserHome = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [teamList, setTeamList] = useState([]);
   const [teamListCount, setTeamListCount] = useState(0);
+  const [searchList, setSearchList] = useState([]);
+  const [invitees, setInvitees] = useState([]);
 
   const userName = getCookie("userName");
   const userId = getCookie("userId");
@@ -134,6 +136,18 @@ const useUserHome = () => {
     navigate("/team");
   };
 
+  const handleSearchMember = async (e) => {
+    const searchId = e.target.value;
+    console.log("검색어", searchId);
+    if (searchId.length > 0) {
+      const response = await axios.get(`/api/member/search/${searchId}`);
+      console.log("검색결과", response.data);
+      setSearchList([...response.data]);
+    } else {
+      setSearchList([]);
+    }
+  };
+
   return {
     isModalOpen,
     setIsModalOpen,
@@ -147,6 +161,11 @@ const useUserHome = () => {
     handleTeamPage,
     setTeamForm,
     initTeamForm,
+    handleSearchMember,
+    searchList,
+    setSearchList,
+    invitees,
+    setInvitees,
   };
 };
 
