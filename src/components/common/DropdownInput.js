@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import DropdownImg from "../../assets/img/common/Dropdown.png";
-import SquareButton from "./SquareButton";
+import TagButton from "./TagButton";
 
 // 컨테이너로 감싸면 input width 일괄 조절 가능
 
@@ -11,15 +10,14 @@ const Container = styled.div`
   width: ${(props) => props.width || "300px"};
   height: ${(props) => props.height || "40px"};
 `;
-const InputContainer = styled.div`
-  position: relative;
-  margin: 10px 0px;
+
+const ListContainer = styled.div`
   display: flex;
-  align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: ${(props) => props.width || "300px"};
-  height: ${(props) => props.height || "40px"};
+  flex-direction: column;
+  width: 260px;
+  min-height: 70px;
+  // border: 1px solid red;
+  overflow-y: auto;
 `;
 
 const StyledInput = styled.input`
@@ -37,54 +35,52 @@ const StyledInput = styled.input`
   }
 `;
 
-const StyledLabel = styled.label`
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: white;
-  pointer-events: none;
-  font-size: ${(props) => props.fontSize || "1em"}; // 폰트 크기 prop 추가
-  color: lightslategrey;
-`;
-
-const DropdownBtn = styled.button`
-  width: 40px;
-  height: 40px;
-  border: none; /* 기본적인 테두리 제거 등 */
-  background-color: transparent;
-  background-image: url(${DropdownImg});
-  background-size: cover; /* 이미지가 버튼을 채우도록 크기 조절 */
-  background-position: center; /* 이미지를 가운데로 정렬 */
-  cursor: pointer;
-  opacity: ${(opacity) => opacity || "100%"};
-  &:hover {
-    box-shadow: 0.5px 0.5px 5px 0.2px grey;
-  }
-`;
-
 const DropdownInput = ({
   label, // 인풋 라벨 : placeHolder 같은 역할
   fontSize,
   value,
   onChange,
   onBlur, // 커서 인풋 태그 밖으로 꺼냈을 때 발생하는 이벤트
+  searchList,
+  invitees,
+  setInvitees,
   ...props // props.a이런식으로
 }) => {
+  console.log("invitees", invitees);
   return (
     <Container>
-      <InputContainer>
-        <StyledInput
-          placeholder=" "
-          {...props}
-          value={value}
-          onChange={onChange}
-          onBlur={onBlur}
-        />
-        <StyledLabel fontSize={fontSize}>{label}</StyledLabel>
-        <SquareButton imgUrl={DropdownImg} borderRadius="0" />
-      </InputContainer>
-      <InputContainer>gg</InputContainer>
+      <StyledInput
+        placeholder=" "
+        {...props}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+      />
+      <ListContainer>
+        {searchList.length > 0
+          ? searchList.map((item, idx) => {
+              const userId = item.userId;
+              const dupCheck = invitees.find((i) => i == userId);
+              console.log("dupCheck : ", dupCheck);
+              const disabled = dupCheck == undefined ? false : true;
+              return (
+                <>
+                  <TagButton
+                    text={userId}
+                    btnText="초대"
+                    btnWidth="40px"
+                    btnHeight="20px"
+                    onClick={() => {
+                      setInvitees([...invitees, userId]);
+                    }}
+                    disabled={disabled}
+                    btnBoxShadow={"0.1px 0.1px 3px 0.1px grey"}
+                  />
+                </>
+              );
+            })
+          : ""}
+      </ListContainer>
     </Container>
   );
 };
