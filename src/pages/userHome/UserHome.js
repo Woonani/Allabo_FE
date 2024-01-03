@@ -71,6 +71,10 @@ const UserHome = () => {
     handleInputChange,
     handleMakeTeam,
     handleTeamPage,
+    handleSearchMember,
+    searchList,
+    invitees,
+    setInvitees,
   } = useUserHome();
 
   return (
@@ -102,6 +106,10 @@ const UserHome = () => {
           // teamForm 은 오류 >> 이거 때문에 초기화한 팀form 값이 안넘어감
           handleInputChange={handleInputChange}
           handleMakeTeam={handleMakeTeam}
+          handleSearchMember={handleSearchMember}
+          searchList={searchList}
+          invitees={invitees}
+          setInvitees={setInvitees}
         />
       </StyledOneline>
       {!teamListCount || (
