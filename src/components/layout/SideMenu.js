@@ -1,7 +1,12 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useIsLoginState } from "../../context/IsLoginContext";
+import ProfileContainer from "../common/ProfileContainer";
+import HomeImg from "../../assets/img/common/Home.png";
+import SheduleImg from "../../assets/img/common/Shedule2.png";
+import BoardImg from "../../assets/img/common/Board.png";
+import ChatImg from "../../assets/img/common/Chat.png";
 
 // Keyframes 정의
 const slideOut = keyframes`
@@ -37,7 +42,9 @@ const StyledSideOpened = styled.div`
   height: 100%;
   animation: ${slideOut} 0.5s ease;
   color: red;
-  padding: 20px 20px 20px 90px;
+  padding: 15px 10px 10px 80px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const StyledSideClosed = styled.div`
@@ -55,33 +62,63 @@ const StyledSideClosed = styled.div`
 
 const SideMenu = ({ isSideOpen }) => {
   const isLogin = useIsLoginState();
-
+  const navigate = useNavigate();
   return (
     <>
       {isLogin ? (
         isSideOpen ? (
           <StyledSideOpened>
             <Link to="/team" className="link-style">
-              {" "}
-              메인보드
+              <ProfileContainer
+                justifyContent="flex-start"
+                backgroundColor="hsl(49.36deg 21.79% 90.45% / 15%)"
+                imgSrc={HomeImg}
+                imgAlt="공지"
+                imgWidth="25px"
+                imgHeight="25px"
+                text="메인보드"
+                frontSpaceWidth="10px"
+                backSpaceWidth="0px"
+              />
             </Link>
-            <br />
-            <br />
             <Link to="/schedule" className="link-style">
-              {" "}
-              일정관리
+              <ProfileContainer
+                justifyContent="flex-start"
+                backgroundColor="hsl(49.36deg 21.79% 90.45% / 15%)"
+                imgSrc={SheduleImg}
+                imgAlt="일정관리"
+                imgWidth="25px"
+                imgHeight="25px"
+                text="일정관리"
+                frontSpaceWidth="10px"
+                backSpaceWidth="0px"
+              />
             </Link>
-            <br />
-            <br />
             <Link to="/board" className="link-style">
-              {" "}
-              회의록
+              <ProfileContainer
+                justifyContent="flex-start"
+                backgroundColor="hsl(49.36deg 21.79% 90.45% / 15%)"
+                imgSrc={BoardImg}
+                imgAlt="회의록"
+                imgWidth="25px"
+                imgHeight="25px"
+                text="회의록"
+                frontSpaceWidth="10px"
+                backSpaceWidth="0px"
+              />
             </Link>
-            <br />
-            <br />
             <Link to="/chat" className="link-style">
-              {" "}
-              대화
+              <ProfileContainer
+                justifyContent="flex-start"
+                backgroundColor="hsl(49.36deg 21.79% 90.45% / 15%)"
+                imgSrc={ChatImg}
+                imgAlt="대화"
+                imgWidth="25px"
+                imgHeight="25px"
+                text="대화"
+                frontSpaceWidth="10px"
+                backSpaceWidth="0px"
+              />
             </Link>
           </StyledSideOpened>
         ) : (

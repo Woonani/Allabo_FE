@@ -11,7 +11,7 @@ const CardContainer = styled.div`
   // width: 250px;
   // height: 70px;
   border-radius: 8px;
-  padding: 20px;
+  padding: 20px 10px;
   margin: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: white;

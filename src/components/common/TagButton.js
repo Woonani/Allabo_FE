@@ -11,7 +11,7 @@ const Container = styled.div`
   border-radius: ${(props) => props.$borderRadius || "0%"};
   box-shadow: ${(props) => props.$boxShadow || "null"};
   margin: ${(props) => props.$margin || "0px"};
-  padding: 2px 10px;
+  padding: 3px 10px;
   transition: background-color 0.3s ease;
   &:hover {
     background-color: var(--hover-color, hsl(49.36deg 21.79% 90.45% / 70%));
