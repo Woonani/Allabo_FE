@@ -31,7 +31,7 @@ const Card = styled.div`
   border-radius: 50%;
   margin: 8px 0px;
   &:hover {
-    background-color: var(--color-primary-green);
+    background-color: hsl(120deg 100% 50% / 40%);
   }
 `;
 

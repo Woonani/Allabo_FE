@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BasicFrame from "../../components/layout/BasicFrame";
 import styled from "styled-components";
 import NameCard from "../../components/common/NameCard";
@@ -12,6 +12,7 @@ import CardContainer from "../../components/layout/CardContainer";
 import useTeamHome from "../../hooks/useTeamHome";
 import { useTeamListState } from "../../context/teamListContext";
 import ProfileContainer from "../../components/common/ProfileContainer";
+import ProfileContainer2 from "../../components/common/ProfileContainer2";
 
 const GridBoxRow = styled.div`
   // background-color: lightGrey;
@@ -55,7 +56,10 @@ const RightBox = styled.div`
   justify-content: space-between; //center;
 `;
 
-const TeamHome = () => {
+const TeamHome = ({ handleSideMenu }) => {
+  useEffect(() => {
+    handleSideMenu("open");
+  }, []);
   const { currentTeam } = useTeamListState().state;
   const { handleTeamInfo, teamHomeInfo } = useTeamHome();
   console.log("TeamHome - teamHomeInfo: ", teamHomeInfo); // 이거 왜 뒤늦게 바뀌지?
@@ -106,8 +110,8 @@ const TeamHome = () => {
                         imgWidth="35px"
                         imgHeight="35px"
                         imgBoxShadow="0.1px 0.1px 3px 0.1px grey"
-                        text={""}
-                        textList={[item.nick]}
+                        text={item.nick}
+                        // textList={[item.nick]}
                         frontSpaceWidth="20px"
                         backSpaceWidth="0px"
                       />
@@ -127,7 +131,7 @@ const TeamHome = () => {
                   console.log(item);
                   return (
                     <>
-                      <ProfileContainer
+                      <ProfileContainer2
                         key={item.userId}
                         imgSrc={NoticeImg}
                         imgAlt={item.nick}
@@ -157,7 +161,7 @@ const TeamHome = () => {
                   console.log(item);
                   return (
                     <>
-                      <ProfileContainer
+                      <ProfileContainer2
                         key={item.userId}
                         imgSrc={AlertImg}
                         imgAlt={item.nick}

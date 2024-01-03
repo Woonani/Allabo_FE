@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
-  justify-content: ${(props) =>
-    props.$justifyContent || "flex-start"}; //space-between
+  // justify-content: flex-start; // space-between;
+  justify-content: ${(props) => props.$justifyContent || "space-between"};
   align-items: center;
   width: ${(props) => props.$width || "100%"};
   height: ${(props) => props.$height || null};
@@ -15,11 +15,8 @@ const Container = styled.div`
   //버튼속성 제어
   cursor: pointer;
   &:hover {
-    // background-color: hsl(49.36deg 21.79% 90.45% / 70%);
-    background-color: ${(props) =>
-      props.$backgroundColor || "hsl(49.36deg 21.79% 90.45% / 70%)"};
+    background-color: var(--hover-color, hsl(49.36deg 21.79% 90.45% / 70%));
   }
-  font-family: Inter;
 `;
 
 const ImgContainer = styled.img`
@@ -64,7 +61,6 @@ const ProfileContainer = ({
     <Container
       key={props.key}
       $justifyContent={props.justifyContent}
-      $backgroundColor={props.backgroundColor}
       $borderRadius={props.borderRadius}
       $width={props.width}
       $height={props.height}
@@ -78,10 +74,20 @@ const ProfileContainer = ({
         $imgHeight={props.imgHeight}
         $imgBoxShadow={props.imgBoxShadow}
       />
-      <FrontSpace $frontSpaceWidth={frontSpaceWidth}></FrontSpace>
-      {text}
-      {/* <TextContainer>{text}</TextContainer> */}
-      <BackSpace $backSpaceWidth={backSpaceWidth}></BackSpace>
+
+      <FrontSpace $frontSpaceWidth={frontSpaceWidth}>{text}</FrontSpace>
+      {textList != undefined && textList.length > 0
+        ? textList.map((item, idx) => {
+            return (
+              <>
+                <TextContainer key={idx} $color={props.color}>
+                  {item}
+                </TextContainer>
+                <BackSpace $backSpaceWidth={backSpaceWidth}>{text}</BackSpace>
+              </>
+            );
+          })
+        : null}
     </Container>
   );
 };

@@ -9,6 +9,13 @@ const StyledLogoBox = styled.button`
   border: none;
   background-color: transparent; // 버튼 기본 색상 가림
   cursor: pointer; // 커서 설정
+  padding: 3px 15px;
+  border-radius: 30px;
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 2px 2px 4px 0px grey;
+  }
 `;
 
 const StyledImg = styled.img`

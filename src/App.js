@@ -21,9 +21,14 @@ import { TeamListProvider } from "./context/teamListContext";
 
 function App() {
   const [isSideOpen, setIsSideOpen] = useState(false);
-  const handleSideMenu = () => {
-    console.log("딸깍");
-    return setIsSideOpen(!isSideOpen);
+  const handleSideMenu = (order) => {
+    if (order == "open") {
+      return setIsSideOpen(true);
+    } else if (order == "close") {
+      return setIsSideOpen(false);
+    } else {
+      return setIsSideOpen(!isSideOpen);
+    }
   };
 
   return (
@@ -47,9 +52,18 @@ function App() {
             <Route path="/" element={<PrivateRoute />}>
               {/* 경로/ 로그인상태이면 <MainPage/>에서 <UserHome/>보여주도록 변경 */}
               {/* <Route path="/home" element={<UserHome />}></Route> */}
-              <Route path="/team" element={<TeamHome />}></Route>
-              <Route path="/schedule" element={<ScheduleBoard />}></Route>
-              <Route path="/board" element={<TaskBoard />}></Route>
+              <Route
+                path="/team"
+                element={<TeamHome handleSideMenu={handleSideMenu} />}
+              ></Route>
+              <Route
+                path="/schedule"
+                element={<ScheduleBoard handleSideMenu={handleSideMenu} />}
+              ></Route>
+              <Route
+                path="/board"
+                element={<TaskBoard handleSideMenu={handleSideMenu} />}
+              ></Route>
               <Route path="/chat" element={<ChatRoom />}></Route>
               <Route path="/*" element={<PageNotFound />} />
             </Route>

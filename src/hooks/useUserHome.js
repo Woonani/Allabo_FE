@@ -129,9 +129,9 @@ const useUserHome = () => {
         // 검색 결과에서 로그인한 유저 제거
         return item.userId != userId;
       });
-      setSearchList([...data]);
+      setSearchList(["검색결과가 없습니다.", ...data]);
     } else {
-      setSearchList([]);
+      setSearchList([""]);
     }
   };
 
