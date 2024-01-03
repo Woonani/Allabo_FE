@@ -49,7 +49,8 @@ const useUserHome = () => {
   //   console.log("teamList 업데이트됨:", teamList);
   // }, [teamList]); // 이거없어도 teamList, teamListCount 변경됨.
 
-  // MakeTeamModal 에서 사용
+  // MakeTeamModal 에서 사용 --------------------------------------------------------------
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setTeamForm({ ...teamForm, [name]: value });
@@ -117,9 +118,26 @@ const useUserHome = () => {
     }
   };
 
+  // 검색어로 초대할 팀원 목록 가져오는 함수
+  const handleSearchMember = async (e) => {
+    const searchId = e.target.value;
+    // console.log("검색어", searchId);
+    if (searchId.length > 0) {
+      const response = await axios.get(`/api/member/search/${searchId}`);
+      // console.log("검색결과", response.data);
+      const data = response.data.filter((item) => {
+        // 검색 결과에서 로그인한 유저 제거
+        return item.userId != userId;
+      });
+      setSearchList([...data]);
+    } else {
+      setSearchList([]);
+    }
+  };
+
   // UserHome에서 사용 --------------------------------------------------------------
 
-  // 유저가 속한 팀 목록 불러오는 함수
+  // 유저가 속한 팀 목록 가져오는 함수
   const handleTeamList = async () => {
     const response = await axios.get(`/api/team/list/${userId}`);
     // console.log("response.data : ", response.data, response.data.length);
@@ -139,18 +157,6 @@ const useUserHome = () => {
     actions.setCurrentTeam(team);
     setLocalStorage("now-team", team); // 리덕스 사용시 안 쓸 예정
     navigate("/team");
-  };
-
-  const handleSearchMember = async (e) => {
-    const searchId = e.target.value;
-    // console.log("검색어", searchId);
-    if (searchId.length > 0) {
-      const response = await axios.get(`/api/member/search/${searchId}`);
-      // console.log("검색결과", response.data);
-      setSearchList([...response.data]);
-    } else {
-      setSearchList([]);
-    }
   };
 
   return {
