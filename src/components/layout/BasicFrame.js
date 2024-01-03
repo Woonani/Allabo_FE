@@ -10,8 +10,8 @@ const BasicFrame = styled.div`
   align-items: center;
   justify-content: center;
   position: fixed; // nav 바 밑으로 들어가지 않도록 고정
-  top: 60px; //80px; //
-  left: 70px; //80px; //
+  top: 0px; //80px; //
+  left: 0px; //80px; //
   width: 100vw;
   height: 100vh;
   min-width: 900px;
