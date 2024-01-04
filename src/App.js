@@ -49,21 +49,15 @@ function App() {
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/login" element={<LoginPage />} />
             {/* 로그인이 필요한 라우트들을 PrivateRoute 안에 묶기 */}
-            <Route path="/" element={<PrivateRoute />}>
+            <Route
+              path="/"
+              element={<PrivateRoute handleSideMenu={handleSideMenu} />}
+            >
               {/* 경로/ 로그인상태이면 <MainPage/>에서 <UserHome/>보여주도록 변경 */}
               {/* <Route path="/home" element={<UserHome />}></Route> */}
-              <Route
-                path="/team"
-                element={<TeamHome handleSideMenu={handleSideMenu} />}
-              ></Route>
-              <Route
-                path="/schedule"
-                element={<ScheduleBoard handleSideMenu={handleSideMenu} />}
-              ></Route>
-              <Route
-                path="/board"
-                element={<TaskBoard handleSideMenu={handleSideMenu} />}
-              ></Route>
+              <Route path="/team" element={<TeamHome />}></Route>
+              <Route path="/schedule" element={<ScheduleBoard />}></Route>
+              <Route path="/board" element={<TaskBoard />}></Route>
               <Route path="/chat" element={<ChatRoom />}></Route>
               <Route path="/*" element={<PageNotFound />} />
             </Route>

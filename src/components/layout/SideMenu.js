@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { keyframes } from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useIsLoginState } from "../../context/IsLoginContext";
 import ProfileContainer from "../common/ProfileContainer";
 import HomeImg from "../../assets/img/common/Home.png";
 import SheduleImg from "../../assets/img/common/Shedule2.png";
 import BoardImg from "../../assets/img/common/Board.png";
 import ChatImg from "../../assets/img/common/Chat.png";
+import { getLocalStorage } from "../../utils/LocalStorage";
 
 // Keyframes 정의
 const slideOut = keyframes`
@@ -62,64 +63,41 @@ const StyledSideClosed = styled.div`
 
 const SideMenu = ({ isSideOpen }) => {
   const isLogin = useIsLoginState();
-  const navigate = useNavigate();
+  const nowPage = getLocalStorage("now-page");
+  console.log("side - ", nowPage);
+  const menu = [
+    { link: "/team", imgSrc: HomeImg, text: "메인보드", active: false },
+    { link: "/schedule", imgSrc: SheduleImg, text: "일정관리", active: false },
+    { link: "/board", imgSrc: BoardImg, text: "회의록", active: false },
+    { link: "/chat", imgSrc: ChatImg, text: "대화", active: false },
+  ];
   return (
     <>
       {isLogin ? (
         isSideOpen ? (
           <StyledSideOpened>
-            <Link to="/team" className="link-style">
-              <ProfileContainer
-                justifyContent="flex-start"
-                backgroundColor="hsl(49.36deg 21.79% 90.45% / 15%)"
-                imgSrc={HomeImg}
-                imgAlt="공지"
-                imgWidth="25px"
-                imgHeight="25px"
-                text="메인보드"
-                frontSpaceWidth="10px"
-                backSpaceWidth="0px"
-              />
-            </Link>
-            <Link to="/schedule" className="link-style">
-              <ProfileContainer
-                justifyContent="flex-start"
-                backgroundColor="hsl(49.36deg 21.79% 90.45% / 15%)"
-                imgSrc={SheduleImg}
-                imgAlt="일정관리"
-                imgWidth="25px"
-                imgHeight="25px"
-                text="일정관리"
-                frontSpaceWidth="10px"
-                backSpaceWidth="0px"
-              />
-            </Link>
-            <Link to="/board" className="link-style">
-              <ProfileContainer
-                justifyContent="flex-start"
-                backgroundColor="hsl(49.36deg 21.79% 90.45% / 15%)"
-                imgSrc={BoardImg}
-                imgAlt="회의록"
-                imgWidth="25px"
-                imgHeight="25px"
-                text="회의록"
-                frontSpaceWidth="10px"
-                backSpaceWidth="0px"
-              />
-            </Link>
-            <Link to="/chat" className="link-style">
-              <ProfileContainer
-                justifyContent="flex-start"
-                backgroundColor="hsl(49.36deg 21.79% 90.45% / 15%)"
-                imgSrc={ChatImg}
-                imgAlt="대화"
-                imgWidth="25px"
-                imgHeight="25px"
-                text="대화"
-                frontSpaceWidth="10px"
-                backSpaceWidth="0px"
-              />
-            </Link>
+            {menu.map((item, idx) => {
+              item.active = idx == nowPage ? true : false;
+              return (
+                <>
+                  <Link to={item.link} className="link-style">
+                    <ProfileContainer
+                      key={idx}
+                      justifyContent="flex-start"
+                      backgroundColor="hsl(49.36deg 21.79% 90.45% / 15%)"
+                      imgSrc={item.imgSrc}
+                      imgAlt={item.text}
+                      imgWidth="25px"
+                      imgHeight="25px"
+                      text={item.text}
+                      frontSpaceWidth="10px"
+                      backSpaceWidth="0px"
+                      active={item.active}
+                    />
+                  </Link>
+                </>
+              );
+            })}
           </StyledSideOpened>
         ) : (
           <StyledSideClosed></StyledSideClosed>
