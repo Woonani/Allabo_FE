@@ -38,8 +38,6 @@ const useTeamHome = () => {
           }
           if (item.role == 1) {
             item.nick = item.nick + " 👑";
-          } else {
-            item.nick = "  " + item.nick;
           }
           return item.userId != userId;
         });

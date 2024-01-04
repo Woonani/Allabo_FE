@@ -64,7 +64,7 @@ const StyledSideClosed = styled.div`
 const SideMenu = ({ isSideOpen }) => {
   const isLogin = useIsLoginState();
   const nowPage = getLocalStorage("now-page");
-  console.log("side - ", nowPage);
+  // console.log("side - ", nowPage);
   const menu = [
     { link: "/team", imgSrc: HomeImg, text: "메인보드", active: false },
     { link: "/schedule", imgSrc: SheduleImg, text: "일정관리", active: false },

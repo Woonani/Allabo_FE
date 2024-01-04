@@ -28,6 +28,7 @@ const StyledContainer = styled.div`
 const Card = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   border: 1px solid #ddd;
   height: 300px;
@@ -60,6 +61,13 @@ const StyledSubTitle = styled.h1`
   line-height: 1.3;
 `;
 
+const BottomContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 150px;
+`;
+
 const UserHome = () => {
   const {
     isModalOpen,
@@ -75,6 +83,7 @@ const UserHome = () => {
     searchList,
     invitees,
     setInvitees,
+    handleTeamDelete,
   } = useUserHome();
 
   return (
@@ -114,24 +123,57 @@ const UserHome = () => {
       </StyledOneline>
       {!teamListCount || (
         <StyledContainer>
-          {teamList.map((team, idx) => (
-            <Card key={team.teamSeq}>
-              <Text text={"no." + (idx + 1)} />
-              <br />
-              <SquareButton
-                width="100px"
-                height="100px"
-                imgUrl={BasicImg}
-                handleClick={() => handleTeamPage(team)}
-              />
-              <br />
-              <Title text={team.teamName} />
-              <br />
-              <Text text={team.nick} />
-              <br />
-              <Text text={team.teamSeq} />
-            </Card>
-          ))}
+          {teamList.map((team, idx) => {
+            console.log("team 카드 : ", team);
+            return (
+              <Card key={team.teamSeq}>
+                <SquareButton
+                  width="100px"
+                  height="100px"
+                  margin="10px 0px 0px 0px"
+                  imgUrl={BasicImg}
+                  handleClick={() => handleTeamPage(team)}
+                />
+                <Title text={team.teamName} />
+
+                <Text
+                  text={team.description}
+                  justifyContent="center"
+                  fontSize="15px"
+                  width="150px"
+                  height="25px"
+                />
+                <BottomContainer>
+                  {team.role == 1 ? (
+                    <Title text={"👑 " + team.nick} fontSize="15px" />
+                  ) : (
+                    <Title text={team.nick} fontSize="15px" />
+                  )}
+                  {team.role == 1 ? (
+                    <Text
+                      text={"팀 삭제"}
+                      fontSize="15px"
+                      color="red"
+                      hoverColor="red"
+                      textDecoration="underline"
+                      cursor="pointer"
+                      onClick={() => handleTeamDelete(team.teamSeq, idx)}
+                    />
+                  ) : (
+                    <Text
+                      text={"팀 탈퇴"}
+                      fontSize="15px"
+                      color="green"
+                      hoverColor="red"
+                      textDecoration="underline"
+                      cursor="pointer"
+                      onClick={() => console.log("서비스 준비 중")}
+                    />
+                  )}
+                </BottomContainer>
+              </Card>
+            );
+          })}
         </StyledContainer>
       )}
     </BasicFrame>

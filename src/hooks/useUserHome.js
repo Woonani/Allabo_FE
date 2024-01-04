@@ -159,6 +159,27 @@ const useUserHome = () => {
     navigate("/team");
   };
 
+  // 팀 탈퇴 = 팀 삭제
+  const handleTeamDelete = async (teamSeq, idx) => {
+    try {
+      const response = await axios.delete(`/api/team/${teamSeq}`);
+      console.log("Delete team : ", response.data);
+      if (response.statusText == "OK") {
+        // teamList.splice(idx, 1);
+        // setTeamList(...teamList); //이게 맞나?
+        // setTeamListCount(teamList.length);
+        // actions.setTeamListCon((prevTeamList) => [newTeam, ...prevTeamList]);
+      }
+    } catch (error) {
+      AlertTimer(
+        "ERROR",
+        error.message + "\n오류발생!!\n 다시 진행해주세요.",
+        "warning",
+        2300
+      );
+    }
+  };
+
   return {
     isModalOpen,
     setIsModalOpen,
@@ -177,6 +198,7 @@ const useUserHome = () => {
     setSearchList,
     invitees,
     setInvitees,
+    handleTeamDelete,
   };
 };
 
