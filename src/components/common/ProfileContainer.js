@@ -12,10 +12,10 @@ const Container = styled.div`
   margin: ${(props) => props.$margin || "0px"};
   padding: 5px 10px;
   transition: background-color 0.3s ease;
-  //버튼속성 제어
   cursor: pointer;
+  background-color: ${(props) =>
+    props.$active ? props.$backgroundColor : "none"};
   &:hover {
-    // background-color: hsl(49.36deg 21.79% 90.45% / 70%);
     background-color: ${(props) =>
       props.$backgroundColor || "hsl(49.36deg 21.79% 90.45% / 70%)"};
   }
@@ -58,6 +58,7 @@ const ProfileContainer = ({
   frontSpaceWidth,
   backSpaceWidth,
   onClick,
+  active,
   ...props
 }) => {
   return (
@@ -70,6 +71,7 @@ const ProfileContainer = ({
       $height={props.height}
       $boxShadow={props.boxShadow}
       $margin={props.margin}
+      $active={active}
     >
       <ImgContainer
         src={imgSrc}

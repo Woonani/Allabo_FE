@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import BasicFrame from "../../components/layout/BasicFrame";
 import styled from "styled-components";
 import NameCard from "../../components/common/NameCard";
@@ -56,10 +56,7 @@ const RightBox = styled.div`
   justify-content: space-between; //center;
 `;
 
-const TeamHome = ({ handleSideMenu }) => {
-  useEffect(() => {
-    handleSideMenu("open");
-  }, []);
+const TeamHome = () => {
   const { currentTeam } = useTeamListState().state;
   const { handleTeamInfo, teamHomeInfo } = useTeamHome();
   console.log("TeamHome - teamHomeInfo: ", teamHomeInfo); // 이거 왜 뒤늦게 바뀌지?
