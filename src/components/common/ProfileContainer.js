@@ -10,7 +10,7 @@ const Container = styled.div`
   height: ${(props) => props.$height || null};
   border-radius: ${(props) => props.$borderRadius || "0%"};
   margin: ${(props) => props.$margin || "0px"};
-  padding: 5px 10px;
+  padding: ${(props) => props.$padding || "5px 10px"};
   transition: background-color 0.3s ease;
   cursor: pointer;
   background-color: ${(props) =>
@@ -71,6 +71,7 @@ const ProfileContainer = ({
       $height={props.height}
       $boxShadow={props.boxShadow}
       $margin={props.margin}
+      $padding={props.padding}
       $active={active}
     >
       <ImgContainer

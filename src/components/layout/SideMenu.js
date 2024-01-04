@@ -89,6 +89,7 @@ const SideMenu = ({ isSideOpen }) => {
                     imgWidth="25px"
                     imgHeight="25px"
                     text={item.text}
+                    padding="10px"
                     frontSpaceWidth="10px"
                     backSpaceWidth="0px"
                     active={item.active}
