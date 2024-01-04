@@ -93,6 +93,7 @@ const SideMenu = ({ isSideOpen }) => {
                     frontSpaceWidth="10px"
                     backSpaceWidth="0px"
                     active={item.active}
+                    imgBorderRadius="0px"
                   />
                 </Link>
               );

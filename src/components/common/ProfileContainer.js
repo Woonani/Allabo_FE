@@ -8,7 +8,7 @@ const Container = styled.div`
   align-items: center;
   width: ${(props) => props.$width || "100%"};
   height: ${(props) => props.$height || null};
-  border-radius: ${(props) => props.$borderRadius || "0%"};
+  border-radius: ${(props) => props.$borderRadius || "0px"};
   margin: ${(props) => props.$margin || "0px"};
   padding: ${(props) => props.$padding || "5px 10px"};
   transition: background-color 0.3s ease;
@@ -25,7 +25,7 @@ const Container = styled.div`
 const ImgContainer = styled.img`
   width: ${(props) => props.$imgWidth || "40px"};
   height: ${(props) => props.$imgHeight || "40px"};
-  border-radius: 50%;
+  border-radius: ${(props) => props.$imgBorderRadius || "50%"};
   background-color: transparent;
   box-shadow: ${(props) =>
     props.$imgBoxShadow || "none"}; // 0.1px 0.1px 3px 0.1px grey;
@@ -80,6 +80,7 @@ const ProfileContainer = ({
         $imgWidth={props.imgWidth}
         $imgHeight={props.imgHeight}
         $imgBoxShadow={props.imgBoxShadow}
+        $imgBorderRadius={props.imgBorderRadius}
       />
       <FrontSpace $frontSpaceWidth={frontSpaceWidth}></FrontSpace>
       {text}
