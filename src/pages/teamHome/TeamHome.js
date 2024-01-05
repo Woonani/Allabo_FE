@@ -10,7 +10,7 @@ import SquareButton from "../../components/common/SquareButton";
 import Text from "../../components/common/Text";
 import CardContainer from "../../components/layout/CardContainer";
 import useTeamHome from "../../hooks/useTeamHome";
-import { useTeamListState } from "../../context/teamListContext";
+import { useTeamListState } from "../../context/TeamListContext";
 import ProfileContainer from "../../components/common/ProfileContainer";
 import ProfileContainer2 from "../../components/common/ProfileContainer2";
 

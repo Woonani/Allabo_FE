@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useTeamListState } from "../context/teamListContext";
+import { useTeamListState } from "../context/TeamListContext";
 import { getCookie } from "../utils/Cookie";
 import { AlertTimer } from "../components/common/AlertTimer";
 

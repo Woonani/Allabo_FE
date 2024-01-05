@@ -8,6 +8,7 @@ import BasicImg from "../../assets/img/common/BasicTeam.png";
 import Title from "../../components/common/Title";
 import useUserHome from "../../hooks/useUserHome";
 import BasicFrame from "../../components/layout/BasicFrame";
+import { useTeamListState } from "../../context/TeamListContext";
 
 const StyledContainer = styled.div`
   width: 70vw; //830,430
@@ -69,11 +70,13 @@ const BottomContainer = styled.div`
 `;
 
 const UserHome = () => {
+  const { state, actions } = useTeamListState();
+
   const {
     isModalOpen,
     setIsModalOpen,
     userName,
-    teamList,
+    // teamList,
     teamListCount,
     teamForm,
     handleInputChange,
@@ -85,7 +88,6 @@ const UserHome = () => {
     setInvitees,
     handleTeamDelete,
   } = useUserHome();
-
   return (
     <BasicFrame>
       <StyledTitle>
@@ -123,7 +125,8 @@ const UserHome = () => {
       </StyledOneline>
       {!teamListCount || (
         <StyledContainer>
-          {teamList.map((team, idx) => {
+          {state.teamList.map((team, idx) => {
+            // {teamList.map((team, idx) => {
             console.log("team 카드 : ", team);
             return (
               <Card key={team.teamSeq}>
