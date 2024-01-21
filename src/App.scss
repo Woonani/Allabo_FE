@@ -181,8 +181,9 @@ input {
 }
 .link-style {
   color: white;
-  font-weight: Bold;
   font-size: large;
   font-family: "NanumSquareRound Regular";
-  margin: 5px 0px;
+  margin: 0px;
+  // margin: 5px 0px;
+  text-decoration: none;
 }

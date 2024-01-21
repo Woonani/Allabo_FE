@@ -4,6 +4,9 @@ import LogoBoxHorizon from "../../components/common/LogoBoxHorizon";
 import HamBtnImgF from "../../assets/img/common/HamburgerBtnF.png";
 import { useNavigate } from "react-router-dom";
 import { useIsLoginState } from "../../context/IsLoginContext";
+import ProfileContainer from "../common/ProfileContainer";
+import useLoginform from "../../hooks/useLoginform";
+import SimpleButton from "../common/SimpleButton";
 
 const StyledTopBar = styled.div`
   position: fixed;
@@ -25,23 +28,30 @@ const StyledTopBar = styled.div`
 const HamburgerBtn = styled.button`
   width: 40px;
   height: 40px;
-  border: none; /* 기본적인 테두리 제거 등 */
-  box-shadow: 0.1px 0.1px 5px 0.2px grey;
+  border: none;
+  // border: 1px solid grey;
+  box-shadow: ${(props) => props.$boxShadow || "none"};
   background-color: transparent;
   background-image: url(${HamBtnImgF});
   background-size: cover; /* 이미지가 버튼을 채우도록 크기 조절 */
   background-position: center; /* 이미지를 가운데로 정렬 */
   cursor: pointer;
-  opacity: ${(opacity) => opacity || "100%"};
+  opacity: 100%;
+  border-radius: 10px;
+  transition: box-shadow 0.3s ease;
+  &:hover {
+    box-shadow: 2px 2px 5px 0px grey;
+  }
 `;
 
 const TopBar = ({ onClick, isSideOpen, setIsSideOpen }) => {
   const isLogin = useIsLoginState();
-  console.log(isLogin);
+  // console.log(isLogin);
   const navigate = useNavigate();
+  const { handleLogout } = useLoginform();
 
   const handleLogoClick = () => {
-    navigate("/home");
+    navigate("/");
     isSideOpen ? setIsSideOpen(!isSideOpen) : setIsSideOpen(isSideOpen);
   };
 
@@ -50,10 +60,11 @@ const TopBar = ({ onClick, isSideOpen, setIsSideOpen }) => {
       {isLogin ? (
         <StyledTopBar>
           {isSideOpen ? (
-            <HamburgerBtn onClick={onClick} opacity={"50%"} />
+            <HamburgerBtn onClick={onClick} $boxShadow="2px 2px 5px 0px grey" />
           ) : (
             <HamburgerBtn onClick={onClick} />
           )}
+          {/* <HamburgerBtn onClick={onClick} /> */}
           <LogoBoxHorizon
             logoImgSize="40px"
             fontSize="35px"
@@ -61,7 +72,10 @@ const TopBar = ({ onClick, isSideOpen, setIsSideOpen }) => {
             space="1.5px"
             onClick={handleLogoClick}
           />
-          <div>프로필 자리</div>
+
+          {/* 프로필 자리 */}
+          {/* <ProfileContainer /> */}
+          <SimpleButton btnText={"Logout"} onClick={handleLogout} />
         </StyledTopBar>
       ) : (
         ""
