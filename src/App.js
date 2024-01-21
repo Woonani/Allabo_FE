@@ -17,7 +17,7 @@ import ScheduleBoard from "./pages/scheduleBoard/ScheduleBoard";
 import { IsLoginProvider } from "./context/IsLoginContext";
 import PrivateRoute from "./utils/PrivateRoute";
 import PageNotFound from "./pages/PageNotFound";
-import { TeamListProvider } from "./context/teamListContext";
+import { TeamListProvider } from "./context/TeamListContext";
 
 function App() {
   const [isSideOpen, setIsSideOpen] = useState(false);

@@ -4,14 +4,14 @@ import { getCookie, setCookie } from "../utils/Cookie";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AlertTimer } from "../components/common/AlertTimer";
-import { useTeamListState } from "../context/teamListContext";
+import { useTeamListState } from "../context/TeamListContext";
 import { setLocalStorage, getLocalStorage } from "../utils/LocalStorage";
 
 const useUserHome = () => {
   const { state, actions } = useTeamListState();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [teamList, setTeamList] = useState([]);
+  // const [teamList, setTeamList] = useState([]);
   const [teamListCount, setTeamListCount] = useState(0);
   const [searchList, setSearchList] = useState([]);
   const [invitees, setInvitees] = useState([]);
@@ -30,12 +30,6 @@ const useUserHome = () => {
 
   useEffect(() => {
     handleTeamList();
-
-    //유저홈에서는 현재 선택된 팀 정보가 없어야 함.
-    //근데 리셋이 되어야 할까? 뒤로가기 누를 수도 있잖아
-    // console.log("유저홈now-team리셋확인", state.currentTeam);
-    // setLocalStorage("now-team", {});
-    // actions.setCurrentTeam({});
   }, []);
 
   // DropdownInput 컴포넌트에서 변경된 invitees값을 teamForm객체에 세팅
@@ -49,29 +43,26 @@ const useUserHome = () => {
   //   console.log("teamList 업데이트됨:", teamList);
   // }, [teamList]); // 이거없어도 teamList, teamListCount 변경됨.
 
+  useEffect(() => {
+    // teamList값이 바뀌면 알아서 바뀌도록 사용
+    setTeamListCount(state.teamList.length);
+  }, [state.teamList]);
+
   // MakeTeamModal 에서 사용 --------------------------------------------------------------
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setTeamForm({ ...teamForm, [name]: value });
-    // console.log("handleInputChange : ", teamForm);
   };
 
   const handleMakeTeam = async (e) => {
     console.log("handleMakeTeam : ", teamForm);
     try {
       const response = await axios.post("/api/team/register", teamForm);
-      // console.log("inserted team : ", response.data);
-      if (response.statusText == "OK") {
-        /*refactoredCode*/
-        const newTeam = response.data; // 서버에서 반환된 새 팀 정보
-        // setTeamList((prevTeamList) => [...prevTeamList, newTeam]); // 방금 추가된 팀에 맨 끝에 추가됨
-        setTeamList((prevTeamList) => [newTeam, ...prevTeamList]); // 방금 추가된 팀에 맨 앞에 추가됨
-        // setTeamListCount((prevCount) => prevCount + 1);
-        setTeamListCount(teamList.length);
 
-        //컨텍스트 추가_1
-        actions.setTeamListCon((prevTeamList) => [newTeam, ...prevTeamList]);
+      if (response.statusText == "OK") {
+        const newTeam = response.data; // 서버에서 반환된 새 팀 정보
+        actions.setTeamList((prevTeamList) => [newTeam, ...prevTeamList]);
 
         /* 이동 여부 확인 alert창*/
         Swal.fire({
@@ -86,26 +77,20 @@ const useUserHome = () => {
           height: "500px",
         }).then((result) => {
           if (result.isConfirmed) {
-            //컨텍스트 추가_2
-            // console.log("currentTeam컨텍스트 : ", newTeam);
+            setLocalStorage("now-team", newTeam);
             actions.setCurrentTeam({ ...newTeam });
-            setLocalStorage("now-team", newTeam); // 리덕스 사용시 안 쓸 예정
 
             navigate("/team");
           } else {
-            // teamList.push(response.data); // 불변성 유지 위배
-            // setTeamListCount(teamList.length);
-
             //form 비우기
             setTeamForm({ ...initTeamForm });
             setInvitees([]);
-            console.log("initTeamForm", initTeamForm);
+            // console.log("initTeamForm", initTeamForm);
             setIsModalOpen(false);
           }
         });
       } else {
         AlertTimer("ERROR", "처음부터 다시 진행해주세요.", "warning", 2000);
-        // alert("ERROR\n처음부터 다시 진행해주세요.");
       }
     } catch (error) {
       AlertTimer(
@@ -114,7 +99,7 @@ const useUserHome = () => {
         "warning",
         2300
       );
-      // alert("ERROR" + error.message + "\n오류발생!!\n 다시 진행해주세요.");
+      console.log(error);
     }
   };
 
@@ -142,28 +127,42 @@ const useUserHome = () => {
     const response = await axios.get(`/api/team/list/${userId}`);
     // console.log("response.data : ", response.data, response.data.length);
     setLocalStorage("team-list", response.data);
-
-    //컨텍스트 추가_1
-    actions.setTeamListCon(response.data);
-
-    setTeamListCount(response.data.length);
-    setTeamList(response.data);
+    actions.setTeamList([...response.data]);
   };
 
   // 팀 프로필 클릭 시 이동
   const handleTeamPage = (team) => {
-    //컨텍스트 추가_2
-    // console.log("클릭으로 받아온 team : ", team);
+    setLocalStorage("now-team", team);
     actions.setCurrentTeam(team);
-    setLocalStorage("now-team", team); // 리덕스 사용시 안 쓸 예정
     navigate("/team");
+  };
+
+  // 팀 탈퇴 = 팀 삭제
+  const handleTeamDelete = async (teamSeq, idx) => {
+    try {
+      const response = await axios.delete(`/api/team/${teamSeq}`);
+      console.log("Delete team : ", response.data);
+      if (response.statusText == "OK") {
+        state.teamList.splice(idx, 1);
+        actions.setTeamList([...state.teamList]);
+
+        setLocalStorage("now-team", state.teamList[0]);
+        actions.setCurrentTeam({ ...state.teamList[0] });
+      }
+    } catch (error) {
+      AlertTimer(
+        "ERROR",
+        error.message + "\n오류발생!!\n 다시 진행해주세요.",
+        "warning",
+        2300
+      );
+    }
   };
 
   return {
     isModalOpen,
     setIsModalOpen,
     userName,
-    teamList,
     teamListCount,
     teamForm,
     handleInputChange,
@@ -177,6 +176,7 @@ const useUserHome = () => {
     setSearchList,
     invitees,
     setInvitees,
+    handleTeamDelete,
   };
 };
 

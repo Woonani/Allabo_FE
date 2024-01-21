@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import { useIsLoginState } from "../../context/IsLoginContext";
-import { useTeamListState } from "../../context/teamListContext";
+import { useTeamListState } from "../../context/TeamListContext";
 import BasicImg from "../../assets/img/common/BasicTeam.png";
 import AddBtn from "../../assets/img/common/AddBtn.png";
 import SquareButton from "../common/SquareButton";
@@ -46,13 +46,13 @@ const TeamSide = () => {
   const isLogin = useIsLoginState();
   const { state, actions } = useTeamListState();
   const navigate = useNavigate();
-  // console.log("teamListCon", state.teamListCon);
+  // console.log("teamList", state.teamList);
   return (
     <>
       {isLogin ? (
         <StyledFixedSide>
-          {state.teamListCon.length > 0 ? (
-            state.teamListCon.map((item, idx) => {
+          {state.teamList.length > 0 ? (
+            state.teamList.map((item, idx) => {
               let tag =
                 item.teamSeq == state.currentTeam.teamSeq ? "60%" : "100%";
               // console.log("seq, tag ", item.teamSeq, " / ", tag);

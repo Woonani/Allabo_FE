@@ -64,7 +64,7 @@ const StyledSideClosed = styled.div`
 const SideMenu = ({ isSideOpen }) => {
   const isLogin = useIsLoginState();
   const nowPage = getLocalStorage("now-page");
-  console.log("side - ", nowPage);
+  // console.log("side - ", nowPage);
   const menu = [
     { link: "/team", imgSrc: HomeImg, text: "메인보드", active: false },
     { link: "/schedule", imgSrc: SheduleImg, text: "일정관리", active: false },
@@ -79,23 +79,23 @@ const SideMenu = ({ isSideOpen }) => {
             {menu.map((item, idx) => {
               item.active = idx == nowPage ? true : false;
               return (
-                <>
-                  <Link to={item.link} className="link-style">
-                    <ProfileContainer
-                      key={idx}
-                      justifyContent="flex-start"
-                      backgroundColor="hsl(49.36deg 21.79% 90.45% / 15%)"
-                      imgSrc={item.imgSrc}
-                      imgAlt={item.text}
-                      imgWidth="25px"
-                      imgHeight="25px"
-                      text={item.text}
-                      frontSpaceWidth="10px"
-                      backSpaceWidth="0px"
-                      active={item.active}
-                    />
-                  </Link>
-                </>
+                <Link key={idx} to={item.link} className="link-style">
+                  <ProfileContainer
+                    // key={item.key}
+                    justifyContent="flex-start"
+                    backgroundColor="hsl(49.36deg 21.79% 90.45% / 15%)"
+                    imgSrc={item.imgSrc}
+                    imgAlt={item.text}
+                    imgWidth="25px"
+                    imgHeight="25px"
+                    text={item.text}
+                    padding="10px"
+                    frontSpaceWidth="10px"
+                    backSpaceWidth="0px"
+                    active={item.active}
+                    imgBorderRadius="0px"
+                  />
+                </Link>
               );
             })}
           </StyledSideOpened>

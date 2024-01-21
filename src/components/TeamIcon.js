@@ -1,4 +1,4 @@
-import { teamListContext } from "../context/teamListContext";
+import { teamListContext } from "../context/TeamListContext";
 import BasicImg from "../assets/img/common/BasicTeam.png";
 import AddBtn from "../assets/img/common/AddBtn.png";
 
@@ -9,9 +9,9 @@ const TeamIcon = () => {
   return (
     <teamListContext.Consumer>
       {(value) =>
-        value.teamListCon.length > 0 ? (
+        value.teamList.length > 0 ? (
           <>
-            {value.teamListCon.map((item) => {
+            {value.teamList.map((item) => {
               return (
                 <>
                   <SquareButton

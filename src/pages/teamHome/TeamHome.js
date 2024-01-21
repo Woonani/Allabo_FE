@@ -10,7 +10,7 @@ import SquareButton from "../../components/common/SquareButton";
 import Text from "../../components/common/Text";
 import CardContainer from "../../components/layout/CardContainer";
 import useTeamHome from "../../hooks/useTeamHome";
-import { useTeamListState } from "../../context/teamListContext";
+import { useTeamListState } from "../../context/TeamListContext";
 import ProfileContainer from "../../components/common/ProfileContainer";
 import ProfileContainer2 from "../../components/common/ProfileContainer2";
 
@@ -59,7 +59,7 @@ const RightBox = styled.div`
 const TeamHome = () => {
   const { currentTeam } = useTeamListState().state;
   const { handleTeamInfo, teamHomeInfo } = useTeamHome();
-  console.log("TeamHome - teamHomeInfo: ", teamHomeInfo); // 이거 왜 뒤늦게 바뀌지?
+  // console.log("TeamHome - teamHomeInfo: ", teamHomeInfo);
 
   return (
     <BasicFrame>
@@ -95,24 +95,21 @@ const TeamHome = () => {
             <CardContainer margin="0px">
               {teamHomeInfo.memberList.length > 0 ? (
                 teamHomeInfo.memberList.map((item, idx) => {
-                  // const role = item.role == 1 ? "팀장" : null;
-                  console.log(item);
+                  // console.log(item);
                   return (
-                    <>
-                      <ProfileContainer
-                        key={item.userId}
-                        justifyContent="flex-start"
-                        imgSrc={UserImg}
-                        imgAlt={item.nick}
-                        imgWidth="35px"
-                        imgHeight="35px"
-                        imgBoxShadow="0.1px 0.1px 3px 0.1px grey"
-                        text={item.nick}
-                        // textList={[item.nick]}
-                        frontSpaceWidth="20px"
-                        backSpaceWidth="0px"
-                      />
-                    </>
+                    <ProfileContainer
+                      key={item.userId}
+                      justifyContent="flex-start"
+                      imgSrc={UserImg}
+                      imgAlt={item.nick}
+                      imgWidth="35px"
+                      imgHeight="35px"
+                      imgBoxShadow="0.1px 0.1px 3px 0.1px grey"
+                      text={item.nick}
+                      // textList={[item.nick]}
+                      frontSpaceWidth="20px"
+                      backSpaceWidth="0px"
+                    />
                   );
                 })
               ) : (
@@ -123,11 +120,10 @@ const TeamHome = () => {
           <RightBox>
             <Text text="게시판 공지" margin="5px 15px" />
             <CardContainer margin="0px">
-              {teamHomeInfo.memberList.length > 0 ? (
+              {/* {teamHomeInfo.memberList.length > 0 ? (
                 teamHomeInfo.memberList.map((item, idx) => {
-                  console.log(item);
+                  // console.log(item);
                   return (
-                    <>
                       <ProfileContainer2
                         key={item.userId}
                         imgSrc={NoticeImg}
@@ -142,43 +138,40 @@ const TeamHome = () => {
                         ]}
                         frontSpaceWidth="40px"
                         backSpaceWidth="20px"
-                      />
-                    </>
+                      /> 
                   );
                 })
               ) : (
                 <div>게시판 공지</div>
-              )}
+              )} */}
             </CardContainer>
             <br />
             <Text text="다가오는 일정" margin="5px 15px" />
             <CardContainer margin="0px">
-              {teamHomeInfo.memberList.length > 0 ? (
+              {/* {teamHomeInfo.memberList.length > 0 ? (
                 teamHomeInfo.memberList.map((item, idx) => {
-                  console.log(item);
+                  // console.log(item);
                   return (
-                    <>
-                      <ProfileContainer2
-                        key={item.userId}
-                        imgSrc={AlertImg}
-                        imgAlt={item.nick}
-                        imgWidth="20px"
-                        imgHeight="20px"
-                        text={""}
-                        textList={[
-                          item.teamSeq,
-                          "가나다라마바사아자차카타파",
-                          item.nick,
-                        ]}
-                        frontSpaceWidth="40px"
-                        backSpaceWidth="20px"
-                      />
-                    </>
+                    <ProfileContainer2
+                      key={item.userId}
+                      imgSrc={AlertImg}
+                      imgAlt={item.nick}
+                      imgWidth="20px"
+                      imgHeight="20px"
+                      text={""}
+                      textList={[
+                        item.teamSeq,
+                        "가나다라마바사아자차카타파",
+                        item.nick,
+                      ]}
+                      frontSpaceWidth="40px"
+                      backSpaceWidth="20px"
+                    />
                   );
                 })
               ) : (
                 <div>다가오는 일정</div>
-              )}
+              )} */}
             </CardContainer>
           </RightBox>
         </GridBoxColumn>
