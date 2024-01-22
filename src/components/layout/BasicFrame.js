@@ -16,7 +16,7 @@ const BasicFrame = styled.div`
   height: 100vh;
   max-width: 92vw;
   max-height: 90vh;
-  min-width: 900px;
+  min-width: 950px;
   min-height: 650px;
   // background-color: pink; // 레이아웃 확인용
 `;

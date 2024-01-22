@@ -42,7 +42,7 @@ const LeftBox = styled.div`
   margin: 15px;
   display: flex;
   flex-direction: column;
-  align-items: left;
+  // align-items: flex-start;
   justify-content: space-between; //center;
 `;
 const RightBox = styled.div`
