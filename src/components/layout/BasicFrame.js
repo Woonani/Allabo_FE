@@ -10,13 +10,15 @@ const BasicFrame = styled.div`
   align-items: center;
   justify-content: center;
   position: fixed; // nav 바 밑으로 들어가지 않도록 고정
-  top: 0px; //80px; //
-  left: 0px; //80px; //
+  top: 60px; //80px; //
+  left: 70px; //80px; //
   width: 100vw;
   height: 100vh;
+  max-width: 92vw;
+  max-height: 90vh;
   min-width: 900px;
   min-height: 650px;
-  // background-color: pink; // 영역 확인용
+  // background-color: pink; // 레이아웃 확인용
 `;
 
 export default BasicFrame;

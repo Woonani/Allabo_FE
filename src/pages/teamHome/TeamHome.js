@@ -15,13 +15,11 @@ import ProfileContainer from "../../components/common/ProfileContainer";
 import ProfileContainer2 from "../../components/common/ProfileContainer2";
 
 const GridBoxRow = styled.div`
-  // background-color: lightGrey;
   display: grid;
   grid-template-rows: 1fr 5fr;
-  width: 1000px;
-  height: 300px;
-  min-width: 900px;
+  // height: 300px;
   min-height: 650px;
+  // background-color: lightGrey; // 레이아웃 확인용
 `;
 const GridBoxColumn = styled.div`
   // background-color: green;
