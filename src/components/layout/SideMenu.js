@@ -35,14 +35,14 @@ const StyledSideOpened = styled.div`
   top: 60px;
   left: 0;
   z-index: 1;
-  background-color: black;
+  // background-color: black;
+  background-color: var(--color-primary-lightGrey); // 사이드 스타일2
   box-shadow: 1px 1px 5px 0.2px grey;
   box-border: none;
   opacity: 70%;
   width: 250px;
   height: 100%;
   animation: ${slideOut} 0.5s ease;
-  color: red;
   padding: 15px 10px 10px 80px;
   display: flex;
   flex-direction: column;
@@ -53,7 +53,8 @@ const StyledSideClosed = styled.div`
   top: 60px;
   left: 0;
   z-index: 1;
-  background-color: black;
+  // background-color: black;
+  background-color: var(--color-primary-lightGrey); // 사이드 스타일2
   box-shadow: 1px 1px 5px 0.2px grey;
   box-border: none;
   opacity: 70%;
