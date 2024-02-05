@@ -33,6 +33,7 @@ const PrivateRoute = ({ handleSideMenu }) => {
 
   //토큰 검증로직 추가
   return token ? <Outlet /> : <Navigate to="/" />;
+  // <Outlet/> = "자식요소"
 };
 
 export default PrivateRoute;

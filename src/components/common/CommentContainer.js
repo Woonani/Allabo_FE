@@ -4,15 +4,8 @@ import RightArrow from "../../assets/img/common/RightArrow.png";
 
 const CommentBox = styled.div`
   display: flex; //grid;
-  // grid-template-columns: 150px auto 120px;
   align-items: stretch;
   min-height: 60px;
-  //   margin: 1px;
-  margin: ${(props) => (props.$ReCmmnt == 1 ? "0px" : "5px 0px 0px 0px")};
-  //   height: 60px;
-  //   max-height: 200px;
-  //   box-shadow: 1px 1px 5px 0.2px grey;
-  //   border-radius: 10px;
   background-color: white;
 `;
 
@@ -41,9 +34,6 @@ const MiddlePart = styled.div`
   outline: none;
   // overflow: unset;
   resize: none;
-  // border-radius: 5px;
-  // border: 1px solid #ccc;
-  // box-shadow: 1px 1px 1px #999;
   background-color: var(--color-secondary-paleBlue);
 
   border-bottom: 1px solid lightGrey;
@@ -55,9 +45,6 @@ const EndPart = styled.div`
   justify-content: center;
   align-items: center;
   width: 200px; //100%;
-  //   height: 100%;
-  //   border-radius: 0px 10px 10px 0px;
-  // background-color: black;
   background-color: var(--color-secondary-paleBlue);
 
   border-bottom: 1px solid lightGrey;
