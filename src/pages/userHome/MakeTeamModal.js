@@ -255,7 +255,7 @@ const MakeTeamModal = ({
               <Button
                 text={"생성 취소"}
                 margin={"20px"}
-                backgroundcolor="#f35d5dde"
+                backgroundcolor="var(--color-primary-red)"
                 width={"200px"}
                 onClick={closeModal}
               />

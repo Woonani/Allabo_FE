@@ -10,10 +10,10 @@ const StyledFont = styled.div`
   margin: ${(props) => props.$margin || "0px"};
   font-size: ${(props) => props.$fontSize || "20px"};
   font-family: ${(props) => props.$fontFamily || "NanumSquareRound Light"};
-  color: ${(props) => props.$color || "black"};
   font-weight: bold;
+  color: ${(props) => props.$color || "black"};
   letter-spacing: ${(props) => props.$space || "0"};
-  cursor: ${(props) => props.$cursor || "none"};
+  cursor: ${(props) => props.$cursor || "default"};
   white-space: pre-line; // 줄바꿈
   &:hover {
     text-decoration: ${(props) => props.$textDecoration || "none"};

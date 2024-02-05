@@ -10,6 +10,23 @@ import useUserHome from "../../hooks/useUserHome";
 import BasicFrame from "../../components/layout/BasicFrame";
 import { useTeamListState } from "../../context/TeamListContext";
 
+// userHome 용 BasicFrame
+const BasicContainer = styled.div`
+  margin: 0px;
+  box-sizing: border-box;
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed; // nav 바 밑으로 들어가지 않도록 고정
+  top: 60px; //80px; //
+  left: 70px; //80px; //
+  width: calc(100% - 70px);
+  height: calc(100% - 60px);
+  min-width: 950px;
+  min-height: 700px; //650px;
+`;
 const StyledContainer = styled.div`
   width: 70vw; //830,430
   height: 50vh;
@@ -89,7 +106,7 @@ const UserHome = () => {
     handleTeamDelete,
   } = useUserHome();
   return (
-    <BasicFrame>
+    <BasicContainer>
       <StyledTitle>
         반가워요! {userName} 님 <br />
         {teamListCount == 0
@@ -179,7 +196,7 @@ const UserHome = () => {
           })}
         </StyledContainer>
       )}
-    </BasicFrame>
+    </BasicContainer>
   );
 };
 
