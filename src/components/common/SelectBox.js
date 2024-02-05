@@ -20,7 +20,7 @@ const StyledSelect = styled.select`
   //   }
 `;
 
-const SelectBox = ({ text, onClick, optionList, ...props }) => {
+const SelectBox = ({ text, onClick, optionlist, ...props }) => {
   return (
     <StyledSelect
       name="tag"
@@ -31,10 +31,14 @@ const SelectBox = ({ text, onClick, optionList, ...props }) => {
       $height={props.height}
       $margin={props.margin}
       onClick={onClick}
-      optionList={optionList}
+      optionlist={optionlist}
     >
-      {optionList.map((item, idx) => {
-        return <option value={item}>{item}</option>;
+      {optionlist.map((item, idx) => {
+        return (
+          <option key={idx} value={item}>
+            {item}
+          </option>
+        );
       })}
       {/* <option value="제목">제목</option>
       <option value="내용">내용</option>

@@ -5,20 +5,18 @@ import Text from "../../components/common/Text";
 import FloatingLabelInput from "../../components/common/FloatingLabelInput";
 import Button from "../../components/common/Button";
 import SelectBox from "../../components/common/SelectBox";
-// import TaskContainer from "../../components/common/TaskContainer";
+import useTaskBoard from "../../hooks/useTaskBoard";
 
 const GridBoxRow = styled.div`
   display: grid;
   grid-template-rows: 1fr 1fr 15fr 1fr 1fr;
+  align-items: center;
   // margin: 30px;
   padding: 30px;
-  // height: 850px; //100%; //
-  min-height: 650px; //650px; //
-  // min-width: 1050px; //650px; //
-  // max-height: 650px; //
-  // overflow-y: auto;
-  // position: fixed; // nav 바 밑으로 들어가지 않도록 고정
-  // top: 60px; //80px; //
+  height: 690px;
+  width: 55vw; // width: 900px; // 1050px이 이상적
+  min-height: 650px;
+  min-width: 900px;
   // background-color: lightGreen; // 레이아웃 확인용
 `;
 
@@ -29,7 +27,7 @@ const TopBox = styled.div`
 `;
 const PostListBox = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
   // background-color: yellow;
 `;
@@ -45,8 +43,7 @@ const SpaceBetweenBox = styled.div`
   display: flex;
   // background-color: lightGrey;
   justify-content: space-between;
-  width: 900px; // 100%; //1050px;
-  margin: 10px 0px;
+  margin: 3px 0px;
 `;
 
 const StyledTable = styled.table`
@@ -126,15 +123,16 @@ const StyledTheadTr = styled.tr`
 `;
 const StyledTbodyTr = styled.tr`
   height: 30px;
+  border-bottom: 0.1px solid var(--color-primary-lightGrey);
+  cursor: default;
   &:hover {
     background-color: var(--hover-color, hsl(49.36deg 21.79% 90.45% / 70%));
   }
-
   transition: background-color 0.3s ease;
 `;
 
 const boardList10 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const boardList15 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+const boardList15 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]; // null; //
 const boardList20 = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
 ];
@@ -143,30 +141,41 @@ const tagList = ["전체", "공지", "과제"];
 const postList = ["10개씩 보기", "15개씩 보기", "20개씩 보기"];
 
 const TaskBoard = () => {
+  const { hadlePostWritingPage, hadlePostDetailPage } = useTaskBoard();
   return (
     <BasicFrame>
       <GridBoxRow>
         <TopBox>
           <Text
-            text="회의록게시판"
+            text="회의록 게시판"
             height="40px"
             // margin="20px"
           />
         </TopBox>
         <SpaceBetweenBox>
-          <SelectBox
-            optionList={tagList}
-            fontSize="15px"
-            width="180px"
+          <div>
+            <SelectBox
+              optionlist={tagList}
+              fontSize="15px"
+              width="180px"
+              height="30px"
+              margin="10px 0px"
+            />
+            <SelectBox
+              optionlist={postList}
+              fontSize="15px"
+              width="100px"
+              height="30px"
+              margin="10px 10px"
+            />
+          </div>
+          <Button
+            text="글쓰기"
+            width="80px"
             height="30px"
-            margin="10px 0px"
-          />
-          <SelectBox
-            optionList={postList}
             fontSize="15px"
-            width="100px"
-            height="30px"
-            margin="10px 0px"
+            margin="10px 5px"
+            onClick={() => hadlePostWritingPage()}
           />
         </SpaceBetweenBox>
         <PostListBox>
@@ -183,39 +192,34 @@ const TaskBoard = () => {
               </StyledTheadTr>
             </StyledThead>
             <StyledTbody>
-              {/* <StyledTbodyTr>
-                <th>1</th>
-                <th>공지</th>
-                <th>글 작성규칙[1]</th>
-                <th>팀장 우나은</th>
-                <th>2023.11.24</th>
-                <th>29</th>
-                <th>3</th>
-              </StyledTbodyTr>
-              <StyledTbodyTr>
-                <th>1</th>
-                <th>공지</th>
-                <th>글 작성규칙[1]</th>
-                <th>팀장 우나은</th>
-                <th>2023.11.24</th>
-                <th>29</th>
-                <th>3</th>
-              </StyledTbodyTr> */}
-              {boardList15 != undefined && boardList15.length > 0
-                ? boardList15.map((item, idx) => {
-                    return (
-                      <StyledTbodyTr>
-                        <td>1</td>
-                        <td>공지</td>
-                        <td>글 작성규칙 [1]</td>
-                        <td>팀장 우나은</td>
-                        <td>2023.11.24</td>
-                        <td>29</td>
-                        <td>3</td>
-                      </StyledTbodyTr>
-                    );
-                  })
-                : null}
+              {boardList15 != undefined && boardList15.length > 0 ? (
+                boardList15.map((item, idx) => {
+                  return (
+                    <StyledTbodyTr
+                      key={idx}
+                      onClick={() => hadlePostDetailPage()}
+                    >
+                      <td>1</td>
+                      <td>공지</td>
+                      <td>글 작성규칙 [1]</td>
+                      <td>팀장 우나은</td>
+                      <td>2023.11.24</td>
+                      <td>29</td>
+                      <td>3</td>
+                    </StyledTbodyTr>
+                  );
+                })
+              ) : (
+                <StyledTbodyTr>
+                  <td></td>
+                  <td></td>
+                  <td style={{ textAlign: "right" }}> "게시글이 없습니다."</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </StyledTbodyTr>
+              )}
             </StyledTbody>
           </StyledTable>
         </PostListBox>
@@ -225,7 +229,7 @@ const TaskBoard = () => {
             fontSize="15px"
             width="100px"
             height="30px"
-            optionList={searchList}
+            optionlist={searchList}
           />
           <FloatingLabelInput
             name="searchPost"
@@ -237,11 +241,12 @@ const TaskBoard = () => {
             height="30px"
           />
           <Button
-            text="search"
+            text="검색"
             width="80px"
             height="30px"
             fontSize="15px"
             margin="0px 15px"
+            backgroundcolor="var(--color-secondary-grey)"
             // onClick=
           />
         </RowBox>
