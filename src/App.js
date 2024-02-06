@@ -37,14 +37,13 @@ function App() {
   return (
     <Router>
       <IsLoginProvider>
-        <TopBar
-          onClick={handleSideMenu}
-          isSideOpen={isSideOpen}
-          setIsSideOpen={setIsSideOpen}
-        />
-        <SideMenu isSideOpen={isSideOpen} />
-
         <TeamListProvider>
+          <TopBar
+            onClick={handleSideMenu}
+            isSideOpen={isSideOpen}
+            setIsSideOpen={setIsSideOpen}
+          />
+          <SideMenu isSideOpen={isSideOpen} />
           <TeamSide></TeamSide>
 
           <Routes>
