@@ -141,7 +141,7 @@ const tagList = ["전체", "공지", "과제"];
 const postList = ["10개씩 보기", "15개씩 보기", "20개씩 보기"];
 
 const TaskBoard = () => {
-  const { hadlePostWritingPage, hadlePostDetailPage } = useTaskBoard();
+  const { handlePostWritingPage, handlePostDetailPage } = useTaskBoard();
   return (
     <BasicFrame>
       <GridBoxRow>
@@ -175,7 +175,7 @@ const TaskBoard = () => {
             height="30px"
             fontSize="15px"
             margin="10px 5px"
-            onClick={() => hadlePostWritingPage()}
+            onClick={() => handlePostWritingPage()}
           />
         </SpaceBetweenBox>
         <PostListBox>
@@ -197,7 +197,7 @@ const TaskBoard = () => {
                   return (
                     <StyledTbodyTr
                       key={idx}
-                      onClick={() => hadlePostDetailPage()}
+                      onClick={() => handlePostDetailPage()}
                     >
                       <td>1</td>
                       <td>공지</td>

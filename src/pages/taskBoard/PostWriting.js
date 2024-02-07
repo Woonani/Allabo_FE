@@ -60,7 +60,7 @@ const ButtonBox = styled.div`
 const tagList = ["전체", "공지", "과제"];
 
 const PostWriting = () => {
-  const { hadleBoardPage } = useTaskBoard();
+  const { handlePostForm, handleBoardPage } = useTaskBoard();
 
   return (
     <BasicFrame>
@@ -94,7 +94,8 @@ const PostWriting = () => {
             fontSize="15px"
             margin="0px 15px"
             onClick={() => {
-              hadleBoardPage();
+              handlePostForm();
+              // handleBoardPage();
             }}
           />
           <Button
