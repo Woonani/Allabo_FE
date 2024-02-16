@@ -5,7 +5,8 @@ import SelectBox from "../../components/common/SelectBox";
 import FloatingLabelInput from "../../components/common/FloatingLabelInput";
 import Button from "../../components/common/Button";
 import Text from "../../components/common/Text";
-import useTaskBoard from "../../hooks/useTaskBoard";
+import usePostWriting from "../../hooks/usePostWriting";
+import { useNavigate } from "react-router-dom";
 
 const GridBoxRow = styled.div`
   display: grid;
@@ -57,10 +58,11 @@ const ButtonBox = styled.div`
   margin: 10px 0px;
 `;
 
-const tagList = ["전체", "공지", "과제"];
-
 const PostWriting = () => {
-  const { handlePostForm, handleBoardPage } = useTaskBoard();
+  const navigate = useNavigate();
+
+  const { tagList, postForm, handleInputChange, handlePostForm } =
+    usePostWriting();
 
   return (
     <BasicFrame>
@@ -68,6 +70,14 @@ const PostWriting = () => {
         <Text text="회의록 게시판 | 글쓰기" height="40px" margin="0px" />
         <TopBox>
           <SelectBox
+            name="tag"
+            defaultTag={true}
+            defaultTagText={"태그를 선택해 주세요."}
+            onClick={(e) => handleInputChange(e)}
+            onChange={(e) => {
+              console.log("----onchange 작동");
+              // return handleBoardList(e);
+            }}
             optionlist={tagList}
             fontSize="15px"
             width="95%"
@@ -75,14 +85,13 @@ const PostWriting = () => {
             margin="0px"
           />
           <FloatingLabelInput
-            name="postTitle"
+            name="title"
             type="text"
-            // value={teamForm.teamName}
-            // onChange={handleInputChange}
+            value={postForm.title || ""} //SelectBox 선택시 빈값 에러 처리
+            onChange={(e) => handleInputChange(e)}
             label="글 제목"
             width="100%"
             height="30px"
-            margin="0px"
           />
         </TopBox>
         <PostingBox></PostingBox>
@@ -95,7 +104,6 @@ const PostWriting = () => {
             margin="0px 15px"
             onClick={() => {
               handlePostForm();
-              // handleBoardPage();
             }}
           />
           <Button
@@ -105,7 +113,9 @@ const PostWriting = () => {
             fontSize="15px"
             margin="0px 15px"
             backgroundcolor="var(--color-secondary-grey)"
-            // onClick=
+            onClick={() => {
+              navigate("/board");
+            }}
           />
         </ButtonBox>
       </GridBoxRow>
