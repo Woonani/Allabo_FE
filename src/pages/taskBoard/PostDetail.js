@@ -3,9 +3,10 @@ import BasicFrame from "../../components/layout/BasicFrame";
 import styled from "styled-components";
 import Text from "../../components/common/Text";
 import SimpleButton from "../../components/common/SimpleButton";
-import useTaskBoard from "../../hooks/useTaskBoard";
+import usePostDetail from "../../hooks/usePostDetail";
 import Button from "../../components/common/Button";
 import CommentContainer from "../../components/common/CommentContainer";
+import { useNavigate } from "react-router-dom";
 
 const GridBoxRow = styled.div`
   display: grid;
@@ -156,7 +157,9 @@ const CommentListBox = styled.div`
 `;
 
 const PostDetail = () => {
-  const { handleBoardPage } = useTaskBoard();
+  const navigate = useNavigate();
+  // const { handleBoardPage } = usePostDetail();
+
   // const CommentTextPart = useRef();
   const handleResizeHeight = () => {
     console.log("CommentTextPart - ", CommentTextPart);
@@ -174,7 +177,7 @@ const PostDetail = () => {
           margin="0px"
           cursor="pointer"
           onClick={() => {
-            handleBoardPage();
+            navigate("/board");
           }}
         />
 
