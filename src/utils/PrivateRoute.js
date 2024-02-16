@@ -8,7 +8,7 @@ const PrivateRoute = ({ handleSideMenu }) => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(location);
+    // console.log(location);
     switch (location.pathname) {
       case "/team":
         setLocalStorage("now-page", 0);

@@ -57,7 +57,7 @@ const TopBar = ({ onClick, isSideOpen, setIsSideOpen }) => {
     navigate("/");
     isSideOpen ? setIsSideOpen(!isSideOpen) : setIsSideOpen(isSideOpen);
   };
-  console.log("asease확인 : ", state.currentTeam.teamSeq);
+
   return (
     <>
       {isLogin ? (

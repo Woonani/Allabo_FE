@@ -144,7 +144,7 @@ const UserHome = () => {
         <StyledContainer>
           {state.teamList.map((team, idx) => {
             // {teamList.map((team, idx) => {
-            console.log("team 카드 : ", team);
+            // console.log("team 카드 : ", team);
             return (
               <Card key={team.teamSeq}>
                 <SquareButton

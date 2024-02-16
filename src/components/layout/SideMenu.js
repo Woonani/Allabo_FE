@@ -75,8 +75,7 @@ const SideMenu = ({ isSideOpen }) => {
     { link: "/board", imgSrc: BoardImg, text: "회의록", active: false },
     { link: "/chat", imgSrc: ChatImg, text: "대화", active: false },
   ];
-  const message = ["팀을 생성 또는 선택해주세요"];
-  console.log("srarararar : ", state);
+
   return (
     <>
       {isLogin ? (

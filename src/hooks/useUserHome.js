@@ -34,9 +34,7 @@ const useUserHome = () => {
 
   // DropdownInput 컴포넌트에서 변경된 invitees값을 teamForm객체에 세팅
   useEffect(() => {
-    // console.log("invitees 업데이트됨:", invitees);
     setTeamForm({ ...teamForm, inviteelist: [...invitees] });
-    // console.log("teamForm 업데이트됨:", teamForm);
   }, [invitees]);
 
   // useEffect(() => {
