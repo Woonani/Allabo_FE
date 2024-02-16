@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import BasicFrame from "../../components/layout/BasicFrame";
 import styled from "styled-components";
 import Text from "../../components/common/Text";
@@ -6,11 +6,14 @@ import FloatingLabelInput from "../../components/common/FloatingLabelInput";
 import Button from "../../components/common/Button";
 import SelectBox from "../../components/common/SelectBox";
 import useTaskBoard from "../../hooks/useTaskBoard";
+import { formatDatetime } from "../../utils/Formatter";
+import { getLocalStorage, setLocalStorage } from "../../utils/LocalStorage";
+import Pagenation from "../../components/common/Pagenation";
 
 const GridBoxRow = styled.div`
   display: grid;
-  grid-template-rows: 1fr 1fr 15fr 1fr 1fr;
-  align-items: center;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr; //1fr 1fr 15fr 1fr 1fr;
+  align-items: start; //center;
   // margin: 30px;
   padding: 30px;
   height: 690px;
@@ -131,17 +134,29 @@ const StyledTbodyTr = styled.tr`
   transition: background-color 0.3s ease;
 `;
 
-const boardList10 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const boardList15 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]; // null; //
-const boardList20 = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-];
-const searchList = ["제목", "내용", "제목+내용"];
-const tagList = ["전체", "공지", "과제"];
-const postList = ["10개씩 보기", "15개씩 보기", "20개씩 보기"];
-
 const TaskBoard = () => {
-  const { handlePostWritingPage, handlePostDetailPage } = useTaskBoard();
+  const {
+    searchList,
+    tagList,
+    postList,
+    boardList,
+    boardInfo,
+    totalPosts,
+    currentPage,
+    pageMove,
+    setPageMove,
+    setCurrentPage,
+    handleSelectChange,
+    handleSearchChange,
+    handlePostWritingPage,
+    handlePostDetailPage,
+    handleBoardList,
+    pagenationArray,
+    setPagenationArray,
+  } = useTaskBoard();
+
+  console.log("TaskBoard.js/boardInfo - ", boardInfo);
+
   return (
     <BasicFrame>
       <GridBoxRow>
@@ -155,6 +170,12 @@ const TaskBoard = () => {
         <SpaceBetweenBox>
           <div>
             <SelectBox
+              name="tag"
+              defaultTag={true}
+              defaultTagText="전체"
+              onClick={(e) => {
+                handleSelectChange(e);
+              }}
               optionlist={tagList}
               fontSize="15px"
               width="180px"
@@ -162,6 +183,10 @@ const TaskBoard = () => {
               margin="10px 0px"
             />
             <SelectBox
+              name="noPerPage"
+              defaultTag={false}
+              subText="개씩 보기"
+              onClick={(e) => handleSelectChange(e)}
               optionlist={postList}
               fontSize="15px"
               width="100px"
@@ -192,51 +217,70 @@ const TaskBoard = () => {
               </StyledTheadTr>
             </StyledThead>
             <StyledTbody>
-              {boardList15 != undefined && boardList15.length > 0 ? (
-                boardList15.map((item, idx) => {
-                  return (
-                    <StyledTbodyTr
-                      key={idx}
-                      onClick={() => handlePostDetailPage()}
-                    >
-                      <td>1</td>
-                      <td>공지</td>
-                      <td>글 작성규칙 [1]</td>
-                      <td>팀장 우나은</td>
-                      <td>2023.11.24</td>
-                      <td>29</td>
-                      <td>3</td>
-                    </StyledTbodyTr>
-                  );
-                })
-              ) : (
-                <StyledTbodyTr>
-                  <td></td>
-                  <td></td>
-                  <td style={{ textAlign: "right" }}> "게시글이 없습니다."</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </StyledTbodyTr>
-              )}
+              {
+                boardList != undefined && boardList.length > 0
+                  ? boardList.map((item, idx) => {
+                      return (
+                        <StyledTbodyTr
+                          key={item.postSeq}
+                          onClick={() => handlePostDetailPage(item.postSeq)}
+                        >
+                          <td>{item.no}</td>
+                          <td>{item.tag}</td>
+                          <td>{item.title} [1]</td>
+                          <td>{item.nick}</td>
+                          <td>{formatDatetime(item.createdAt)}</td>
+                          <td>{item.viewCount}</td>
+                          <td>{item.likes}</td>
+                        </StyledTbodyTr>
+                      );
+                    })
+                  : null
+                // <StyledTbodyTr>
+                //   <td></td>
+                //   <td></td>
+                //   <td style={{ textAlign: "right" }}> "게시글이 없습니다."</td>
+                //   <td></td>
+                //   <td></td>
+                //   <td></td>
+                //   <td></td>
+                // </StyledTbodyTr>
+              }
             </StyledTbody>
           </StyledTable>
         </PostListBox>
-        <RowBox> 페이지네이션 </RowBox>
+        <RowBox>
+          {boardList != undefined && boardList.length > 0 ? (
+            <Pagenation
+              total={totalPosts}
+              noPerPage={boardInfo.noPerPage}
+              currentPage={currentPage}
+              setPageMove={setPageMove}
+              onClick={(e) => {
+                console.log("확인!!!!", e.target.innerHTML);
+                setCurrentPage(e.target.innerHTML);
+              }}
+              pagenationArray={pagenationArray}
+              setPagenationArray={setPagenationArray}
+            />
+          ) : (
+            "게시글이 없습니다."
+          )}
+        </RowBox>
         <RowBox>
           <SelectBox
+            name="searchTag"
+            onClick={(e) => handleSearchChange(e)}
+            optionlist={searchList}
             fontSize="15px"
             width="100px"
             height="30px"
-            optionlist={searchList}
           />
           <FloatingLabelInput
-            name="searchPost"
+            name="searchWord"
             type="text"
-            // value={teamForm.teamName}
-            // onChange={handleInputChange}
-            // label="글+제목"
+            // value={boardList.searchWord} // 있어도 되고 없어도 됨
+            onChange={(e) => handleSearchChange(e)}
             width="200px"
             height="30px"
           />
@@ -247,7 +291,7 @@ const TaskBoard = () => {
             fontSize="15px"
             margin="0px 15px"
             backgroundcolor="var(--color-secondary-grey)"
-            // onClick=
+            onClick={() => handleBoardList()}
           />
         </RowBox>
       </GridBoxRow>
