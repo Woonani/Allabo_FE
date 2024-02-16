@@ -14,16 +14,21 @@ const StyledSelect = styled.select`
   font-family: "NanumSquareRound Bold", sans-serif;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  //   box-shadow: 1px 1px 5px 0.2px grey;
-  //   &:hover {
-  //     background-color: var(--hover-color, hsl(49.36deg 21.79% 90.45% / 70%));
-  //   }
 `;
 
-const SelectBox = ({ text, onClick, optionlist, ...props }) => {
+const SelectBox = ({
+  name,
+  defaultTag,
+  defaultTagText,
+  subText,
+  onClick,
+  onChange,
+  optionlist,
+  ...props
+}) => {
   return (
     <StyledSelect
-      name="tag"
+      name={name}
       $fontSize={props.fontSize}
       $backgroundcolor={props.backgroundcolor}
       $fontColor={props.fontColor}
@@ -31,18 +36,18 @@ const SelectBox = ({ text, onClick, optionlist, ...props }) => {
       $height={props.height}
       $margin={props.margin}
       onClick={onClick}
-      optionlist={optionlist}
+      onChange={onChange}
+      $optionlist={optionlist}
     >
+      {defaultTag == true ? <option value={""}>{defaultTagText}</option> : null}
       {optionlist.map((item, idx) => {
         return (
           <option key={idx} value={item}>
             {item}
+            {subText}
           </option>
         );
       })}
-      {/* <option value="제목">제목</option>
-      <option value="내용">내용</option>
-      <option value="제목+내용">제목+내용</option> */}
     </StyledSelect>
   );
 };
