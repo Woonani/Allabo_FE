@@ -10,7 +10,7 @@ const useTaskBoard = () => {
   const navigate = useNavigate();
   const { state, actions } = useTeamListState();
   const teamSeq = state.currentTeam.teamSeq;
-  console.log("useTaskBoard.js=========================");
+  // console.log("useTaskBoard.js페이지렌더링확인=========================");
 
   const searchList = ["제목", "내용", "제목+내용"];
   const tagList = ["공지", "과제", "일반"]; // 태그 생성 기능 추가 후에는 불러오는 값으로 변경 하기
@@ -49,7 +49,7 @@ const useTaskBoard = () => {
 
   // 게시판 조회 정보가 바뀌면 DB에서 게시물을 가져오는 함수 실행
   useEffect(() => {
-    console.log("useEffect -handleBoardList() 실행");
+    // console.log("useEffect -handleBoardList() 실행");
     handleBoardList();
   }, [boardInfo]);
 
@@ -82,7 +82,7 @@ const useTaskBoard = () => {
 
   // 현재페이지 번화가 있으면 게시판 조회 정보를 변경 (>> DB에서 게시물 가져오는 함수 실행됨)
   useEffect(() => {
-    console.log("useEffect======== currentPage : ", currentPage);
+    // console.log("useEffect======== currentPage : ", currentPage);
     setBoardInfo({ ...boardInfo, page: currentPage });
     if (currentPage > pagenationArray[2]) {
       // 계산된 현재페이지가 페이지네이션의 최대값보다 크다면
@@ -108,8 +108,7 @@ const useTaskBoard = () => {
 
   // 게시글 불러오기 함수
   const handleBoardList = async () => {
-    console.log("------handleBoardList()----------");
-
+    // console.log("------handleBoardList()----------");
     const response = await axios.get(`/api/board/${teamSeq}`, {
       params: {
         tag: boardInfo.tag,
@@ -131,9 +130,7 @@ const useTaskBoard = () => {
   };
 
   const handleSearchChange = (e) => {
-    console.log("value : ", e.target.value);
     setSearchInfo({ ...searchInfo, [e.target.name]: e.target.value });
-    console.log("searchInfo : ", searchInfo);
   };
 
   const handlePostWritingPage = () => {

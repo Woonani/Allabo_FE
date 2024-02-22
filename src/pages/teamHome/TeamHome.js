@@ -75,7 +75,7 @@ const TeamHome = () => {
             height="50%"
             margin="10px"
             padding="20px"
-            fontSize="30px"
+            fontSize="25px"
             text={currentTeam.teamName}
           ></NameCard>
           <NameCard
