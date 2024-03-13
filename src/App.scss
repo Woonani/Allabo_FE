@@ -45,6 +45,7 @@ body,
   --color-primary-navy: #1e22bf;
   --color-primary-red: #f35d5dde;
   --color-primary-gray: #707070;
+  --color-secondary-gray: hsl(49.36deg 21.79% 90.45% / 70%);
   --color-primary-lightGrey: #edebeb;
   --color-primary-black: #222222;
   --color-primary-white: #ffffff;
@@ -99,9 +100,9 @@ center,
 dl,
 dt,
 dd,
-ol,
-ul,
-li,
+// ol,
+// ul,
+// li,
 fieldset,
 form,
 label,
@@ -134,14 +135,14 @@ time,
 mark,
 audio,
 video {
-  margin: 0;
+  // margin: 0;
   padding: 0;
   border: 0;
   font-size: 100%;
   box-sizing: border-box;
-  font: inherit;
+  // font: inherit;
   // vertical-align: baseline;
-  font-family: "NanumSquareRound Light", sans-serif; // 기본 폰트로 NanumSquareRound Light 설정
+  // font-family: "NanumSquareRound Light", sans-serif; // 기본 폰트로 NanumSquareRound Light 설정
 }
 /* HTML5 display-role reset for older browsers */
 article,
