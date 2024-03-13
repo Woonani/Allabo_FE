@@ -9,7 +9,7 @@ const token = getCookie("token");
 export const IsLoginContext = createContext({
   isLogin: false, // 컨텍스트 저장공간 : 저장소에 변수명(isLogin) 등록
   // isLogin: token !== null ? true : false,
-  // 진짜 여기 값은 안보는 구나..
+  // 여기 값은 안봄
 });
 
 export const IsLoginProvider = ({ children }) => {

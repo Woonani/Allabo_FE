@@ -29,6 +29,7 @@ const useUserHome = () => {
   const [teamForm, setTeamForm] = useState(initTeamForm);
 
   useEffect(() => {
+    // console.log("1. useEffect []");
     handleTeamList();
   }, []);
 
@@ -122,6 +123,8 @@ const useUserHome = () => {
 
   // 유저가 속한 팀 목록 가져오는 함수
   const handleTeamList = async () => {
+    // console.log("2. handleTeamList()");
+
     const response = await axios.get(`/api/team/list/${userId}`);
     // console.log("response.data : ", response.data, response.data.length);
     setLocalStorage("team-list", response.data);

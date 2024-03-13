@@ -154,7 +154,7 @@ const UserHome = () => {
                   imgUrl={BasicImg}
                   handleClick={() => handleTeamPage(team)}
                 />
-                <Title text={team.teamName} />
+                <Title text={team.teamName} fontSize={"25px"} />
 
                 <Text
                   text={team.description}

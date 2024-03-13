@@ -18,8 +18,13 @@ const StyledBtn = styled.button`
   transition: background-color 0.3s ease;
   &:hover {
     box-shadow: 2px 2px 5px 0px grey;
-    background-color: var(--hover-color, hsl(49.36deg 21.79% 90.45% / 70%));
+    background-color: ${(props) =>
+      props.$hoverEvent || "var(--hover-color, var(--color-secondary-gray))"};
   }
+  // &:hover {
+  //   box-shadow: 2px 2px 5px 0px grey;
+  //   background-color: var(--hover-color, var(--color-secondary-gray));
+  // }
 `;
 const SimpleButton = ({ onClick, btnText, ...props }) => {
   return (
@@ -30,7 +35,7 @@ const SimpleButton = ({ onClick, btnText, ...props }) => {
       $margin={props.margin}
       $fontSize={props.fontSize}
       $btnColor={props.btnColor}
-      $hoverEvent={props.hoverEvent}
+      $hoverEvent={props.hoverEvent} // postDetail 추천버튼에서 사용
     >
       {btnText}
     </StyledBtn>
