@@ -49,8 +49,9 @@ const useTaskBoard = () => {
 
   // 게시판 조회 정보가 바뀌면 DB에서 게시물을 가져오는 함수 실행
   useEffect(() => {
-    // console.log("useEffect -handleBoardList() 실행");
+    // console.log("------useEffect - handleBoardList()전 ----------");
     handleBoardList();
+    // console.log("------useEffect - handleBoardList()후----------");
   }, [boardInfo]);
 
   // [페이지네이션 다음버튼을 누르면] 현재페이지번호를 배열의 첫번쨰 요소로 바꿈
@@ -137,7 +138,10 @@ const useTaskBoard = () => {
     navigate("/board/post");
   };
 
-  const handlePostDetailPage = () => {
+  const handlePostDetailPage = async (postSeq) => {
+    setLocalStorage("postSeq", postSeq);
+    // 클릭 시 조회수 새도록 하는 이유 : 페이지 들어갈때 새면 새로고침시에도 조회수가 올라가기 떄문에...
+    await axios.get(`/api/board/viewcount/${postSeq}`);
     navigate("/board/detail");
   };
 

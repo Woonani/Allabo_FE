@@ -6,9 +6,10 @@ import FloatingLabelInput from "../../components/common/FloatingLabelInput";
 import Button from "../../components/common/Button";
 import SelectBox from "../../components/common/SelectBox";
 import useTaskBoard from "../../hooks/useTaskBoard";
-import { formatDatetime } from "../../utils/Formatter";
+import { formatDatetime, formatDate } from "../../utils/Formatter";
 import { getLocalStorage, setLocalStorage } from "../../utils/LocalStorage";
 import Pagenation from "../../components/common/Pagenation";
+import usePostDetail from "../../hooks/usePostDetail";
 
 const GridBoxRow = styled.div`
   display: grid;
@@ -59,13 +60,13 @@ const StyledTable = styled.table`
     width: 15%;
   }
   th:nth-child(3) {
-    width: 40%;
+    width: 38%;
   }
   th:nth-child(4) {
     width: 12.5%;
   }
   th:nth-child(5) {
-    width: 12.5%;
+    width: 14.5%;
   }
   th:nth-child(6) {
     width: 7.5%;
@@ -83,7 +84,7 @@ const StyledTable = styled.table`
     text-align: center;
   }
   td:nth-child(3) {
-    width: 40%;
+    width: 38%;
     padding: 0px 0px 0px 10px;
     // text-align: left;
   }
@@ -92,7 +93,7 @@ const StyledTable = styled.table`
     text-align: center;
   }
   td:nth-child(5) {
-    width: 12.5%;
+    width: 14.5%;
     text-align: center;
   }
   td:nth-child(6) {
@@ -155,7 +156,7 @@ const TaskBoard = () => {
     setPagenationArray,
   } = useTaskBoard();
 
-  console.log("TaskBoard.js/boardInfo - ", boardInfo);
+  // const { handlePostDetailPage } = usePostDetail();
 
   return (
     <BasicFrame>
@@ -217,35 +218,37 @@ const TaskBoard = () => {
               </StyledTheadTr>
             </StyledThead>
             <StyledTbody>
-              {
-                boardList != undefined && boardList.length > 0
-                  ? boardList.map((item, idx) => {
-                      return (
-                        <StyledTbodyTr
-                          key={item.postSeq}
-                          onClick={() => handlePostDetailPage(item.postSeq)}
-                        >
-                          <td>{item.no}</td>
-                          <td>{item.tag}</td>
-                          <td>{item.title} [1]</td>
-                          <td>{item.nick}</td>
-                          <td>{formatDatetime(item.createdAt)}</td>
-                          <td>{item.viewCount}</td>
-                          <td>{item.likes}</td>
-                        </StyledTbodyTr>
-                      );
-                    })
-                  : null
-                // <StyledTbodyTr>
-                //   <td></td>
-                //   <td></td>
-                //   <td style={{ textAlign: "right" }}> "게시글이 없습니다."</td>
-                //   <td></td>
-                //   <td></td>
-                //   <td></td>
-                //   <td></td>
-                // </StyledTbodyTr>
-              }
+              {boardList != undefined && boardList.length > 0
+                ? boardList.map((item, idx) => {
+                    return (
+                      <StyledTbodyTr
+                        key={item.postSeq}
+                        onClick={() => handlePostDetailPage(item.postSeq)}
+                      >
+                        <td>{item.no}</td>
+                        <td>{item.tag}</td>
+                        <td>
+                          {item.title} &nbsp;
+                          <div
+                            style={{
+                              display: "inline",
+                              fontSize: "12px",
+                              color: "blue",
+                            }}
+                          >
+                            [{item.totalComments}]
+                          </div>
+                        </td>
+                        <td>{item.nick}</td>
+                        <td style={{ fontSize: "14px" }}>
+                          {formatDate(item.createdAt)}
+                        </td>
+                        <td>{item.viewCount}</td>
+                        <td>{item.totalLikes}</td>
+                      </StyledTbodyTr>
+                    );
+                  })
+                : null}
             </StyledTbody>
           </StyledTable>
         </PostListBox>
@@ -257,7 +260,6 @@ const TaskBoard = () => {
               currentPage={currentPage}
               setPageMove={setPageMove}
               onClick={(e) => {
-                console.log("확인!!!!", e.target.innerHTML);
                 setCurrentPage(e.target.innerHTML);
               }}
               pagenationArray={pagenationArray}
@@ -299,4 +301,4 @@ const TaskBoard = () => {
   );
 };
 
-export default TaskBoard;
+export default React.memo(TaskBoard);
