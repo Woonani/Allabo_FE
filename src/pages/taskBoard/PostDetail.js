@@ -4,9 +4,12 @@ import styled from "styled-components";
 import Text from "../../components/common/Text";
 import SimpleButton from "../../components/common/SimpleButton";
 import usePostDetail from "../../hooks/usePostDetail";
-import Button from "../../components/common/Button";
 import CommentContainer from "../../components/common/CommentContainer";
 import { useNavigate } from "react-router-dom";
+import { formatDatetime } from "../../utils/Formatter";
+import { getCookie } from "../../utils/Cookie";
+import LinkButton from "../../components/common/LinkButton";
+import DOMPurify from "dompurify";
 
 const GridBoxRow = styled.div`
   display: grid;
@@ -158,7 +161,18 @@ const CommentListBox = styled.div`
 
 const PostDetail = () => {
   const navigate = useNavigate();
-  // const { handleBoardPage } = usePostDetail();
+  const loginUser = getCookie("userId");
+  const {
+    post,
+    commentList,
+    handleUserLike,
+    userLike,
+    totalLikes,
+    totalComments,
+    replyBtnSeq,
+    handleReplyBtn,
+    // handleBoardPage
+  } = usePostDetail();
 
   // const CommentTextPart = useRef();
   const handleResizeHeight = () => {
@@ -167,7 +181,10 @@ const PostDetail = () => {
     // CommentTextPart.current.style.height =
     //   CommentTextPart.current.scrollHeight + "px";
   };
-  const likes = 3;
+
+  // console.log("PostDetail.js - post", post);
+  // console.log("PostDetail.js - commentList", commentList);
+
   return (
     <BasicFrame>
       <GridBoxRow>
@@ -182,53 +199,84 @@ const PostDetail = () => {
         />
 
         <TopBox>
-          <Text text="말머리 태그" height="40px" margin="0px" fontSize="17px" />
-          <Text text="글제목" height="40px" margin="0px" fontSize="18px" />
+          <Text text={post.tag} height="40px" margin="0px" fontSize="17px" />
+          <Text text={post.title} height="40px" margin="0px" fontSize="18px" />
         </TopBox>
         <InfoBox>
           <InnerInfoBox>
             <RowDiv>
-              <SimpleButton
-                // onClick=
-                width="40px"
-                height="20px"
-                margin="0px 10px 0px 0px"
-                fontSize="12px"
-                // btnColor="var(--color-primary-red)"
-                btnText="수정"
-                hoverEvent="none"
-              ></SimpleButton>
-              <SimpleButton
-                // onClick=
-                width="40px"
-                height="20px"
-                // margin="5px"
-                fontSize="12px"
-                // btnColor="var(--color-primary-red)"
-                btnText="삭제"
-              ></SimpleButton>
+              조회수&nbsp;{post.viewCount}&nbsp;&nbsp;추천수&nbsp;
+              {totalLikes || 0}&nbsp;&nbsp;댓글&nbsp;
+              {totalComments}
             </RowDiv>
           </InnerInfoBox>
           <InnerInfoBox>
-            <RowDiv>팀장 우나은 2023.07.15</RowDiv>
+            <RowDiv>{formatDatetime(post.updatedAt || post.createdAt)}</RowDiv>
             <RowDiv>
-              조회수 ${} 추천수 ${} 댓글 ${}{" "}
+              작성자 {post.nick}
+              {post.userId == loginUser ? (
+                <>
+                  {" "}
+                  &nbsp;
+                  <LinkButton
+                    // onClick=
+                    height="20px"
+                    fontSize="12px"
+                    btnText="수정"
+                    // margin="0px 10px 0px 0px"
+                  />
+                  <LinkButton
+                    // onClick=
+                    height="20px"
+                    fontSize="12px"
+                    btnText="삭제"
+                    // margin="0px 10px 0px 0px"
+                  />
+                </>
+              ) : null}
             </RowDiv>
           </InnerInfoBox>
         </InfoBox>
-        <PostingBox>게시글</PostingBox>
+        <PostingBox value={post.content}>
+          {/* {post.content} */}
+          <div
+            style={{
+              width: "60vw",
+              whiteSpace: "normal",
+            }}
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(String(post?.content)),
+            }}
+          ></div>
+        </PostingBox>
         <ButtonBox>
-          <SimpleButton
-            // onClick=
-            width="180px"
-            height="35px"
-            fontSize="16px"
-            // btnColor="var(--color-primary-green)"
-            btnText="👍 게시물 추천하기"
-          ></SimpleButton>
+          {totalLikes >= 0 ? (
+            userLike != null && userLike ? (
+              <SimpleButton
+                onClick={() => handleUserLike()}
+                width="180px"
+                height="35px"
+                fontSize="16px"
+                btnColor="var(--color-secondary-gray)"
+                btnText={"추천합니다 👍 " + totalLikes}
+                hoverEvent={userLike}
+              />
+            ) : (
+              <SimpleButton
+                onClick={() => handleUserLike()}
+                width="180px"
+                height="35px"
+                fontSize="16px"
+                // btnColor="var(--color-primary-green)"
+                btnText={"추천하기 👍 " + totalLikes}
+                hoverEvent={userLike}
+              />
+            )
+          ) : null}
         </ButtonBox>
         <RowDiv>
-          추천수 ${} 댓글 ${}{" "}
+          추천수&nbsp;{totalLikes}&nbsp;&nbsp;댓글&nbsp;
+          {totalComments}
         </RowDiv>
         <RowDiv>
           <CommentWritingBox>
@@ -247,330 +295,84 @@ const PostDetail = () => {
           </CommentWritingBox>
         </RowDiv>
         <CommentListBox>
-          <CommentContainer
-            ReCmmnt={0} // 대댓글 여부
-            Head={"프로필 자리"}
-            Middle={"댓글내용"}
-            End={
-              <>
-                <div>2023.12.9 10:22</div>
-                <div>
-                  {/* 만약 로그인한 사용자의 댓글이라면 */}
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="답글"
-                    margin="5px 0px 0px 0px"
-                  />
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="수정"
-                    margin="5px 0px 0px 5px"
-                  />
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="삭제"
-                    margin="5px 0px 0px 5px"
-                  />
-                </div>
-              </>
-            }
-          />
-          <CommentContainer
-            ReCmmnt={0} // 대댓글 여부
-            Head={"프로필 자리"}
-            Middle={"댓글내용"}
-            End={
-              <>
-                <div>2023.12.9 10:22</div>
-                <div>
-                  {/* 만약 로그인한 사용자의 댓글이라면 */}
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="답글"
-                    margin="5px 0px 0px 0px"
-                  />
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="수정"
-                    margin="5px 0px 0px 5px"
-                  />
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="삭제"
-                    margin="5px 0px 0px 5px"
-                  />
-                </div>
-              </>
-            }
-          />
-          <CommentContainer
-            ReCmmnt={0} // 대댓글 여부
-            Head={"프로필 자리"}
-            Middle={"댓글내용"}
-            End={
-              <>
-                <div>2023.12.9 10:22</div>
-                <div>
-                  {/* 만약 로그인한 사용자의 댓글이라면 */}
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="답글"
-                    margin="5px 0px 0px 0px"
-                  />
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="수정"
-                    margin="5px 0px 0px 5px"
-                  />
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="삭제"
-                    margin="5px 0px 0px 5px"
-                  />
-                </div>
-              </>
-            }
-          />
-          <CommentContainer
-            ReCmmnt={0} // 대댓글 여부
-            Head={"프로필 자리"}
-            Middle={"댓글내용"}
-            End={
-              <>
-                <div>2023.12.9 10:22</div>
-                <div>
-                  {/* 만약 로그인한 사용자의 댓글이라면 */}
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="답글"
-                    margin="5px 0px 0px 0px"
-                  />
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="수정"
-                    margin="5px 0px 0px 5px"
-                  />
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="삭제"
-                    margin="5px 0px 0px 5px"
-                  />
-                </div>
-              </>
-            }
-          />
-          <CommentContainer
-            ReCmmnt={1} // 대댓글 여부
-            Head={"프로필 자리"}
-            Middle={"댓글내용"}
-            End={
-              <>
-                <div>2023.12.9 10:22</div>
-                <div>
-                  {/* 만약 로그인한 사용자의 댓글이라면 */}
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="답글"
-                    margin="5px 0px 0px 0px"
-                  />
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="수정"
-                    margin="5px 0px 0px 5px"
-                  />
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="삭제"
-                    margin="5px 0px 0px 5px"
-                  />
-                </div>
-              </>
-            }
-          />
-          <CommentContainer
-            ReCmmnt={0} // 대댓글 여부
-            Head={"프로필 자리"}
-            Middle={"댓글내용"}
-            End={
-              <>
-                <div>2023.12.9 10:22</div>
-                <div>
-                  {/* 만약 로그인한 사용자의 댓글이라면 */}
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="답글"
-                    margin="5px 0px 0px 0px"
-                  />
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="수정"
-                    margin="5px 0px 0px 5px"
-                  />
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="삭제"
-                    margin="5px 0px 0px 5px"
-                  />
-                </div>
-              </>
-            }
-          />
-          <CommentContainer
-            ReCmmnt={1} // 대댓글 여부
-            Head={"프로필 자리"}
-            Middle={"댓글내용"}
-            End={
-              <>
-                <div>2023.12.9 10:22</div>
-                <div>
-                  {/* 만약 로그인한 사용자의 댓글이라면 */}
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="답글"
-                    margin="5px 0px 0px 0px"
-                  />
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="수정"
-                    margin="5px 0px 0px 5px"
-                  />
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="삭제"
-                    margin="5px 0px 0px 5px"
-                  />
-                </div>
-              </>
-            }
-          />
-          <CommentContainer
-            ReCmmnt={1} // 대댓글 여부
-            Head={"프로필 자리"}
-            Middle={"댓글내용"}
-            End={
-              <>
-                <div>2023.12.9 10:22</div>
-                <div>
-                  {/* 만약 로그인한 사용자의 댓글이라면 */}
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="답글"
-                    margin="5px 0px 0px 0px"
-                  />
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="수정"
-                    margin="5px 0px 0px 5px"
-                  />
-                  <SimpleButton
-                    // onClick=
-                    width="40px"
-                    height="20px"
-                    fontSize="9px"
-                    // btnColor="var(--color-primary-green)"
-                    btnText="삭제"
-                    margin="5px 0px 0px 5px"
-                  />
-                </div>
-              </>
-            }
-          />
+          {commentList != undefined && commentList.length > 0
+            ? commentList.map((item, idx) => {
+                // console.log("댓글 array : ", item);
+                // let replyBtn = false;
+                return (
+                  <div key={idx}>
+                    <CommentContainer
+                      // key={idx}
+                      ReCmmnt={item.replySeq} // 대댓글 여부
+                      Head={item.nick}
+                      Middle={item.comment}
+                      End={
+                        <>
+                          <div>{formatDatetime(item.createdAt)}</div>
+                          <div>
+                            {/* 만약 로그인한 사용자의 댓글이라면 */}
+
+                            {item.userId == loginUser ? (
+                              <>
+                                <LinkButton
+                                  // onClick=
+                                  btnText="수정"
+                                />
+                                <LinkButton
+                                  // onClick=
+                                  btnText="삭제"
+                                />
+                              </>
+                            ) : null}
+                            <SimpleButton
+                              onClick={(e) => {
+                                console.log("replyBtn클릭");
+                                handleReplyBtn(item.cmmntSeq);
+                              }}
+                              width="40px"
+                              height="20px"
+                              fontSize="11px"
+                              btnText="답글"
+                              margin="5px 0px 0px 0px"
+                            />
+                          </div>
+                        </>
+                      }
+                    />
+                    {
+                      // 만약 답글 버튼이 눌러졌다면?
+                      replyBtnSeq != null && replyBtnSeq == item.cmmntSeq ? (
+                        <CommentWritingBox
+                          // key={item.cmmntSeq}
+                          style={{ marginLeft: "20PX" }}
+                        >
+                          <CommentProfilePart>
+                            {item.nick}님에게 답글
+                          </CommentProfilePart>
+                          <CommentTextPart
+                            onChange={() => handleResizeHeight()}
+                          />
+                          <CommentButtonPart>
+                            <SimpleButton
+                              // onClick=
+                              width="60px"
+                              height="25px"
+                              fontSize="12px"
+                              // btnColor="var(--color-primary-green)"
+                              btnText="등록"
+                            ></SimpleButton>
+                          </CommentButtonPart>
+                        </CommentWritingBox>
+                      ) : null
+                    }
+                  </div>
+                );
+              })
+            : null}
         </CommentListBox>
       </GridBoxRow>
     </BasicFrame>
   );
 };
 
-export default PostDetail;
+export default React.memo(PostDetail);

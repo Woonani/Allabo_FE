@@ -23,6 +23,8 @@ const HeadPart = styled.div`
 `;
 
 const MiddlePart = styled.div`
+  display: flex;
+  align-items: center;
   // min-height: 45px;
   max-height: 195px;
   width: 100%;
@@ -35,7 +37,6 @@ const MiddlePart = styled.div`
   // overflow: unset;
   resize: none;
   background-color: var(--color-secondary-paleBlue);
-
   border-bottom: 1px solid lightGrey;
 `;
 
@@ -43,8 +44,10 @@ const EndPart = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  width: 200px; //100%;
+  // align-items: center;
+  align-items: flex-end;
+  padding: 0 10px 0 0;
+  width: 210px; //100%;
   background-color: var(--color-secondary-paleBlue);
 
   border-bottom: 1px solid lightGrey;
@@ -60,7 +63,7 @@ const ImgContainer = styled.div`
 const CommentContainer = ({ ReCmmnt, Head, Middle, End }) => {
   return (
     <CommentBox $ReCmmnt={ReCmmnt}>
-      {ReCmmnt == 1 ? (
+      {ReCmmnt != null && ReCmmnt > 0 ? (
         <ImgContainer>
           <img src={RightArrow} width="20" height="20" />
         </ImgContainer>
