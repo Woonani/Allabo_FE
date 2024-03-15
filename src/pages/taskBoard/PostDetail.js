@@ -12,10 +12,14 @@ import LinkButton from "../../components/common/LinkButton";
 import DOMPurify from "dompurify";
 
 const GridBoxRow = styled.div`
-  display: grid;
-  grid-template-rows: 40px 50px 52px auto 55px 16px auto auto;
+  // 그리드에서 플렉스로 변경
+  // display: grid;
+  // grid-template-rows: 40px 50px 52px auto 55px 16px auto auto;
+  // align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   row-gap: 5px;
-  align-items: center;
   padding: 30px;
   // height: 690px;
   width: 55vw; // width: 900px; // 1050px이 이상적
@@ -173,6 +177,12 @@ const PostDetail = () => {
     handleReplyBtn,
     handlePostEditingPage,
     handlePostDelete,
+    comment,
+    replyComment,
+    handleInputChange,
+    handleComment,
+    handleReplyComment,
+    handleCommentDelete,
     // handleBoardPage
   } = usePostDetail();
 
@@ -213,9 +223,12 @@ const PostDetail = () => {
             </RowDiv>
           </InnerInfoBox>
           <InnerInfoBox>
-            <RowDiv>{formatDatetime(post.updatedAt || post.createdAt)}</RowDiv>
             <RowDiv>
-              작성자 {post.nick}
+              {formatDatetime(post.updatedAt || post.createdAt)}{" "}
+              {post.updatedAt && "(수정됨)"}
+            </RowDiv>
+            <RowDiv>
+              작성자 {post.nick} {post.role == 0 && "(탈퇴)"}
               {post.userId == loginUser ? (
                 <>
                   {" "}
@@ -280,10 +293,15 @@ const PostDetail = () => {
         <RowDiv>
           <CommentWritingBox>
             <CommentProfilePart>댓글</CommentProfilePart>
-            <CommentTextPart onChange={() => handleResizeHeight()} />
+            <CommentTextPart
+              name="comment"
+              value={comment}
+              onChange={(e) => handleInputChange(e)}
+            />
+            {/* <CommentTextPart onChange={() => handleResizeHeight()} /> */}
             <CommentButtonPart>
               <SimpleButton
-                // onClick=
+                onClick={() => handleComment()}
                 width="60px"
                 height="25px"
                 fontSize="12px"
@@ -297,13 +315,14 @@ const PostDetail = () => {
           {commentList != undefined && commentList.length > 0
             ? commentList.map((item, idx) => {
                 // console.log("댓글 array : ", item);
+                // 댓글 작성할때마다 불러지는 이유는 뭐지?
                 // let replyBtn = false;
                 return (
                   <div key={idx}>
                     <CommentContainer
                       // key={idx}
                       ReCmmnt={item.replySeq} // 대댓글 여부
-                      Head={item.nick}
+                      Head={item.nick + (item.role == 0 ? "(탈퇴)" : "")}
                       Middle={item.comment}
                       End={
                         <>
@@ -313,13 +332,15 @@ const PostDetail = () => {
 
                             {item.userId == loginUser ? (
                               <>
-                                <LinkButton
+                                {/* <LinkButton
                                   // onClick=
                                   btnText="수정"
-                                />
+                                /> */}
                                 <LinkButton
-                                  // onClick=
-                                  btnText="삭제"
+                                  onClick={() =>
+                                    handleCommentDelete(item.cmmntSeq, idx)
+                                  }
+                                  btnText="댓글삭제"
                                 />
                               </>
                             ) : null}
@@ -349,11 +370,16 @@ const PostDetail = () => {
                             {item.nick}님에게 답글
                           </CommentProfilePart>
                           <CommentTextPart
-                            onChange={() => handleResizeHeight()}
+                            name="replyComment"
+                            value={replyComment}
+                            // onChange={() => handleResizeHeight()}
+                            onChange={(e) => handleInputChange(e)}
                           />
                           <CommentButtonPart>
                             <SimpleButton
-                              // onClick=
+                              onClick={() => {
+                                handleReplyComment();
+                              }}
                               width="60px"
                               height="25px"
                               fontSize="12px"

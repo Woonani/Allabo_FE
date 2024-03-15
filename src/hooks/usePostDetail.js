@@ -20,6 +20,7 @@ const usePostDetail = () => {
     likeCount: null,
     commentCount: null,
   };
+
   const [post, setPost] = useState({ ...initPost }); // 게시글 정보
   const [commentList, setCommentList] = useState([]); // 댓글 리스트
   const [totalComments, setTotalComments] = useState(0); // 총 댓글 수
@@ -28,6 +29,9 @@ const usePostDetail = () => {
   const [replyBtnSeq, setReplyBtnSeq] = useState(null); // 답글달기를 선택한 댓글 번호
   const [prevTotalLike, setPrevTotalLike] = useState(null); // 답글달기를 선택한 댓글 번호
   const [btnClicked, setBtnClicked] = useState(false);
+  const [comment, setComment] = useState("");
+  const [replyComment, setReplyComment] = useState("");
+
   useEffect(() => {
     handlePost();
   }, []);
@@ -40,6 +44,7 @@ const usePostDetail = () => {
     }
   }, [btnClicked]);
 
+  // 게시글 정보 불러오기
   const handlePost = async () => {
     const postSeq = getLocalStorage("postSeq");
     const response = await axios.get(`/api/board/post/${postSeq}/${userId}`);
@@ -50,29 +55,6 @@ const usePostDetail = () => {
     setPrevTotalLike(response.data.totalLikes);
     setUserLike(response.data.userLike > 0 ? true : false);
     console.log("response.data: ", response.data);
-  };
-
-  // 추천 버튼 클릭 함수
-  const handleUserLike = async () => {
-    setUserLike(!userLike);
-    console.log("###handleUserLike-userLike : ", userLike);
-    const data = {
-      userId: userId,
-      postSeq: getLocalStorage("postSeq"),
-      userLike: userLike ? 1 : 0,
-    };
-    console.log("###userLike : ", userLike);
-
-    await axios.post(`/api/board/userlike`, data).then((response) => {
-      console.log(response);
-    });
-    setBtnClicked(!btnClicked);
-  };
-
-  // 답글 버튼 클릭 함수
-  const handleReplyBtn = (cmmntSeq) => {
-    setReplyBtnSeq(cmmntSeq);
-    //댓글 form 변수에 담기
   };
 
   // 글 수정 페이지로 이동
@@ -121,6 +103,86 @@ const usePostDetail = () => {
     });
   };
 
+  // 추천 버튼 클릭 함수
+  const handleUserLike = async () => {
+    setUserLike(!userLike);
+    console.log("###handleUserLike-userLike : ", userLike);
+    const data = {
+      userId: userId,
+      postSeq: getLocalStorage("postSeq"),
+      userLike: userLike ? 1 : 0,
+    };
+    console.log("###userLike : ", userLike);
+
+    await axios.post(`/api/board/userlike`, data).then((response) => {
+      console.log(response);
+    });
+    setBtnClicked(!btnClicked);
+  };
+
+  // 댓글 작성 버튼
+  const handleInputChange = (e) => {
+    console.log("댓글 작성 내용 : ", e.target.value);
+    if (e.target.name == "comment") {
+      setComment(e.target.value);
+    } else if (e.target.name == "replyComment") {
+      setReplyComment(e.target.value);
+    }
+  };
+
+  // 댓글 제출
+  const handleComment = async () => {
+    const data = {
+      comment: comment,
+      userId: getCookie("userId"),
+      postSeq: getLocalStorage("postSeq"),
+    };
+    console.log("data 세팅 확인 : ", data);
+    try {
+      const response = await axios.post("/api/board/comment", data);
+      // 응답 성공이면
+      setCommentList((prevCommentList) => [...prevCommentList, response.data]);
+      setComment("");
+    } catch (error) {}
+  };
+
+  // 대댓글 제출
+  const handleReplyComment = async () => {
+    const data = {
+      comment: replyComment,
+      userId: getCookie("userId"),
+      postSeq: getLocalStorage("postSeq"),
+      replySeq: replyBtnSeq,
+    };
+    console.log("data 세팅 확인 : ", data);
+    try {
+      const response = await axios.post("/api/board/comment", data);
+      // 응답 성공이면
+      setCommentList((prevCommentList) => [...prevCommentList, response.data]);
+
+      setReplyComment("");
+      setReplyBtnSeq(null);
+    } catch (error) {}
+  };
+
+  // 답글 버튼 클릭 함수
+  const handleReplyBtn = (cmmntSeq) => {
+    setReplyBtnSeq(cmmntSeq);
+    //댓글 form 변수에 담기
+  };
+
+  // 댓글 삭제
+  const handleCommentDelete = async (cmmntSeq, idx) => {
+    try {
+      const response = await axios.delete(`/api/board/comment/${cmmntSeq}`);
+      console.log("Delete team : ", response.data);
+      if (response.statusText == "OK") {
+        commentList.splice(idx, 1);
+        setCommentList([...commentList]);
+      }
+    } catch (error) {}
+  };
+
   return {
     post,
     commentList,
@@ -132,6 +194,11 @@ const usePostDetail = () => {
     handleReplyBtn,
     handlePostEditingPage,
     handlePostDelete,
+    comment,
+    handleInputChange,
+    handleComment,
+    handleReplyComment,
+    handleCommentDelete,
   };
 };
 

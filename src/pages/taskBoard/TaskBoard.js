@@ -242,7 +242,9 @@ const TaskBoard = () => {
                             [{item.totalComments}]
                           </div>
                         </td>
-                        <td>{item.nick}</td>
+                        <td>
+                          {item.nick} {item.role == 0 && "(탈퇴)"}
+                        </td>
                         <td style={{ fontSize: "14px" }}>
                           {formatDate(item.createdAt)}
                         </td>
