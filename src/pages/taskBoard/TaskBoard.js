@@ -6,10 +6,8 @@ import FloatingLabelInput from "../../components/common/FloatingLabelInput";
 import Button from "../../components/common/Button";
 import SelectBox from "../../components/common/SelectBox";
 import useTaskBoard from "../../hooks/useTaskBoard";
-import { formatDatetime, formatDate } from "../../utils/Formatter";
-import { getLocalStorage, setLocalStorage } from "../../utils/LocalStorage";
+import { formatDate } from "../../utils/Formatter";
 import Pagenation from "../../components/common/Pagenation";
-import usePostDetail from "../../hooks/usePostDetail";
 
 const GridBoxRow = styled.div`
   display: grid;
@@ -137,6 +135,7 @@ const StyledTbodyTr = styled.tr`
 
 const TaskBoard = () => {
   const {
+    teamNmae,
     searchList,
     tagList,
     postList,
@@ -156,14 +155,12 @@ const TaskBoard = () => {
     setPagenationArray,
   } = useTaskBoard();
 
-  // const { handlePostDetailPage } = usePostDetail();
-
   return (
     <BasicFrame>
       <GridBoxRow>
         <TopBox>
           <Text
-            text="회의록 게시판"
+            text={teamNmae + " | 회의록 게시판"}
             height="40px"
             // margin="20px"
           />
@@ -226,7 +223,13 @@ const TaskBoard = () => {
                         onClick={() => handlePostDetailPage(item.postSeq)}
                       >
                         <td>{item.no}</td>
-                        <td>{item.tag}</td>
+                        <td
+                          style={{
+                            fontSize: "14px",
+                          }}
+                        >
+                          {item.tag}
+                        </td>
                         <td>
                           {item.title} &nbsp;
                           <div

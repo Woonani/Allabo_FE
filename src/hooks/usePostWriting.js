@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { getLocalStorage } from "../utils/LocalStorage";
+import { getLocalStorage, setLocalStorage } from "../utils/LocalStorage";
 import { AlertTimer } from "../components/common/AlertTimer";
 import { AlertToast } from "../components/common/AlertToast";
 import Swal from "sweetalert2";
@@ -22,7 +22,6 @@ const usePostWriting = () => {
     createdAt: "",
     updatedAt: "",
     viewCount: "",
-    likes: "",
     fileSeq: "",
     utSeq: getLocalStorage("now-team").utSeq,
   };
@@ -52,6 +51,8 @@ const usePostWriting = () => {
         if (response.statusText == "OK") {
           // 그냥 글detail 보여줘...
           //현재글번호 state에 적어서 페이지 보내기
+          AlertTimer("등록완료", "", "success", 2000);
+          setLocalStorage("postSeq", response.data.postSeq);
           navigate("/board/detail");
         } else {
           AlertTimer("ERROR", "처음부터 다시 진행해주세요.", "warning", 2000);
@@ -62,9 +63,6 @@ const usePostWriting = () => {
     } else {
       console.log("글 등록 실패");
     }
-
-    // alert 창 작성한 글을 확인? handle detail page / handle board page
-    // handleBoardPage();
   };
 
   const checkValidate = (postForm) => {
@@ -92,7 +90,8 @@ const usePostWriting = () => {
     console.log("handleInputChange - postForm : ", postForm);
   };
 
-  const handleBoardPage = () => {
+  // 글작성 취소하고 게시판 목록으로 이동
+  const handleCancelWriting = () => {
     Swal.fire({
       icon: "question",
       title: "글 작성을 취소하시겠어요?",
@@ -110,6 +109,12 @@ const usePostWriting = () => {
   };
 
   // Quill moules
+  /**
+   * module은 React Quill의 기능을 특정한 방식으로 확장하거나 조정하는 데 사용됩니다.
+     예를 들어, 이미지 업로드, 링크 삽입, 콘텐츠 저장 및 불러오기와 같은 작업을 수행하기 위해 모듈을 활용할 수 있습니다.
+   // ["underline", "strike", "blockquote"],
+    // bold, italic 은 scss에서 지정한 default inherit을 font, font-family : initial로 설정하는 걸로 해결
+     */
   const modules = {
     toolbar: [
       [{ header: [1, 2, false] }],
@@ -157,7 +162,7 @@ const usePostWriting = () => {
     setPostForm,
     handleInputChange,
     handlePostForm,
-    handleBoardPage,
+    handleCancelWriting,
     content,
     contentLength,
     modules,

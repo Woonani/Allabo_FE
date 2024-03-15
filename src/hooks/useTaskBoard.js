@@ -10,6 +10,7 @@ const useTaskBoard = () => {
   const navigate = useNavigate();
   const { state, actions } = useTeamListState();
   const teamSeq = state.currentTeam.teamSeq;
+  const teamNmae = state.currentTeam.teamName;
   // console.log("useTaskBoard.js페이지렌더링확인=========================");
 
   const searchList = ["제목", "내용", "제목+내용"];
@@ -146,6 +147,7 @@ const useTaskBoard = () => {
   };
 
   return {
+    teamNmae,
     searchList,
     tagList,
     postList,

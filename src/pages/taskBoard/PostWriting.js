@@ -61,28 +61,6 @@ const ButtonBox = styled.div`
   //   background-color: pink; // 레이아웃 확인용
   margin: 10px 0px;
 `;
-/**
-   * module은 React Quill의 기능을 특정한 방식으로 확장하거나 조정하는 데 사용됩니다.
-     예를 들어, 이미지 업로드, 링크 삽입, 콘텐츠 저장 및 불러오기와 같은 작업을 수행하기 위해 모듈을 활용할 수 있습니다.
-   // ["underline", "strike", "blockquote"],
-    // bold, italic 은 scss에서 지정한 default inherit을 font, font-family : initial로 설정하는 걸로 해결
-   
-     */
-// const modules = {
-//   toolbar: [
-//     [{ header: [1, 2, false] }],
-//     ["bold", "italic", "underline", "strike", "blockquote"],
-//     [
-//       { list: "ordered" },
-//       { list: "bullet" },
-//       { indent: "-1" },
-//       { indent: "+1" },
-//     ],
-//     ["link", "image"],
-//     [{ align: [] }, { color: [] }, { background: [] }], // dropdown with defaults from theme
-//     ["clean"],
-//   ],
-// };
 
 const PostWriting = () => {
   const {
@@ -90,7 +68,7 @@ const PostWriting = () => {
     postForm,
     handleInputChange,
     handlePostForm,
-    handleBoardPage,
+    handleCancelWriting,
     content,
     contentLength,
     modules,
@@ -172,7 +150,7 @@ const PostWriting = () => {
             margin="0px 15px"
             backgroundcolor="var(--color-secondary-grey)"
             onClick={() => {
-              handleBoardPage();
+              handleCancelWriting();
             }}
           />
         </ButtonBox>
