@@ -5,7 +5,9 @@ import SelectBox from "../../components/common/SelectBox";
 import FloatingLabelInput from "../../components/common/FloatingLabelInput";
 import Button from "../../components/common/Button";
 import Text from "../../components/common/Text";
-import useTaskBoard from "../../hooks/useTaskBoard";
+import usePostEditing from "../../hooks/usePostEditing";
+import ReactQuill from "react-quill"; // quill
+import "react-quill/dist/quill.snow.css"; // quill
 
 const GridBoxRow = styled.div`
   display: grid;
@@ -25,8 +27,6 @@ const TopBox = styled.div`
   grid-template-columns: 2fr 8fr;
   justify-content: center;
   align-items: center;
-  // display: flex;
-  // flex-direction: row;
   margin: 10px 0px;
   height: 50px;
   border-radius: 3px;
@@ -53,13 +53,21 @@ const ButtonBox = styled.div`
   justify-content: center;
   flex-direction: row;
   align-items: center;
-  //   background-color: pink; // 레이아웃 확인용
   margin: 10px 0px;
+  //   background-color: pink; // 레이아웃 확인용
 `;
 
-const tagList = ["전체", "공지", "과제"];
 const PostEditing = () => {
-  const { handleBoardPage } = useTaskBoard();
+  const {
+    tagList,
+    postEditForm,
+    content,
+    handleInputChangeA,
+    handleCancelEditing,
+    handlePostEditForm,
+    modules,
+    handleQuillChange,
+  } = usePostEditing();
 
   return (
     <BasicFrame>
@@ -67,6 +75,10 @@ const PostEditing = () => {
         <Text text="회의록 게시판 | 글수정" height="40px" margin="0px" />
         <TopBox>
           <SelectBox
+            name="tag"
+            defaultTag={true}
+            defaultTagText={"태그를 선택해 주세요."}
+            onClick={(e) => handleInputChangeA(e)}
             optionlist={tagList}
             fontSize="15px"
             width="95%"
@@ -74,17 +86,30 @@ const PostEditing = () => {
             margin="0px"
           />
           <FloatingLabelInput
-            name="postTitle"
+            name="title"
             type="text"
-            // value={teamForm.teamName}
-            // onChange={handleInputChange}
-            label="글 수정 페이지"
+            value={postEditForm.title}
+            onChange={(e) => handleInputChangeA(e)}
             width="100%"
             height="30px"
             margin="0px"
           />
         </TopBox>
-        <PostingBox></PostingBox>
+        <PostingBox>
+          <ReactQuill
+            style={{
+              height: "450px",
+              maxHeight: "550px",
+              font: "initial",
+              fontFamily: "initial",
+            }}
+            theme="snow"
+            modules={modules}
+            // formats={formats}
+            value={content || ""}
+            onChange={handleQuillChange}
+          />
+        </PostingBox>
         <ButtonBox>
           <Button
             text="수정"
@@ -93,7 +118,7 @@ const PostEditing = () => {
             fontSize="15px"
             margin="0px 15px"
             onClick={() => {
-              handleBoardPage();
+              handlePostEditForm();
             }}
           />
           <Button
@@ -103,7 +128,9 @@ const PostEditing = () => {
             fontSize="15px"
             margin="0px 15px"
             backgroundcolor="var(--color-secondary-grey)"
-            // onClick=
+            onClick={() => {
+              handleCancelEditing();
+            }}
           />
         </ButtonBox>
       </GridBoxRow>
@@ -111,4 +138,4 @@ const PostEditing = () => {
   );
 };
 
-export default PostEditing;
+export default React.memo(PostEditing);

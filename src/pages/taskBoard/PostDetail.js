@@ -45,12 +45,12 @@ const PostingBox = styled.div`
   flex-direction: column;
   min-height: 200px;
   max-height: 500px;
-  // margin: 10px 0px;
+  overflow-y: auto;
   border-radius: 3px;
-  padding: 10px;
+  padding: 10px 20px;
   box-shadow: 0.8px 1px 3px -0.6px grey;
-  // overflow-y: auto;
   background-color: white;
+  whitespace: normal;
 `;
 
 const ButtonBox = styled.div`
@@ -171,6 +171,8 @@ const PostDetail = () => {
     totalComments,
     replyBtnSeq,
     handleReplyBtn,
+    handlePostEditingPage,
+    handlePostDelete,
     // handleBoardPage
   } = usePostDetail();
 
@@ -219,14 +221,18 @@ const PostDetail = () => {
                   {" "}
                   &nbsp;
                   <LinkButton
-                    // onClick=
+                    onClick={() => {
+                      handlePostEditingPage();
+                    }}
                     height="20px"
                     fontSize="12px"
                     btnText="수정"
                     // margin="0px 10px 0px 0px"
                   />
                   <LinkButton
-                    // onClick=
+                    onClick={() => {
+                      handlePostDelete();
+                    }}
                     height="20px"
                     fontSize="12px"
                     btnText="삭제"
@@ -237,18 +243,11 @@ const PostDetail = () => {
             </RowDiv>
           </InnerInfoBox>
         </InfoBox>
-        <PostingBox value={post.content}>
-          {/* {post.content} */}
-          <div
-            style={{
-              width: "60vw",
-              whiteSpace: "normal",
-            }}
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(String(post?.content)),
-            }}
-          ></div>
-        </PostingBox>
+        <PostingBox
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(String(post?.content)),
+          }}
+        />
         <ButtonBox>
           {totalLikes >= 0 ? (
             userLike != null && userLike ? (
