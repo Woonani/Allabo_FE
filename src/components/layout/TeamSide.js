@@ -14,8 +14,9 @@ const StyledFixedSide = styled.div`
   left: 0;
   width: 70px;
   height: 100%;
-  background-color: black;
-  box-shadow: 1px 1px 5px 0.2px black;
+  background-color: var(--color-primary-lightGrey);
+  // background-color: black;
+  box-shadow: 1px 1px 5px 0.2px grey; // 사이드 스타일2
   z-index: 2; /* 높은 우선순위를 지정 */
   color: white;
   padding: 10px 13px;
@@ -31,7 +32,7 @@ const Card = styled.div`
   border-radius: 50%;
   margin: 8px 0px;
   &:hover {
-    background-color: hsl(120deg 100% 50% / 40%);
+    // background-color: hsl(120deg 100% 50% / 40%);// 사이드 스타일2
   }
 `;
 

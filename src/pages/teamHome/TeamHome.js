@@ -15,13 +15,11 @@ import ProfileContainer from "../../components/common/ProfileContainer";
 import ProfileContainer2 from "../../components/common/ProfileContainer2";
 
 const GridBoxRow = styled.div`
-  // background-color: lightGrey;
   display: grid;
   grid-template-rows: 1fr 5fr;
-  width: 1000px;
-  height: 300px;
-  min-width: 900px;
+  // height: 300px;
   min-height: 650px;
+  // background-color: lightGrey; // 레이아웃 확인용
 `;
 const GridBoxColumn = styled.div`
   // background-color: green;
@@ -44,7 +42,7 @@ const LeftBox = styled.div`
   margin: 15px;
   display: flex;
   flex-direction: column;
-  align-items: left;
+  // align-items: flex-start;
   justify-content: space-between; //center;
 `;
 const RightBox = styled.div`
@@ -77,7 +75,7 @@ const TeamHome = () => {
             height="50%"
             margin="10px"
             padding="20px"
-            fontSize="30px"
+            fontSize="25px"
             text={currentTeam.teamName}
           ></NameCard>
           <NameCard

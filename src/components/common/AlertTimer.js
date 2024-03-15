@@ -1,15 +1,15 @@
 import React from "react";
 import Swal from "sweetalert2";
 
-export const AlertTimer = (title, text, icon, timer) => {
+export const AlertTimer = (titleText, textMessage, iconImg, time) => {
   Swal.fire({
-    title: title,
-    text: text,
-    icon: icon,
+    title: titleText,
+    text: textMessage,
+    icon: iconImg,
     showConfirmButton: false,
     showCancelButton: false,
-    timer: timer,
-    height: "600px",
+    timer: time,
+    // height: "600px",
   });
 };
 

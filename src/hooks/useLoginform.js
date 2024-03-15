@@ -70,6 +70,7 @@ const useLoginform = () => {
     removeCookie("userName");
     removeCookie("userId");
     clearLocalStorage();
+    navigate("/"); //이게 없으면 400에러 남 .. 손보기!
     window.location.reload();
   };
 

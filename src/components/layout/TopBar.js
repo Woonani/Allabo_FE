@@ -7,6 +7,7 @@ import { useIsLoginState } from "../../context/IsLoginContext";
 import ProfileContainer from "../common/ProfileContainer";
 import useLoginform from "../../hooks/useLoginform";
 import SimpleButton from "../common/SimpleButton";
+import { useTeamListState } from "../../context/TeamListContext";
 
 const StyledTopBar = styled.div`
   position: fixed;
@@ -47,6 +48,8 @@ const HamburgerBtn = styled.button`
 const TopBar = ({ onClick, isSideOpen, setIsSideOpen }) => {
   const isLogin = useIsLoginState();
   // console.log(isLogin);
+  const { state } = useTeamListState();
+
   const navigate = useNavigate();
   const { handleLogout } = useLoginform();
 
@@ -59,10 +62,18 @@ const TopBar = ({ onClick, isSideOpen, setIsSideOpen }) => {
     <>
       {isLogin ? (
         <StyledTopBar>
-          {isSideOpen ? (
-            <HamburgerBtn onClick={onClick} $boxShadow="2px 2px 5px 0px grey" />
+          {state.currentTeam.teamSeq !== undefined ? (
+            isSideOpen ? (
+              <HamburgerBtn
+                disabled={false}
+                onClick={onClick}
+                $boxShadow="2px 2px 5px 0px grey"
+              />
+            ) : (
+              <HamburgerBtn disabled={false} onClick={onClick} />
+            )
           ) : (
-            <HamburgerBtn onClick={onClick} />
+            <HamburgerBtn disabled={true} />
           )}
           {/* <HamburgerBtn onClick={onClick} /> */}
           <LogoBoxHorizon

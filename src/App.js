@@ -18,6 +18,9 @@ import { IsLoginProvider } from "./context/IsLoginContext";
 import PrivateRoute from "./utils/PrivateRoute";
 import PageNotFound from "./pages/PageNotFound";
 import { TeamListProvider } from "./context/TeamListContext";
+import PostWriting from "./pages/taskBoard/PostWriting";
+import PostDetail from "./pages/taskBoard/PostDetail";
+import PostEditing from "./pages/taskBoard/PostEditing";
 
 function App() {
   const [isSideOpen, setIsSideOpen] = useState(false);
@@ -34,14 +37,13 @@ function App() {
   return (
     <Router>
       <IsLoginProvider>
-        <TopBar
-          onClick={handleSideMenu}
-          isSideOpen={isSideOpen}
-          setIsSideOpen={setIsSideOpen}
-        />
-        <SideMenu isSideOpen={isSideOpen} />
-
         <TeamListProvider>
+          <TopBar
+            onClick={handleSideMenu}
+            isSideOpen={isSideOpen}
+            setIsSideOpen={setIsSideOpen}
+          />
+          <SideMenu isSideOpen={isSideOpen} />
           <TeamSide></TeamSide>
 
           <Routes>
@@ -58,6 +60,9 @@ function App() {
               <Route path="/team" element={<TeamHome />}></Route>
               <Route path="/schedule" element={<ScheduleBoard />}></Route>
               <Route path="/board" element={<TaskBoard />}></Route>
+              <Route path="/board/post" element={<PostWriting />}></Route>
+              <Route path="/board/detail" element={<PostDetail />}></Route>
+              <Route path="/board/edit" element={<PostEditing />}></Route>
               <Route path="/chat" element={<ChatRoom />}></Route>
               <Route path="/*" element={<PageNotFound />} />
             </Route>

@@ -8,6 +8,7 @@ import SheduleImg from "../../assets/img/common/Shedule2.png";
 import BoardImg from "../../assets/img/common/Board.png";
 import ChatImg from "../../assets/img/common/Chat.png";
 import { getLocalStorage } from "../../utils/LocalStorage";
+import { useTeamListState } from "../../context/TeamListContext";
 
 // Keyframes 정의
 const slideOut = keyframes`
@@ -35,14 +36,14 @@ const StyledSideOpened = styled.div`
   top: 60px;
   left: 0;
   z-index: 1;
-  background-color: black;
+  // background-color: black;
+  background-color: var(--color-primary-lightGrey); // 사이드 스타일2
   box-shadow: 1px 1px 5px 0.2px grey;
   box-border: none;
   opacity: 70%;
   width: 250px;
   height: 100%;
   animation: ${slideOut} 0.5s ease;
-  color: red;
   padding: 15px 10px 10px 80px;
   display: flex;
   flex-direction: column;
@@ -53,7 +54,8 @@ const StyledSideClosed = styled.div`
   top: 60px;
   left: 0;
   z-index: 1;
-  background-color: black;
+  // background-color: black;
+  background-color: var(--color-primary-lightGrey); // 사이드 스타일2
   box-shadow: 1px 1px 5px 0.2px grey;
   box-border: none;
   opacity: 70%;
@@ -63,6 +65,8 @@ const StyledSideClosed = styled.div`
 
 const SideMenu = ({ isSideOpen }) => {
   const isLogin = useIsLoginState();
+  const { state } = useTeamListState();
+
   const nowPage = getLocalStorage("now-page");
   // console.log("side - ", nowPage);
   const menu = [
@@ -71,34 +75,39 @@ const SideMenu = ({ isSideOpen }) => {
     { link: "/board", imgSrc: BoardImg, text: "회의록", active: false },
     { link: "/chat", imgSrc: ChatImg, text: "대화", active: false },
   ];
+
   return (
     <>
       {isLogin ? (
         isSideOpen ? (
-          <StyledSideOpened>
-            {menu.map((item, idx) => {
-              item.active = idx == nowPage ? true : false;
-              return (
-                <Link key={idx} to={item.link} className="link-style">
-                  <ProfileContainer
-                    // key={item.key}
-                    justifyContent="flex-start"
-                    backgroundColor="hsl(49.36deg 21.79% 90.45% / 15%)"
-                    imgSrc={item.imgSrc}
-                    imgAlt={item.text}
-                    imgWidth="25px"
-                    imgHeight="25px"
-                    text={item.text}
-                    padding="10px"
-                    frontSpaceWidth="10px"
-                    backSpaceWidth="0px"
-                    active={item.active}
-                    imgBorderRadius="0px"
-                  />
-                </Link>
-              );
-            })}
-          </StyledSideOpened>
+          state.teamList.length < 1 ||
+          state.currentTeam == null ||
+          state.currentTeam == undefined ? null : (
+            <StyledSideOpened>
+              {menu.map((item, idx) => {
+                item.active = idx == nowPage ? true : false;
+                return (
+                  <Link key={idx} to={item.link} className="link-style">
+                    <ProfileContainer
+                      // key={item.key}
+                      justifyContent="flex-start"
+                      backgroundColor="hsl(49.36deg 21.79% 90.45% / 15%)"
+                      imgSrc={item.imgSrc}
+                      imgAlt={item.text}
+                      imgWidth="25px"
+                      imgHeight="25px"
+                      text={item.text}
+                      padding="10px"
+                      frontSpaceWidth="10px"
+                      backSpaceWidth="0px"
+                      active={item.active}
+                      imgBorderRadius="0px"
+                    />
+                  </Link>
+                );
+              })}
+            </StyledSideOpened>
+          )
         ) : (
           <StyledSideClosed></StyledSideClosed>
         )

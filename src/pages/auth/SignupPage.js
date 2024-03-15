@@ -18,10 +18,9 @@ const SignupPage = () => {
   return (
     <Background>
       <CenteredContainer>
-        {/* <LogoBox /> */}
+        <br />
+        <br />
         <LogoBoxHorizon onClick={handleMainPage} />
-        <br />
-        <br />
         <br />
 
         <FloatingLabelInput
@@ -69,6 +68,7 @@ const SignupPage = () => {
           link="로그인페이지로 이동"
           url="/login"
         />
+        {/* <br /> */}
       </CenteredContainer>
     </Background>
   );
