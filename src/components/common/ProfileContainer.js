@@ -19,7 +19,8 @@ const Container = styled.div`
     background-color: ${(props) =>
       props.$backgroundColor || "hsl(49.36deg 21.79% 90.45% / 70%)"};
   }
-  font-family: Inter;
+  font-family: "NanumSquareRound bold"; //Inter; // 사이드 스타일2
+  color: black; // 사이드 스타일2
 `;
 
 const ImgContainer = styled.img`
@@ -29,11 +30,6 @@ const ImgContainer = styled.img`
   background-color: transparent;
   box-shadow: ${(props) =>
     props.$imgBoxShadow || "none"}; // 0.1px 0.1px 3px 0.1px grey;
-`;
-
-const TextContainer = styled.div`
-  color: ${(props) => props.$color || "black"};
-  font-family: Inter; //"NanumSquareRound Extra Bold";
 `;
 
 const FrontSpace = styled.div`

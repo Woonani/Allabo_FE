@@ -11,6 +11,7 @@ const StyledFont = styled.div`
   color: ${(props) => props.$color || "black"};
   font-weight: bold;
   letter-spacing: ${(props) => props.$space || "0"};
+  white-space: normal;
 `;
 
 const Title = ({ text, ...props }) => {

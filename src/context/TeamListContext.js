@@ -2,6 +2,7 @@ import React, { createContext, useContext, useMemo, useState } from "react";
 import { getLocalStorage } from "../utils/LocalStorage";
 
 // 값들
+// console.log("3. initTeamList");
 const initTeamList = getLocalStorage("team-list");
 const nowTeam = getLocalStorage("now-team");
 
@@ -13,12 +14,16 @@ export const TeamListContext = createContext({
     setCurrentTeam: () => {},
   },
 });
+// console.log("4. TeamListContext");
 
 // 2. 상태를 구독할 수 있는 커스텀 훅을 만든다.
 // 상태를 구독하는 컴포넌트 상단에  const VVV = useTeamListState(); 로 선언하고
 // 상태값이 들어있는 VVV를 사용한다.
 export function useTeamListState() {
+  // console.log("5. useTeamListState()");
   const context = useContext(TeamListContext);
+
+  // console.log("6. useTeamListState() -  useContext(TeamListContext)");
   if (!context) {
     throw new Error("Cannot find TeamListContext");
   }

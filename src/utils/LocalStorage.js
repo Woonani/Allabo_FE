@@ -7,8 +7,13 @@ export const setLocalStorage = (key, value) => {
 };
 
 export const getLocalStorage = (key) => {
-  // 원래의 자료형으로 복원
-  return JSON.parse(localStorage.getItem(key));
+  try {
+    const item = localStorage.getItem(key);
+    return JSON.parse(item);
+  } catch (error) {
+    console.log("e 출력필요? : ", error);
+    return null;
+  }
 };
 
 export const removeLocalStorageItem = (key) => {

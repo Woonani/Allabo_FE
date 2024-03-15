@@ -8,7 +8,7 @@ const PrivateRoute = ({ handleSideMenu }) => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(location);
+    // console.log(location);
     switch (location.pathname) {
       case "/team":
         setLocalStorage("now-page", 0);
@@ -33,6 +33,7 @@ const PrivateRoute = ({ handleSideMenu }) => {
 
   //토큰 검증로직 추가
   return token ? <Outlet /> : <Navigate to="/" />;
+  // <Outlet/> = "자식요소"
 };
 
 export default PrivateRoute;

@@ -10,6 +10,23 @@ import useUserHome from "../../hooks/useUserHome";
 import BasicFrame from "../../components/layout/BasicFrame";
 import { useTeamListState } from "../../context/TeamListContext";
 
+// userHome 용 BasicFrame
+const BasicContainer = styled.div`
+  margin: 0px;
+  box-sizing: border-box;
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed; // nav 바 밑으로 들어가지 않도록 고정
+  top: 60px; //80px; //
+  left: 70px; //80px; //
+  width: calc(100% - 70px);
+  height: calc(100% - 60px);
+  min-width: 950px;
+  min-height: 700px; //650px;
+`;
 const StyledContainer = styled.div`
   width: 70vw; //830,430
   height: 50vh;
@@ -44,6 +61,7 @@ const Card = styled.div`
 const StyledOneline = styled.div`
   display: flex;
   justify-content: right;
+  align-items: center;
   width: 70vw;
   min-width: 830px;
 `;
@@ -87,9 +105,10 @@ const UserHome = () => {
     invitees,
     setInvitees,
     handleTeamDelete,
+    handleTeamLeave,
   } = useUserHome();
   return (
-    <BasicFrame>
+    <BasicContainer>
       <StyledTitle>
         반가워요! {userName} 님 <br />
         {teamListCount == 0
@@ -127,7 +146,7 @@ const UserHome = () => {
         <StyledContainer>
           {state.teamList.map((team, idx) => {
             // {teamList.map((team, idx) => {
-            console.log("team 카드 : ", team);
+            // console.log("team 카드 : ", team);
             return (
               <Card key={team.teamSeq}>
                 <SquareButton
@@ -137,7 +156,7 @@ const UserHome = () => {
                   imgUrl={BasicImg}
                   handleClick={() => handleTeamPage(team)}
                 />
-                <Title text={team.teamName} />
+                <Title text={team.teamName} fontSize={"25px"} />
 
                 <Text
                   text={team.description}
@@ -164,13 +183,14 @@ const UserHome = () => {
                     />
                   ) : (
                     <Text
-                      text={"팀 탈퇴"}
+                      text={"팀 떠나기"}
                       fontSize="15px"
                       color="green"
                       hoverColor="red"
                       textDecoration="underline"
                       cursor="pointer"
-                      onClick={() => console.log("서비스 준비 중")}
+                      onClick={() => handleTeamLeave(team.utSeq, idx)}
+                      // onClick={() => console.log("서비스 준비 중")}
                     />
                   )}
                 </BottomContainer>
@@ -179,7 +199,7 @@ const UserHome = () => {
           })}
         </StyledContainer>
       )}
-    </BasicFrame>
+    </BasicContainer>
   );
 };
 

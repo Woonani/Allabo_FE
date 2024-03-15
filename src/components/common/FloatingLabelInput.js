@@ -17,6 +17,7 @@ const StyledInput = styled.input`
   border-radius: 4px;
   text-align: left;
   box-sizing: border-box;
+  outline: none;
   font-size: 20px;
   &:focus + label,
   &:not(:placeholder-shown) + label {

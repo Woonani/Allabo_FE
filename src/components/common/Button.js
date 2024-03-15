@@ -32,6 +32,7 @@ const Button = ({ text, onClick, ...props }) => {
       $width={props.width}
       $height={props.height}
       $margin={props.margin}
+      $borderRadius={props.borderRadius}
       onClick={onClick}
     >
       {text}
