@@ -61,6 +61,7 @@ const Card = styled.div`
 const StyledOneline = styled.div`
   display: flex;
   justify-content: right;
+  align-items: center;
   width: 70vw;
   min-width: 830px;
 `;
@@ -104,6 +105,7 @@ const UserHome = () => {
     invitees,
     setInvitees,
     handleTeamDelete,
+    handleTeamLeave,
   } = useUserHome();
   return (
     <BasicContainer>
@@ -181,13 +183,14 @@ const UserHome = () => {
                     />
                   ) : (
                     <Text
-                      text={"팀 탈퇴"}
+                      text={"팀 떠나기"}
                       fontSize="15px"
                       color="green"
                       hoverColor="red"
                       textDecoration="underline"
                       cursor="pointer"
-                      onClick={() => console.log("서비스 준비 중")}
+                      onClick={() => handleTeamLeave(team.utSeq, idx)}
+                      // onClick={() => console.log("서비스 준비 중")}
                     />
                   )}
                 </BottomContainer>
